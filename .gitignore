@@ -1,5 +1,8 @@
 .venv
+.ChronosVenv/
+__pycache__/
 IMS
 NAB
 TSB-AD-M
 TSB-AD-M.zip
+/Nunzio/data/*
