@@ -1,4 +1,6 @@
 .venv
+.ChronosVenv/
+__pycache__/
 IMS
 NAB
 TSB-AD-M
