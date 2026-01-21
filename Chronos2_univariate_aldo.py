@@ -133,7 +133,13 @@ def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chron
             )
             
             predictions_list.append(pred_df)
-            prediction_indices.extend(batch_indices)
+            
+            # Map each prediction row to its corresponding timestep index
+            # When prediction_length > 1, each context window produces prediction_length predictions
+            for batch_idx, start_idx in enumerate(batch_indices):
+                for pred_step in range(prediction_length):
+                    actual_idx = start_idx + pred_step
+                    prediction_indices.append(actual_idx)
             
             print(f"Batch {batch_start // batch_size + 1}: Processed {len(batch_contexts)} windows")
             
@@ -250,11 +256,13 @@ def main():
     out_initial_path = "./results/univariate/"
     
     # Parameters
-    context_length = 100
+    context_length = 1024
     threshold_percentile = 90  # Top 10% are anomalies
-    step_size = 10  
+    step_size = 10 
     batch_size = 32
-    prediction_length = 1   
+    prediction_length = 10
+    
+    # NOTE : come mi coporto se ho piu prediction per la stesso timestamp? esempio con step size 1 e prediction length 10?
     
     output_file_path = os.path.join(out_initial_path, f"result_u_Percentile{threshold_percentile}_step{step_size}_pre{prediction_length}_Context{context_length}_Batch{batch_size}.csv")
     
