@@ -54,6 +54,19 @@ def prepare_data_for_chronos(dataset_path: str, context_length: int = 100):
     return df_chronos, ground_truth_labels, target_col
 
 
+def get_last_processed_file(output_file_path: str):
+    """Get the last processed file from output log"""
+    if not os.path.exists(output_file_path):
+        return None
+    
+    with open(output_file_path, "r") as f:
+        lines = f.readlines()
+        if not lines:
+            return None
+        last_line = lines[-1]
+        last_file = last_line.split(",")[0]
+        return last_file
+
 def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chronos2Pipeline,target_col: str,context_length: int = 100,prediction_length: int = 1,step_size: int = 1,batch_size: int = 32):
     """
     Generate predictions using sliding window approach
@@ -265,7 +278,7 @@ def main():
     # NOTE : come mi coporto se ho piu prediction per la stesso timestamp? esempio con step size 1 e prediction length 10?
     
     output_file_path = os.path.join(out_initial_path, f"result_u_Percentile{threshold_percentile}_step{step_size}_pre{prediction_length}_Context{context_length}_Batch{batch_size}.csv")
-    
+    last_processed_file = get_last_processed_file(output_file_path)
 
     pipeline = get_pipeline()
     print(f"Using device: {next(pipeline.model.parameters()).device}")
@@ -273,6 +286,9 @@ def main():
     # Process datasets
     results = []
     for filename in sorted(os.listdir(data_path)):  
+        if last_processed_file is not None and filename <= last_processed_file:
+            print(f"Skipping already processed file: {filename}")
+            continue
         if not filename.endswith('.csv'):
             continue
         
