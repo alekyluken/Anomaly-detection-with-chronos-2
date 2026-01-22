@@ -71,13 +71,10 @@ def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chron
         prediction_indices: Indices in original series corresponding to each prediction
     """
     
-    predictions_list = []
-    prediction_indices = []
+    predictions_list, prediction_indices = [], []
     
     # Prepare context-future pairs
-    contexts = []
-    futures = []
-    indices = []
+    contexts, futures, indices = [], [], []
     
     #create sliding windows 
     idx = context_length
@@ -190,13 +187,10 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,context_length
         print("No predictions generated!")
         return None
     
-    # Extract actual values corresponding to predictions
-    actual_values = time_series_df[target_col].iloc[prediction_indices].values
-    
     # Detect anomalies using reconstruction error
     predictedAnomalies, th  = detect_anomalies_reconstruction_error(
         predictions_df=predictions_df,
-        actual_values=actual_values,
+        actual_values=time_series_df[target_col].iloc[prediction_indices].values,
         thresholds_percentile=thresholds_percentile
     )
 
