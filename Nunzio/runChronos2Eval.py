@@ -11,10 +11,10 @@ from chronos import Chronos2Pipeline
 from TSB_AD.evaluation.metrics import get_metrics
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from tqdm import tqdm
 
 from json import dump as json_dump, load as json_load
 
-os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 torch.cuda.empty_cache()
 
 
@@ -91,7 +91,8 @@ def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chron
     print(f"Total prediction windows: {len(contexts)}")
     
     # Process in batches
-    for batch_start in range(0, len(contexts), batch_size):
+    batch_range = range(0, len(contexts), batch_size)
+    for batch_start in tqdm(batch_range, desc="Processing prediction batches", leave=False):
         batch_end = min(batch_start + batch_size, len(contexts)) #l'ultimo batch potrebbe essere più piccolo
         batch_contexts = contexts[batch_start:batch_end]
         
@@ -213,8 +214,8 @@ def main():
     """Main execution"""
     
     # Configuration
-    # data_path = "./Nunzio/data/TSB-AD-U/"
-    data_path = "./Nunzio/provaData/"
+    data_path = "./TSB-AD-U/" #aldo
+    # data_path = "./Nunzio/provaData/"
     out_initial_path = "./Nunzio/results/univariate/"
     
     os.makedirs(out_initial_path, exist_ok=True)
@@ -222,24 +223,29 @@ def main():
     # Parameters
     context_length = 100
     thresholds_percentile = [[0.2, 0.8], [0.1, 0.9], [0.05, 0.95], [0.025, 0.975], [0.01, 0.99]]
-    step_size = 10 
+    step_size = 50 
     batch_size = 32
-    prediction_length = 10
+    prediction_length = 50
+    
+    output_file = f"results_big_step{step_size}_batch{batch_size}_context{context_length}.json"
 
     pipeline = get_pipeline(device='cuda')
     print(f"Using device: {next(pipeline.model.parameters()).device}")
     
-    if os.path.exists(os.path.join(out_initial_path, "results.json")):
-        with open(os.path.join(out_initial_path, "results.json"), 'r', encoding='utf-8') as f:
+    if os.path.exists(os.path.join(out_initial_path, output_file)):
+        with open(os.path.join(out_initial_path, output_file), 'r', encoding='utf-8') as f:
             existing_results = json_load(f)
     else:
         existing_results = {}
 
     # Process datasets
-    for filename in sorted(os.listdir(data_path)):
-        if not filename.endswith('.csv') or filename in existing_results:
-            print(f"Skipping file: {filename}")
+    dataset_files = [f for f in sorted(os.listdir(data_path)) if f.endswith('.csv')]
+    for filename in tqdm(dataset_files, desc="Processing datasets"):
+        if filename in existing_results:
+            tqdm.write(f"Skipping file: {filename}")
             continue
+        
+        tqdm.write(f"Evaluating file: {filename}")
         
         result = evaluate_dataset(
             os.path.join(data_path, filename),
@@ -252,7 +258,7 @@ def main():
         )
         
         if result is not None:
-            with open(os.path.join(out_initial_path, "results.json"), 'w', encoding='utf-8') as f:
+            with open(os.path.join(out_initial_path, output_file), 'w', encoding='utf-8') as f:
                 existing_results[filename] = {**result, 'context_length': context_length, 'prediction_length': prediction_length,
                             'step_size': step_size, "batch_size": batch_size}
                 json_dump(existing_results, f, indent=4)
