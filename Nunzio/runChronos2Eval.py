@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 from chronos import Chronos2Pipeline
 from TSB_AD.evaluation.metrics import get_metrics
+from time import time as getCurrentTime
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 from tqdm import tqdm
@@ -16,6 +17,7 @@ from tqdm import tqdm
 from json import dump as json_dump, load as json_load
 
 torch.cuda.empty_cache()
+print(os.environ)
 
 
 def get_pipeline(model_name: str = "amazon/chronos-2", device: str = None):
@@ -53,7 +55,7 @@ def prepare_data_for_chronos(dataset_path: str):
 
 
 def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chronos2Pipeline,target_col: str,context_length: int = 100,prediction_length: int = 1,step_size: int = 1,batch_size: int = 32,
-                                    quantile_levels: list[float] = [0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99]):
+                                    quantile_levels: list[float] = [0.01, 0.05, 0.1, 0.2,  0.5, 0.8, 0.9, 0.95, 0.99]):
     """
     Generate predictions using sliding window approach
     
@@ -223,17 +225,17 @@ def main():
     # Parameters
     context_length = 100
     thresholds_percentile = [[0.2, 0.8], [0.1, 0.9], [0.05, 0.95], [0.025, 0.975], [0.01, 0.99]]
-    step_size = 50 
-    batch_size = 32
-    prediction_length = 50
-    
-    output_file = f"results_big_step{step_size}_batch{batch_size}_context{context_length}.json"
+    step_size = 1 
+    batch_size = 256
+    prediction_length = 1
 
     pipeline = get_pipeline(device='cuda')
     print(f"Using device: {next(pipeline.model.parameters()).device}")
     
-    if os.path.exists(os.path.join(out_initial_path, output_file)):
-        with open(os.path.join(out_initial_path, output_file), 'r', encoding='utf-8') as f:
+    save_path = f"result_con{context_length}_pred{prediction_length}_step{step_size}_batch{batch_size}.json"
+    
+    if os.path.exists(os.path.join(out_initial_path, save_path)):
+        with open(os.path.join(out_initial_path, save_path), 'r', encoding='utf-8') as f:
             existing_results = json_load(f)
     else:
         existing_results = {}
@@ -258,7 +260,7 @@ def main():
         )
         
         if result is not None:
-            with open(os.path.join(out_initial_path, output_file), 'w', encoding='utf-8') as f:
+            with open(os.path.join(out_initial_path, save_path), 'w', encoding='utf-8') as f:
                 existing_results[filename] = {**result, 'context_length': context_length, 'prediction_length': prediction_length,
                             'step_size': step_size, "batch_size": batch_size}
                 json_dump(existing_results, f, indent=4)
