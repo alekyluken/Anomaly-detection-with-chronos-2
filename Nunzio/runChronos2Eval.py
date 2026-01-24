@@ -3,6 +3,7 @@ Chronos-2 Anomaly Detection with Reconstruction Error
 Correct implementation for time series anomaly detection using forecasting models
 """
 
+import warnings
 import torch
 import os
 import numpy as np
@@ -12,12 +13,13 @@ from TSB_AD.evaluation.metrics import get_metrics
 from time import time as getCurrentTime
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.exceptions import UndefinedMetricWarning
 
 from json import dump as json_dump, load as json_load
 
+warnings.filterwarnings("ignore", category=UndefinedMetricWarning)
 
 torch.cuda.empty_cache()
-print(os.environ)
 
 
 def get_pipeline(model_name: str = "amazon/chronos-2", device: str = None):
