@@ -6,6 +6,7 @@ Correct implementation for time series anomaly detection using forecasting model
 import warnings
 import torch
 import os
+import tqdm
 import numpy as np
 import pandas as pd
 from chronos import Chronos2Pipeline
@@ -95,7 +96,8 @@ def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chron
     print(f"Total prediction windows: {len(contexts)}")
     
     # Process in batches
-    for batch_start in range(0, len(contexts), batch_size):
+    batch_range = range(0, len(contexts), batch_size)
+    for batch_start in tqdm(batch_range, desc="Processing prediction batches", leave=False):
         batch_end = min(batch_start + batch_size, len(contexts)) #l'ultimo batch potrebbe essere più piccolo
         batch_contexts = contexts[batch_start:batch_end]
         
@@ -217,7 +219,7 @@ def main():
     """Main execution"""
     
     # Configuration
-    data_path = "./Nunzio/data/TSB-AD-U/"
+    data_path = "./TSB-AD-U/" #aldo
     # data_path = "./Nunzio/provaData/"
     out_initial_path = "./Nunzio/results/univariate/"
     
@@ -242,10 +244,13 @@ def main():
         existing_results = {}
 
     # Process datasets
-    for filename in sorted(os.listdir(data_path)):
-        if not filename.endswith('.csv') or filename in existing_results:
-            print(f"Skipping file: {filename}")
+    dataset_files = [f for f in sorted(os.listdir(data_path)) if f.endswith('.csv')]
+    for filename in tqdm(dataset_files, desc="Processing datasets"):
+        if filename in existing_results:
+            tqdm.write(f"Skipping file: {filename}")
             continue
+        
+        tqdm.write(f"Evaluating file: {filename}")
         
         result = evaluate_dataset(
             os.path.join(data_path, filename),
