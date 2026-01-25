@@ -220,6 +220,7 @@ def main():
     """Main execution"""
     
     # Configuration
+    useRestrictedDataset = True
     data_path = "./TSB-AD-U/" #aldo
     # data_path = "./Nunzio/provaData/"
     out_initial_path = "./Nunzio/results/univariate/"
@@ -245,7 +246,10 @@ def main():
         existing_results = {}
 
     # Process datasets
-    dataset_files = [f for f in sorted(os.listdir(data_path)) if f.endswith('.csv')]
+    if useRestrictedDataset:
+        dataset_files = sorted(map(lambda x:os.path.join(data_path, x), pd.read_csv("test_files.csv")["name"].tolist()))
+    else:
+        dataset_files = [f for f in sorted(os.listdir(data_path)) if f.endswith('.csv')]
     for filename in tqdm(dataset_files, desc="Processing datasets"):
         if filename in existing_results:
             tqdm.write(f"Skipping file: {filename}")
