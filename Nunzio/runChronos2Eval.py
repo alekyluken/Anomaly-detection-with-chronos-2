@@ -6,12 +6,13 @@ Correct implementation for time series anomaly detection using forecasting model
 import warnings
 import torch
 import os
-import tqdm
 import numpy as np
 import pandas as pd
 from chronos import Chronos2Pipeline
 from TSB_AD.evaluation.metrics import get_metrics
 from time import time as getCurrentTime
+
+from tqdm import tqdm
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 from sklearn.exceptions import UndefinedMetricWarning
@@ -186,7 +187,7 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,context_length
         prediction_length=prediction_length,
         step_size=step_size,
         batch_size=batch_size,
-        quantile_levels=[t for v in thresholds_percentile for t in v] + [0.5] 
+        quantile_levels=sorted(set([t for v in thresholds_percentile for t in v] + [0.5]))
     )
     
     if not len(predictions_df):
@@ -235,7 +236,7 @@ def main():
     pipeline = get_pipeline(device='cuda')
     print(f"Using device: {next(pipeline.model.parameters()).device}")
     
-    save_path = f"result_con{context_length}_pred{prediction_length}_step{step_size}_batch{batch_size}.json"
+    save_path = f"result_big_con{context_length}_pred{prediction_length}_step{step_size}_batch{batch_size}.json"
     
     if os.path.exists(os.path.join(out_initial_path, save_path)):
         with open(os.path.join(out_initial_path, save_path), 'r', encoding='utf-8') as f:
@@ -251,16 +252,19 @@ def main():
             continue
         
         tqdm.write(f"Evaluating file: {filename}")
-        
-        result = evaluate_dataset(
-            os.path.join(data_path, filename),
-            pipeline=pipeline,
-            context_length=context_length,
-            thresholds_percentile=thresholds_percentile,
-            step_size=step_size,
-            batch_size=batch_size,
-            prediction_length=prediction_length
-        )
+        try:
+            result = evaluate_dataset(
+                os.path.join(data_path, filename),
+                pipeline=pipeline,
+                context_length=context_length,
+                thresholds_percentile=thresholds_percentile,
+                step_size=step_size,
+                batch_size=batch_size,
+                prediction_length=prediction_length
+            )
+        except Exception as e:
+            tqdm.write(f"Error processing file {filename}: {e}")
+            continue
         
         if result is not None:
             with open(os.path.join(out_initial_path, save_path), 'w', encoding='utf-8') as f:

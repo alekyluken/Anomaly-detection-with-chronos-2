@@ -2,7 +2,7 @@
 .ChronosVenv/
 .Chronos2_main/
 __pycache__/
-Nunzio/results/
+Nunzio/results/*
 Nunzio/provaData/
 IMS
 NAB
