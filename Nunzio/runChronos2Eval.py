@@ -47,7 +47,7 @@ def prepare_data_for_chronos(dataset_path: str):
     df = pd.read_csv(dataset_path, header=0, index_col=None)
     
     # Remove label from data
-    df_clean = df.drop(columns=[df.columns[-1]]).copy()
+    df_clean = df.drop(columns=[df.columns[-1]])
     
     # Create Chronos-compatible DataFrame
     df_chronos = pd.DataFrame()
@@ -77,72 +77,76 @@ def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chron
         prediction_indices: Indices in original series corresponding to each prediction
     """
     
-    predictions_list, prediction_indices = [], []
+    predictions_list = []
     
-    # Prepare context-future pairs
-    contexts, futures, indices = [], [], []
+    # Pre-calculate indices using numpy for efficiency
+    ts_length = len(time_series_df)
+    num_windows = (ts_length - context_length - prediction_length) // step_size + 1
+    indices = np.arange(context_length, ts_length - prediction_length + 1, step_size)
     
-    #create sliding windows 
-    idx = context_length
-    while idx + prediction_length <= len(time_series_df):
-        # Extract context
-        contexts.append(time_series_df.iloc[idx - context_length:idx].copy())
-        
-        # Extract future metadata (timestamp, item_id for next step)
-        futures.append(time_series_df[['timestamp', 'item_id']].iloc[idx:idx + prediction_length].copy())
-        
-        indices.append(idx)
-        idx += step_size
+    print(f"Total prediction windows: {len(indices)}")
     
-    print(f"Total prediction windows: {len(contexts)}")
+    # Convert target column to numpy array for faster access
+    ts_values = time_series_df[target_col].values
+    timestamps = time_series_df['timestamp'].values
+    item_ids = time_series_df['item_id'].values
     
     # Process in batches
-    batch_range = range(0, len(contexts), batch_size)
+    batch_range = range(0, len(indices), batch_size)
     for batch_start in tqdm(batch_range, desc="Processing prediction batches", leave=False):
-        batch_end = min(batch_start + batch_size, len(contexts)) #l'ultimo batch potrebbe essere più piccolo
-        batch_contexts = contexts[batch_start:batch_end]
+        batch_end = min(batch_start + batch_size, len(indices))
+        batch_indices = indices[batch_start:batch_end]
+        batch_window_count = batch_end - batch_start
         
         try:
-            # Combine contexts with unique item_id
-            combined_contexts = []
-            for i, ctx in enumerate(batch_contexts):
-                ctx_copy = ctx.copy()
-                ctx_copy['item_id'] = i
-                combined_contexts.append(ctx_copy)
+            # Build contexts and futures using slicing instead of appending
+            combined_contexts_list = []
+            combined_futures_list = []
             
-            # Combine futures with matching item_id
-            combined_futures = []
-            for i, fut in enumerate(futures[batch_start:batch_end]):
-                fut_copy = fut.copy()
-                fut_copy['item_id'] = i
-                combined_futures.append(fut_copy)
+            for i, start_idx in enumerate(batch_indices):
+                # Extract context
+                ctx_data = {
+                    'timestamp': timestamps[start_idx - context_length:start_idx],
+                    'item_id': np.full(context_length, i, dtype=np.int32),
+                    target_col: ts_values[start_idx - context_length:start_idx]
+                }
+                combined_contexts_list.append(pd.DataFrame(ctx_data))
+                
+                # Extract future metadata
+                fut_data = {
+                    'timestamp': timestamps[start_idx:start_idx + prediction_length],
+                    'item_id': np.full(prediction_length, i, dtype=np.int32)
+                }
+                combined_futures_list.append(pd.DataFrame(fut_data))
+            
+            # Concatenate all contexts and futures at once
+            context_df = pd.concat(combined_contexts_list, ignore_index=True)
+            future_df = pd.concat(combined_futures_list, ignore_index=True)
             
             # Make predictions
             pred_df = pipeline.predict_df(
-                df=pd.concat(combined_contexts, ignore_index=True),
-                future_df=pd.concat(combined_futures, ignore_index=True),
+                df=context_df,
+                future_df=future_df,
                 target=target_col,
                 prediction_length=prediction_length,
                 quantile_levels=quantile_levels,  # Use multiple quantiles
                 cross_learning=False,
-                batch_size=len(batch_contexts),
+                batch_size=len(batch_indices),
             )
             
             predictions_list.append(pred_df)
             
-            # Map each prediction row to its corresponding timestep index
-            # When prediction_length > 1, each context window produces prediction_length predictions
-            for start_idx in indices[batch_start:batch_end]:
-                for pred_step in range(prediction_length):
-                    prediction_indices.append(start_idx + pred_step)
-            
-            
         except Exception as e:
             print(f"Error processing batch starting at index {batch_start}: {e}")
 
+    # Build prediction_indices efficiently using numpy
     if predictions_list:
-        return pd.concat(predictions_list, ignore_index=True), np.array(prediction_indices)
-    return pd.DataFrame(), np.array(prediction_indices)
+        prediction_indices = np.repeat(indices, prediction_length)
+        for i in range(len(indices)):
+            for j in range(1, prediction_length):
+                prediction_indices[i * prediction_length + j] = indices[i] + j
+        return pd.concat(predictions_list, ignore_index=True), prediction_indices
+    return pd.DataFrame(), np.array([], dtype=np.int32)
 
 
 def detect_anomalies_reconstruction_error(predictions_df: pd.DataFrame,actual_values: np.ndarray, thresholds_percentile:list[list[float]] = 
@@ -206,7 +210,7 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,context_length
         'file': os.path.basename(dataset_path),
         "thresholds": th,
         'metrics':[{
-            **get_metrics(predicted, ground_truth_labels[prediction_indices]),
+            **get_metrics(predicted, ground_truth_labels[prediction_indices], version= 'opt_mem'),
             'accuracy': float(accuracy_score(ground_truth_labels[prediction_indices], predicted)),
             'precision': float(precision_score(ground_truth_labels[prediction_indices], predicted, zero_division=0)),
             'recall': float(recall_score(ground_truth_labels[prediction_indices], predicted, zero_division=0)),
@@ -237,7 +241,10 @@ def main():
     pipeline = get_pipeline(device='cuda')
     print(f"Using device: {next(pipeline.model.parameters()).device}")
     
-    save_path = f"result_big_con{context_length}_pred{prediction_length}_step{step_size}_batch{batch_size}.json"
+    if useRestrictedDataset:
+        save_path = f"result_big_con{context_length}_pred{prediction_length}_step{step_size}_batch{batch_size}_restricted.json"
+    else:
+        save_path = f"result_big_con{context_length}_pred{prediction_length}_step{step_size}_batch{batch_size}.json"
     
     if os.path.exists(os.path.join(out_initial_path, save_path)):
         with open(os.path.join(out_initial_path, save_path), 'r', encoding='utf-8') as f:
@@ -247,7 +254,7 @@ def main():
 
     # Process datasets
     if useRestrictedDataset:
-        dataset_files = sorted(map(lambda x:os.path.join(data_path, x), pd.read_csv("test_files.csv")["name"].tolist()))
+        dataset_files = sorted(pd.read_csv("test_files.csv")["name"].tolist())
     else:
         dataset_files = [f for f in sorted(os.listdir(data_path)) if f.endswith('.csv')]
     for filename in tqdm(dataset_files, desc="Processing datasets"):
