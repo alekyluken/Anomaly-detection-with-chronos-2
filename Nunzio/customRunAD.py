@@ -371,6 +371,10 @@ def main(configuration:dict, name:str)->None:
                 json_dump(existing_results, f, indent=4)
                 print(f"Results saved for {filename}")
 
+            if configuration.get('colab', False):
+                from google.colab import files
+                files.download(os.path.join(out_initial_path, save_path))
+
 
 if __name__ == "__main__":
     args = argparse.ArgumentParser(description="Run Chronos-2 Anomaly Detection on datasets")
@@ -385,6 +389,7 @@ if __name__ == "__main__":
     args.add_argument('--use_naive', action='store_true', default=False, help='Use naive anomaly scoring method')
     args.add_argument('--thresholds', type=str, default='0.05-0.95', help='Comma-separated list of quantile thresholds (e.g., "0.05-0.95,0.1-0.9")')
     args.add_argument('--use_restricted_dataset', action='store_true', default=False, help='Use restricted dataset from test_files_U.csv')
+    args.add_argument('--colab', action='store_true', default=False, help='Flag to indicate running in Google Colab environment')
 
     configuration = {
         'context_length': args.parse_args().context_length if args.parse_args().context_length > 0 else 100,
@@ -395,6 +400,7 @@ if __name__ == "__main__":
         'use_naive': bool(args.parse_args().use_naive),
         'thresholds_percentile': [[float(pair.split('-')[0]), float(pair.split('-')[1])] for pair in args.parse_args().thresholds.strip().split(',')] if args.parse_args().thresholds else [[0.05, 0.95]],
         'use_restricted_dataset': bool(args.parse_args().use_restricted_dataset),
+        'colab': bool(args.parse_args().colab),
     }
 
     
