@@ -328,7 +328,6 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
 def main(configuration:dict, name:str)->None:
     """Main execution function"""
     # Configuration
-    useRestrictedDataset = True
     data_path = "./TSB-AD-U/" 
     out_initial_path = f"./results/{name}/"
 
@@ -348,7 +347,7 @@ def main(configuration:dict, name:str)->None:
         existing_results = {}
 
     # Process datasets
-    dataset_files = sorted(pd.read_csv("test_files_U.csv")["name"].tolist()) if useRestrictedDataset else sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
+    dataset_files = sorted(pd.read_csv("test_files_U.csv")["name"].tolist()) if configuration.get('use_restricted_dataset', True) else sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
 
     for filename in tqdm(dataset_files, desc="Processing datasets"):
         if filename in existing_results:
@@ -386,6 +385,7 @@ if __name__ == "__main__":
     args.add_argument('--square_distance', action='store_true', default=False, help='Use squared distance for anomaly scoring')
     args.add_argument('--use_naive', action='store_true', default=False, help='Use naive anomaly scoring method')
     args.add_argument('--thresholds', type=str, default='0.05-0.95', help='Comma-separated list of quantile thresholds (e.g., "0.05-0.95,0.1-0.9")')
+    args.add_argument('--use_restricted_dataset', action='store_true', default=False, help='Use restricted dataset from test_files_U.csv')
 
     configuration = {
         'context_length': args.parse_args().context_length if args.parse_args().context_length > 0 else 100,
@@ -395,6 +395,7 @@ if __name__ == "__main__":
         'square_distance': bool(args.parse_args().square_distance),
         'use_naive': bool(args.parse_args().use_naive),
         'thresholds_percentile': [[float(pair.split('-')[0]), float(pair.split('-')[1])] for pair in args.parse_args().thresholds.strip().split(',')] if args.parse_args().thresholds else [[0.05, 0.95]],
+        'use_restricted_dataset': bool(args.parse_args().use_restricted_dataset),
     }
 
     
