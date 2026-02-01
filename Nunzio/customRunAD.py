@@ -373,7 +373,6 @@ def main(configuration:dict, name:str)->None:
 
 
 if __name__ == "__main__":
-
     args = argparse.ArgumentParser(description="Run Chronos-2 Anomaly Detection on datasets")
     args.add_argument('--user', type=str, help='Username of the person running the script', 
                         choices=['Nunzio', 'Aldo', 'Sara', 'Valentino', 'Simone'], required=True)
