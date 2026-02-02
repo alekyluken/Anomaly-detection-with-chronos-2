@@ -9392,5 +9392,66 @@
         ],
         "use_restricted_dataset": false,
         "colab": false
+    },
+    "155_Stock_id_7_Finance_tr_500_1st_18.csv": {
+        "file": "155_Stock_id_7_Finance_tr_500_1st_18.csv",
+        "thresholds": [
+            {
+                "ensemble_horizons": [
+                    1,
+                    8,
+                    32,
+                    64
+                ]
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.9675450837652321,
+                "AUC-ROC": 0.9987348790733281,
+                "VUS-PR": 0.9949764214099523,
+                "VUS-ROC": 0.9998107942927783,
+                "Standard-F1": 0.9627740948495666,
+                "PA-F1": 0.963302752293578,
+                "Event-based-F1": 0.9631645039765586,
+                "R-based-F1": 0.9814503783397501,
+                "accuracy": 0.996320564516129,
+                "precision": 0.9516129032258065,
+                "recall": 0.9742002063983488,
+                "f1_score": 0.9627740948495666,
+                "confusion_matrix": [
+                    [
+                        18823,
+                        48
+                    ],
+                    [
+                        25,
+                        944
+                    ]
+                ],
+                "horizons": {
+                    "ensemble_horizons": [
+                        1,
+                        8,
+                        32,
+                        64
+                    ]
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
     }
 }
