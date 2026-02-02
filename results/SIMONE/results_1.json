@@ -11438,5 +11438,1215 @@
         ],
         "use_restricted_dataset": false,
         "colab": false
+    },
+    "209_SMD_id_32_Facility_tr_5925_1st_17580.csv": {
+        "file": "209_SMD_id_32_Facility_tr_5925_1st_17580.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.08189827437946393,
+                "AUC-ROC": 0.7866103786747893,
+                "VUS-PR": 0.0811879707040451,
+                "VUS-ROC": 0.8341322219263057,
+                "Standard-F1": 0.016452074391988557,
+                "PA-F1": 0.10974778459441036,
+                "Event-based-F1": 0.01730624529721593,
+                "R-based-F1": 0.016291804317328143,
+                "accuracy": 0.8834893869423378,
+                "precision": 0.00872865275142315,
+                "recall": 0.14285714285714285,
+                "f1_score": 0.016452074391988557,
+                "confusion_matrix": [
+                    [
+                        20830,
+                        2612
+                    ],
+                    [
+                        138,
+                        23
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "210_SMD_id_33_Facility_tr_5925_1st_17580.csv": {
+        "file": "210_SMD_id_33_Facility_tr_5925_1st_17580.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8542547924706922,
+                "AUC-ROC": 0.978062414914887,
+                "VUS-PR": 0.7956628279484551,
+                "VUS-ROC": 0.992544954176661,
+                "Standard-F1": 0.015748031496062992,
+                "PA-F1": 0.11471321695760599,
+                "Event-based-F1": 0.01662049861495843,
+                "R-based-F1": 0.014633291967388542,
+                "accuracy": 0.8887853238995043,
+                "precision": 0.008379888268156424,
+                "recall": 0.13043478260869565,
+                "f1_score": 0.015748031496062992,
+                "confusion_matrix": [
+                    [
+                        20957,
+                        2485
+                    ],
+                    [
+                        140,
+                        21
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "211_SMD_id_34_Facility_tr_5925_1st_17580.csv": {
+        "file": "211_SMD_id_34_Facility_tr_5925_1st_17580.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.5789787552040927,
+                "AUC-ROC": 0.9167121072174432,
+                "VUS-PR": 0.4880582688843042,
+                "VUS-ROC": 0.9473710775034231,
+                "Standard-F1": 0.01914191419141914,
+                "PA-F1": 0.10183428209993675,
+                "Event-based-F1": 0.02001380262249825,
+                "R-based-F1": 0.016455607344397823,
+                "accuracy": 0.8740838029064102,
+                "precision": 0.010108051585918439,
+                "recall": 0.18012422360248448,
+                "f1_score": 0.01914191419141914,
+                "confusion_matrix": [
+                    [
+                        20602,
+                        2840
+                    ],
+                    [
+                        132,
+                        29
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "212_SMD_id_35_Facility_tr_5925_1st_17580.csv": {
+        "file": "212_SMD_id_35_Facility_tr_5925_1st_17580.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.6862532542471143,
+                "AUC-ROC": 0.9686976870627174,
+                "VUS-PR": 0.6440213638531254,
+                "VUS-ROC": 0.9800583829849097,
+                "Standard-F1": 0.014295439074200136,
+                "PA-F1": 0.1046133853151397,
+                "Event-based-F1": 0.015010721944245875,
+                "R-based-F1": 0.013452192780074024,
+                "accuracy": 0.8773037325763674,
+                "precision": 0.007562117392870004,
+                "recall": 0.13043478260869565,
+                "f1_score": 0.014295439074200136,
+                "confusion_matrix": [
+                    [
+                        20686,
+                        2756
+                    ],
+                    [
+                        140,
+                        21
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "213_SMD_id_36_Facility_tr_5925_1st_17580.csv": {
+        "file": "213_SMD_id_36_Facility_tr_5925_1st_17580.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8230566268977724,
+                "AUC-ROC": 0.9773115197492848,
+                "VUS-PR": 0.8078065075499011,
+                "VUS-ROC": 0.9939447216641119,
+                "Standard-F1": 0.010723860589812333,
+                "PA-F1": 0.1348973607038123,
+                "Event-based-F1": 0.011488750598372415,
+                "R-based-F1": 0.0072932992536006505,
+                "accuracy": 0.9061983646146676,
+                "precision": 0.005777563793933558,
+                "recall": 0.07453416149068323,
+                "f1_score": 0.010723860589812333,
+                "confusion_matrix": [
+                    [
+                        21377,
+                        2065
+                    ],
+                    [
+                        149,
+                        12
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "214_SMD_id_37_Facility_tr_5925_1st_17580.csv": {
+        "file": "214_SMD_id_37_Facility_tr_5925_1st_17580.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2828868520375146,
+                "AUC-ROC": 0.8739831517566019,
+                "VUS-PR": 0.17372204679045083,
+                "VUS-ROC": 0.9069935134263207,
+                "Standard-F1": 0.015037593984962405,
+                "PA-F1": 0.10505709624796085,
+                "Event-based-F1": 0.01578758521707928,
+                "R-based-F1": 0.01198866752402643,
+                "accuracy": 0.8778968775155701,
+                "precision": 0.007956600361663653,
+                "recall": 0.13664596273291926,
+                "f1_score": 0.015037593984962405,
+                "confusion_matrix": [
+                    [
+                        20699,
+                        2743
+                    ],
+                    [
+                        139,
+                        22
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "215_SMD_id_38_Facility_tr_5925_1st_17580.csv": {
+        "file": "215_SMD_id_38_Facility_tr_5925_1st_17580.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.787345671970419,
+                "AUC-ROC": 0.979849566605779,
+                "VUS-PR": 0.7354379288132751,
+                "VUS-ROC": 0.9931709354222358,
+                "Standard-F1": 0.010459469555472544,
+                "PA-F1": 0.11402266288951841,
+                "Event-based-F1": 0.011067193675889316,
+                "R-based-F1": 0.011391985933423531,
+                "accuracy": 0.8877685040037283,
+                "precision": 0.005564387917329093,
+                "recall": 0.08695652173913043,
+                "f1_score": 0.010459469555472544,
+                "confusion_matrix": [
+                    [
+                        20940,
+                        2502
+                    ],
+                    [
+                        147,
+                        14
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "216_LTDB_id_1_Medical_tr_500_1st_266.csv": {
+        "file": "216_LTDB_id_1_Medical_tr_500_1st_266.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.13098060711969933,
+                "AUC-ROC": 0.4535074967887342,
+                "VUS-PR": 0.17794982083201985,
+                "VUS-ROC": 0.562861724842895,
+                "Standard-F1": 0.05615419638791926,
+                "PA-F1": 0.8721711820129737,
+                "Event-based-F1": 0.2031107044830739,
+                "R-based-F1": 0.15838685102396793,
+                "accuracy": 0.8132432432432433,
+                "precision": 0.11303462321792261,
+                "recall": 0.037356128424311776,
+                "f1_score": 0.05615419638791926,
+                "confusion_matrix": [
+                    [
+                        80688,
+                        4355
+                    ],
+                    [
+                        14302,
+                        555
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "217_LTDB_id_2_Medical_tr_500_1st_266.csv": {
+        "file": "217_LTDB_id_2_Medical_tr_500_1st_266.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1368163900522213,
+                "AUC-ROC": 0.452035982927652,
+                "VUS-PR": 0.18201191909523923,
+                "VUS-ROC": 0.5618291829998655,
+                "Standard-F1": 0.07160839160839161,
+                "PA-F1": 0.8360955569937252,
+                "Event-based-F1": 0.2086673006385,
+                "R-based-F1": 0.15108607188072426,
+                "accuracy": 0.8006606606606607,
+                "precision": 0.1164871833763082,
+                "recall": 0.0516928047385071,
+                "f1_score": 0.07160839160839161,
+                "confusion_matrix": [
+                    [
+                        79218,
+                        5825
+                    ],
+                    [
+                        14089,
+                        768
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "218_LTDB_id_3_Medical_tr_500_1st_266.csv": {
+        "file": "218_LTDB_id_3_Medical_tr_500_1st_266.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.12941122172629513,
+                "AUC-ROC": 0.4524093232751576,
+                "VUS-PR": 0.17516006236460033,
+                "VUS-ROC": 0.5607471027428076,
+                "Standard-F1": 0.05603380810768508,
+                "PA-F1": 0.8804422944022114,
+                "Event-based-F1": 0.22121726712225284,
+                "R-based-F1": 0.16930694656708195,
+                "accuracy": 0.8188888888888889,
+                "precision": 0.12459396751740139,
+                "recall": 0.03614457831325301,
+                "f1_score": 0.05603380810768508,
+                "confusion_matrix": [
+                    [
+                        81270,
+                        3773
+                    ],
+                    [
+                        14320,
+                        537
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "219_LTDB_id_4_Medical_tr_3618_1st_3718.csv": {
+        "file": "219_LTDB_id_4_Medical_tr_3618_1st_3718.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.22772070561475055,
+                "AUC-ROC": 0.6430277549506995,
+                "VUS-PR": 0.29454342730953165,
+                "VUS-ROC": 0.7391297010707871,
+                "Standard-F1": 0.07645740979074313,
+                "PA-F1": 0.8456433434407002,
+                "Event-based-F1": 0.22914285714285693,
+                "R-based-F1": 0.1657022931893976,
+                "accuracy": 0.806056056056056,
+                "precision": 0.12939657954178768,
+                "recall": 0.054258845815574046,
+                "f1_score": 0.07645740979074313,
+                "confusion_matrix": [
+                    [
+                        79723,
+                        5396
+                    ],
+                    [
+                        13979,
+                        802
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "220_LTDB_id_5_Medical_tr_500_1st_26.csv": {
+        "file": "220_LTDB_id_5_Medical_tr_500_1st_26.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.33502546019068885,
+                "AUC-ROC": 0.5202042202534521,
+                "VUS-PR": 0.39424487311932316,
+                "VUS-ROC": 0.6019182463037813,
+                "Standard-F1": 0.12392259693592639,
+                "PA-F1": 0.8981105169340463,
+                "Event-based-F1": 0.4167210973220114,
+                "R-based-F1": 0.23073673545370063,
+                "accuracy": 0.6388088088088089,
+                "precision": 0.2632013201320132,
+                "recall": 0.08103902702359404,
+                "f1_score": 0.12392259693592639,
+                "confusion_matrix": [
+                    [
+                        61265,
+                        7144
+                    ],
+                    [
+                        28939,
+                        2552
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "221_LTDB_id_6_Medical_tr_500_1st_26.csv": {
+        "file": "221_LTDB_id_6_Medical_tr_500_1st_26.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.3321436937215764,
+                "AUC-ROC": 0.5162809527165853,
+                "VUS-PR": 0.3922354175903922,
+                "VUS-ROC": 0.5981695025193358,
+                "Standard-F1": 0.11263430900333457,
+                "PA-F1": 0.9036673553719008,
+                "Event-based-F1": 0.4044704630122402,
+                "R-based-F1": 0.22471198173647772,
+                "accuracy": 0.6403903903903904,
+                "precision": 0.25350233488992663,
+                "recall": 0.07240163856339907,
+                "f1_score": 0.11263430900333457,
+                "confusion_matrix": [
+                    [
+                        61695,
+                        6714
+                    ],
+                    [
+                        29211,
+                        2280
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "222_LTDB_id_7_Medical_tr_3618_1st_3718.csv": {
+        "file": "222_LTDB_id_7_Medical_tr_3618_1st_3718.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.23050339202955117,
+                "AUC-ROC": 0.6470877908032429,
+                "VUS-PR": 0.3014155413446288,
+                "VUS-ROC": 0.7455363084046607,
+                "Standard-F1": 0.10663914688682491,
+                "PA-F1": 0.8683213394037304,
+                "Event-based-F1": 0.32616864572373333,
+                "R-based-F1": 0.1933898171802085,
+                "accuracy": 0.818028028028028,
+                "precision": 0.19486350574712644,
+                "recall": 0.07340504701982274,
+                "f1_score": 0.10663914688682491,
+                "confusion_matrix": [
+                    [
+                        80636,
+                        4483
+                    ],
+                    [
+                        13696,
+                        1085
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "223_LTDB_id_8_Medical_tr_4456_1st_4556.csv": {
+        "file": "223_LTDB_id_8_Medical_tr_4456_1st_4556.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.153942310535034,
+                "AUC-ROC": 0.5002870687089506,
+                "VUS-PR": 0.19778887193458716,
+                "VUS-ROC": 0.5885283403203484,
+                "Standard-F1": 0.06990729140566274,
+                "PA-F1": 0.8230111031883467,
+                "Event-based-F1": 0.19410946196660464,
+                "R-based-F1": 0.14475462829089433,
+                "accuracy": 0.7770570570570571,
+                "precision": 0.10748683703608579,
+                "recall": 0.051797759762361534,
+                "f1_score": 0.06990729140566274,
+                "confusion_matrix": [
+                    [
+                        76791,
+                        6950
+                    ],
+                    [
+                        15322,
+                        837
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "224_LTDB_id_9_Medical_tr_4456_1st_4556.csv": {
+        "file": "224_LTDB_id_9_Medical_tr_4456_1st_4556.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.16625522696928996,
+                "AUC-ROC": 0.5236546883442659,
+                "VUS-PR": 0.20708958640844563,
+                "VUS-ROC": 0.602844099747945,
+                "Standard-F1": 0.06767563848998194,
+                "PA-F1": 0.83660367589956,
+                "Event-based-F1": 0.1995942176008114,
+                "R-based-F1": 0.15112043052972357,
+                "accuracy": 0.782942942942943,
+                "precision": 0.11086068460346528,
+                "recall": 0.048703508880500034,
+                "f1_score": 0.06767563848998194,
+                "confusion_matrix": [
+                    [
+                        77429,
+                        6312
+                    ],
+                    [
+                        15372,
+                        787
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "225_MGAB_id_1_Synthetic_tr_25000_1st_38478.csv": {
+        "file": "225_MGAB_id_1_Synthetic_tr_25000_1st_38478.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0026038350915723913,
+                "AUC-ROC": 0.5434730692076228,
+                "VUS-PR": 0.007016164779762514,
+                "VUS-ROC": 0.7841629821682673,
+                "Standard-F1": 0.004971590909090909,
+                "PA-F1": 0.048627995831886074,
+                "Event-based-F1": 0.00513573000733675,
+                "R-based-F1": 0.0037522175479249294,
+                "accuracy": 0.9439039039039039,
+                "precision": 0.002577319587628866,
+                "recall": 0.07,
+                "f1_score": 0.004971590909090909,
+                "confusion_matrix": [
+                    [
+                        94282,
+                        5418
+                    ],
+                    [
+                        186,
+                        14
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "226_MGAB_id_2_Synthetic_tr_20000_1st_45134.csv": {
+        "file": "226_MGAB_id_2_Synthetic_tr_20000_1st_45134.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0016792589077215068,
+                "AUC-ROC": 0.5058595429144577,
+                "VUS-PR": 0.005154821852577571,
+                "VUS-ROC": 0.7422559181691908,
+                "Standard-F1": 0.0008785416209092906,
+                "PA-F1": 0.017425397516880853,
+                "Event-based-F1": 0.0009049773755656078,
+                "R-based-F1": 0.0011213381301686679,
+                "accuracy": 0.9430663329161452,
+                "precision": 0.00045320643553138455,
+                "recall": 0.014285714285714285,
+                "f1_score": 0.0008785416209092906,
+                "confusion_matrix": [
+                    [
+                        75349,
+                        4411
+                    ],
+                    [
+                        138,
+                        2
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "227_MGAB_id_3_Synthetic_tr_25000_1st_44340.csv": {
+        "file": "227_MGAB_id_3_Synthetic_tr_25000_1st_44340.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0018006552955200181,
+                "AUC-ROC": 0.4648463891675025,
+                "VUS-PR": 0.006012769690775905,
+                "VUS-ROC": 0.7471370907453279,
+                "Standard-F1": 0.003194321206743567,
+                "PA-F1": 0.0349283967865875,
+                "Event-based-F1": 0.003300935264991741,
+                "R-based-F1": 0.0033841070687810667,
+                "accuracy": 0.9437737737737738,
+                "precision": 0.001655933762649494,
+                "recall": 0.045,
+                "f1_score": 0.003194321206743567,
+                "confusion_matrix": [
+                    [
+                        94274,
+                        5426
+                    ],
+                    [
+                        191,
+                        9
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "228_MGAB_id_4_Synthetic_tr_25000_1st_38948.csv": {
+        "file": "228_MGAB_id_4_Synthetic_tr_25000_1st_38948.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0021301532299693197,
+                "AUC-ROC": 0.5225764292878636,
+                "VUS-PR": 0.007207369549159976,
+                "VUS-ROC": 0.7833467038990194,
+                "Standard-F1": 0.002896976281006699,
+                "PA-F1": 0.028596961572832886,
+                "Event-based-F1": 0.002994572337638024,
+                "R-based-F1": 0.0032011498007447573,
+                "accuracy": 0.9448748748748749,
+                "precision": 0.0015029118917903438,
+                "recall": 0.04,
+                "f1_score": 0.002896976281006699,
+                "confusion_matrix": [
+                    [
+                        94385,
+                        5315
+                    ],
+                    [
+                        192,
+                        8
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "229_MGAB_id_5_Synthetic_tr_25000_1st_33098.csv": {
+        "file": "229_MGAB_id_5_Synthetic_tr_25000_1st_33098.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0019496637854378984,
+                "AUC-ROC": 0.4887222668004012,
+                "VUS-PR": 0.006511222241536777,
+                "VUS-ROC": 0.7625882585719659,
+                "Standard-F1": 0.0021037868162692847,
+                "PA-F1": 0.027691242644513673,
+                "Event-based-F1": 0.002174306939662977,
+                "R-based-F1": 0.0026836632002683663,
+                "accuracy": 0.943023023023023,
+                "precision": 0.0010901162790697674,
+                "recall": 0.03,
+                "f1_score": 0.0021037868162692847,
+                "confusion_matrix": [
+                    [
+                        94202,
+                        5498
+                    ],
+                    [
+                        194,
+                        6
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "230_MGAB_id_6_Synthetic_tr_25000_1st_42441.csv": {
+        "file": "230_MGAB_id_6_Synthetic_tr_25000_1st_42441.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.001847940899556238,
+                "AUC-ROC": 0.47522833500501505,
+                "VUS-PR": 0.005429036550371472,
+                "VUS-ROC": 0.730207087588915,
+                "Standard-F1": 0.004189944134078212,
+                "PA-F1": 0.0411240575736806,
+                "Event-based-F1": 0.0043258832011535625,
+                "R-based-F1": 0.004893577944207497,
+                "accuracy": 0.9429029029029029,
+                "precision": 0.002170767004341534,
+                "recall": 0.06,
+                "f1_score": 0.004189944134078212,
+                "confusion_matrix": [
+                    [
+                        94184,
+                        5516
+                    ],
+                    [
+                        188,
+                        12
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 1,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
     }
 }
