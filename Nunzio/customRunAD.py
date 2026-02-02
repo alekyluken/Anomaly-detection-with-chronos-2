@@ -337,8 +337,8 @@ def main(configuration:dict, name:str)->None:
     pipeline = get_pipeline(device='cuda')
     print(f"Using device: {next(pipeline.model.parameters()).device}")
     
-    save_path = f"results_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith('results_') and fname.endswith('.json')] + [0]) + 1}.json"
-
+    save_path = f"results_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith('results_') and fname.endswith('.json')] + [-1])}.json"
+    
     if os.path.exists(os.path.join(out_initial_path, save_path)):
         with open(os.path.join(out_initial_path, save_path), 'r', encoding='utf-8') as f:
             existing_results = json_load(f)
@@ -347,6 +347,14 @@ def main(configuration:dict, name:str)->None:
 
     # Process datasets
     dataset_files = sorted(pd.read_csv("test_files_U.csv")["name"].tolist()) if configuration.get('use_restricted_dataset', True) else sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
+
+    if all(fname in existing_results for fname in dataset_files):
+        existing_results = {}
+        save_path = f"results_{int(save_path.split('_')[1].split('.')[0])+1}.json"
+        print(f"All files already processed. Switching to new results file: {save_path}")
+    else:
+        print(f"Continuing with existing results file: {save_path}")
+
 
     for filename in tqdm(dataset_files, desc="Processing datasets"):
         if filename in existing_results:
