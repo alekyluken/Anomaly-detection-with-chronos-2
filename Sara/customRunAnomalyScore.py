@@ -164,92 +164,6 @@ def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chron
     
     return pd.DataFrame(), np.array([], dtype=np.int32)
 
-def computeContinuousAnomalyScores(predictions_df: pd.DataFrame, actual_values: np.ndarray, thresholds_percentile: list[list[float]]):
-    """
-    Compute continuous anomaly scores (higher = more anomalous)
-    
-    Strategy: Measure how far actual_values are from the predicted quantile range
-    
-    Returns:
-        scores: List of continuous scores for each threshold pair (higher = more anomalous)
-        thresholds_info: Metadata about thresholds
-    """
-    scores = []
-    thresholds_info = []
-    
-    for q_low, q_high in thresholds_percentile:
-        # Get predicted quantiles
-        lower_bound = predictions_df[str(q_low)].to_numpy()
-        upper_bound = predictions_df[str(q_high)].to_numpy()
-        
-        # Calculate range (IQR - InterQuantile Range)
-        iqr = np.maximum(upper_bound - lower_bound, 1e-6) + 1e-8  # Avoid division by zero
-        
-        # Calculate distance from range (0 if inside, positive if outside)
-        distance_below = np.maximum(0, lower_bound - actual_values)  # How far below lower bound
-        distance_above = np.maximum(0, actual_values - upper_bound)  # How far above upper bound
-
-        # Normalized anomaly score (higher = more anomalous)
-        # If inside range: small score based on distance from median
-        # If outside range: score proportional to how far outside
-        raw_score = (distance_below + distance_above) / iqr
-        
-        # For points inside range, add small penalty based on distance from median
-        inside_mask = (actual_values >= lower_bound) & (actual_values <= upper_bound)
-        median_distance = np.abs(actual_values - predictions_df['0.5'].to_numpy()) / iqr 
-        raw_score[inside_mask] = median_distance[inside_mask] * 0.5  # Scale down
-        
-        scores.append(raw_score)
-        thresholds_info.append({'q_low': q_low, 'q_high': q_high, 'range': f'{q_low}-{q_high}'})
-    
-    return scores, thresholds_info
-
-
-def computeContinuousAnomalyScoresNaive(predictions_df: pd.DataFrame, actual_values: np.ndarray, thresholds_percentile: list[list[float]],
-                                    square_distance: bool = False):
-    """
-    Compute continuous anomaly scores (higher = more anomalous)
-    
-    Strategy: Measure how far actual_values are from the median predicted value
-
-    Args:
-        predictions_df: DataFrame with predicted quantiles
-        actual_values: Actual observed values
-        thresholds_percentile: List of [low, high] quantile pairs
-        square_distance: If True, square the distance to emphasize larger deviations
-    
-    Returns:
-        scores: List of continuous scores for each threshold pair (higher = more anomalous)
-        thresholds_info: Metadata about thresholds
-    """
-    scores = []
-    thresholds_info = []
-    
-    for q_low, q_high in thresholds_percentile:
-        raw_score = np.abs(actual_values - predictions_df['0.5'].to_numpy()) 
-        
-        if square_distance:
-            raw_score = raw_score ** 2
-
-        scores.append(raw_score)
-        thresholds_info.append({'q_low': q_low, 'q_high': q_high, 'range': f'{q_low}-{q_high}'})
-    
-    return scores, thresholds_info
-
-
-def computeDiscreteAnomalyScores(predictions_df: pd.DataFrame, actual_values: np.ndarray, thresholds_percentile: list[list[float]]):
-    """
-    Compute discrete/binary anomaly predictions (0 = normal, 1 = anomaly)
-    
-    Args:
-        score_threshold: If using continuous_scores, values > threshold = anomaly
-    
-    Returns:
-        binary_preds: List of binary arrays for each threshold pair
-    """
-    return [((actual_values < predictions_df[str(q_low)].to_numpy()) | (actual_values > predictions_df[str(q_high)].to_numpy())).astype(np.int8)
-                            for q_low, q_high in thresholds_percentile]
-
 
 def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration: dict):
     """
@@ -274,14 +188,16 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
     time_series_df, ground_truth_labels, target_col = prepare_data_for_chronos(dataset_path)
     
     print(f"Ground truth anomaly rate: {np.mean(ground_truth_labels):.2%}")
-    
+
+    horizons = configuration.get('horizons', [1, 8, 32, 64])
+    max_h = max(horizons)
     # Make predictions
     predictions_df, prediction_indices = make_predictions_sliding_window(
         time_series_df=time_series_df,
         pipeline=pipeline,
         target_col=target_col,
         context_length=configuration.get('context_length', 100),
-        prediction_length=configuration.get('prediction_length', 1),
+        prediction_length=max_h, # Ensure this matches your max horizon [cite: 827]
         step_size=configuration.get('step_size', 1),
         batch_size=configuration.get('batch_size', 256),
         quantile_levels=sorted(set([t for v in configuration.get('thresholds_percentile', [[0.05, 0.95]]) for t in v] + [0.5]))
@@ -292,37 +208,106 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
         return None
     
     # Detect anomalies using reconstruction error
-    continuosAnomalyScores, th  = computeContinuousAnomalyScoresNaive(
+    #continuosAnomalyScores, th  = computeContinuousAnomalyScoresNaive(
+    #    predictions_df=predictions_df,
+    #    actual_values=time_series_df[target_col].iloc[prediction_indices].values,
+    #    thresholds_percentile=configuration.get('thresholds_percentile', [[0.05, 0.95]]),
+    #    square_distance=configuration.get('square_distance', False)
+    #) if configuration.get('use_naive', True) else computeContinuousAnomalyScores(
+    #    predictions_df=predictions_df,
+    #    actual_values=time_series_df[target_col].iloc[prediction_indices].values,
+    #    thresholds_percentile=configuration.get('thresholds_percentile', [[0.05, 0.95]])
+    #)
+
+    target_values = time_series_df[target_col].values
+    
+    continuousAnomalyScore = computeMultiHorizonAnomalyScore(
         predictions_df=predictions_df,
-        actual_values=time_series_df[target_col].iloc[prediction_indices].values,
-        thresholds_percentile=configuration.get('thresholds_percentile', [[0.05, 0.95]]),
-        square_distance=configuration.get('square_distance', False)
-    ) if configuration.get('use_naive', True) else computeContinuousAnomalyScores(
-        predictions_df=predictions_df,
-        actual_values=time_series_df[target_col].iloc[prediction_indices].values,
-        thresholds_percentile=configuration.get('thresholds_percentile', [[0.05, 0.95]])
+        actual_values_full=target_values,
+        prediction_indices=prediction_indices,
+        horizons=horizons
+    )
+    
+    # 2. Calculate the Discrete labels based on this new error score
+    # We use a threshold (e.g., 95th percentile) instead of raw quantiles
+    discreteAnomalyScores = computeDiscreteAnomalyScoresEnsemble(
+        continuous_scores=continuousAnomalyScore,
+        percentile=95 
     )
 
-    discreteAnomalyScores = computeDiscreteAnomalyScores(
-        predictions_df=predictions_df,
-        actual_values=time_series_df[target_col].iloc[prediction_indices].values,
-        thresholds_percentile=configuration.get('thresholds_percentile', [[0.05, 0.95]])
-    )
+    # 3. Align lists for the final metrics loop
+    # Since we have one ensemble score, we wrap it in a list
+    final_cont_list = [continuousAnomalyScore]
+    th_info = [{'ensemble_horizons': horizons}]
+
 
     # Calculate metrics
     return {
         'file': os.path.basename(dataset_path),
-        "thresholds": th,
-        'metrics':[{
+        "thresholds": th_info,
+        'metrics': [{
             **get_metrics(score=cont, labels=ground_truth_labels[prediction_indices], pred=disc),
             'accuracy': float(accuracy_score(ground_truth_labels[prediction_indices], disc)),
             'precision': float(precision_score(ground_truth_labels[prediction_indices], disc, zero_division=0)),
             'recall': float(recall_score(ground_truth_labels[prediction_indices], disc, zero_division=0)),
             'f1_score': float(f1_score(ground_truth_labels[prediction_indices], disc, zero_division=0)),
             'confusion_matrix': confusion_matrix(ground_truth_labels[prediction_indices], disc).tolist(),
-            'thresholds': t} for t, cont, disc in zip(th, continuosAnomalyScores, discreteAnomalyScores)]
-        }
+                        'horizons': t} for t, cont, disc in zip(th_info, final_cont_list, discreteAnomalyScores)]
+    }
 
+
+def computeMultiHorizonAnomalyScore(predictions_df, actual_values_full, prediction_indices, horizons):
+    all_horizon_scores = []
+    cols = predictions_df.columns.tolist()
+    
+    for h in horizons:
+        idx_to_check = prediction_indices + (h - 1)
+        mask = idx_to_check < len(actual_values_full)
+        
+        if not np.any(mask):
+            continue
+            
+        target_step = h - 1
+        # Robust column finding for different Chronos versions
+        pred_col = '0.5' if h == 1 else f'0.5_{target_step}'
+        if pred_col not in cols:
+             # Try alternate naming like '0.5_step_7'
+             pred_col = f'0.5_step_{target_step}'
+        
+        if pred_col in cols:
+            actual_at_h = actual_values_full[idx_to_check[mask]]
+            pred_at_h = predictions_df[pred_col].to_numpy()[mask]
+            
+            error_h = np.zeros(len(prediction_indices))
+            error_h[mask] = (actual_at_h - pred_at_h)**2
+            all_horizon_scores.append(error_h)
+    
+    if not all_horizon_scores:
+        # Fallback to standard squared difference if no horizons match [cite: 344]
+        return np.zeros(len(prediction_indices))
+        
+    return np.max(all_horizon_scores, axis=0) # [cite: 829]    all_horizon_scores = []
+
+
+def computeDiscreteAnomalyScoresEnsemble(continuous_scores, percentile=95):
+    """
+    Computes binary anomaly predictions based on the ensemble error distribution.
+    
+    Args:
+        continuous_scores: The output from computeMultiHorizonAnomalyScore.
+        percentile: The threshold percentile (e.g., top 5% of errors are anomalies).
+        
+    Returns:
+        binary_preds: A list containing a binary array (0 = normal, 1 = anomaly).
+    """
+    # Calculate the threshold based on the distribution of errors
+    threshold = np.percentile(continuous_scores, percentile)
+    
+    # Flag anything above the threshold
+    binary_preds = (continuous_scores > threshold).astype(np.int8)
+    
+    # We return a list to keep it compatible with your existing zip() logic
+    return [binary_preds]
 
 
 def main(configuration:dict, name:str)->None:
@@ -337,8 +322,8 @@ def main(configuration:dict, name:str)->None:
     pipeline = get_pipeline(device='cuda')
     print(f"Using device: {next(pipeline.model.parameters()).device}")
     
-    save_path = f"results_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith('results_') and fname.endswith('.json')] + [-1])}.json"
-    
+    save_path = f"rsults_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith('rsults_') and fname.endswith('.json')] + [0]) + 1}.json"
+
     if os.path.exists(os.path.join(out_initial_path, save_path)):
         with open(os.path.join(out_initial_path, save_path), 'r', encoding='utf-8') as f:
             existing_results = json_load(f)
@@ -347,14 +332,6 @@ def main(configuration:dict, name:str)->None:
 
     # Process datasets
     dataset_files = sorted(pd.read_csv("test_files_U.csv")["name"].tolist()) if configuration.get('use_restricted_dataset', True) else sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
-
-    if all(fname in existing_results for fname in dataset_files):
-        existing_results = {}
-        save_path = f"results_{int(save_path.split('_')[1].split('.')[0])+1}.json"
-        print(f"All files already processed. Switching to new results file: {save_path}")
-    else:
-        print(f"Continuing with existing results file: {save_path}")
-
 
     for filename in tqdm(dataset_files, desc="Processing datasets"):
         if filename in existing_results:
@@ -376,7 +353,7 @@ def main(configuration:dict, name:str)->None:
             with open(os.path.join(out_initial_path, save_path), 'w', encoding='utf-8') as f:
                 existing_results[filename] = {**result, **configuration}
                 json_dump(existing_results, f, indent=4)
-                print(f"\nResults saved for {filename}\n")
+                print(f"Results saved for {filename}")
 
 
 if __name__ == "__main__":

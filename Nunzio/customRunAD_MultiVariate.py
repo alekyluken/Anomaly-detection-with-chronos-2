@@ -80,10 +80,23 @@ def prepare_data_for_chronos(dataset_path: str):
     df_chronos = pd.DataFrame()
     df_chronos['timestamp'] = get_timestamp(periods=len(df_clean))
     df_chronos['item_id'] = 0  # Single time series
+    raise ValueError("Check this part carefully, it was modified recently")
     df_chronos[df.columns[0]] = df_clean[df.columns[0]].values
     
     return df_chronos, df[df.columns[-1]].values, df.columns[0]
 
+
+def dimensionalityReductionViaUMAP(data: np.ndarray, n_components: int = 2) -> np.ndarray:
+    """Reduce data dimensionality using UMAP
+    
+    Args:
+        data (np.ndarray): Input data
+        n_components (int): Number of dimensions to reduce to
+    
+    Returns:
+        reduced_data (np.ndarray): Dimensionally reduced data
+    """
+    pass
 
 
 
