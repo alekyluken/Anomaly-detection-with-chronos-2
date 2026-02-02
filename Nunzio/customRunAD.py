@@ -337,8 +337,7 @@ def main(configuration:dict, name:str)->None:
     pipeline = get_pipeline(device='cuda')
     print(f"Using device: {next(pipeline.model.parameters()).device}")
     
-    save_path = f"results_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith("results_") and fname.endswith(".json")] + [0]) + 1}.json"
-
+    save_path = f"results_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith('results_') and fname.endswith('.json')] + [0]) + 1}.json"
     if os.path.exists(os.path.join(out_initial_path, save_path)):
         with open(os.path.join(out_initial_path, save_path), 'r', encoding='utf-8') as f:
             existing_results = json_load(f)
