@@ -42788,5 +42788,5065 @@
         ],
         "use_restricted_dataset": false,
         "colab": false
+    },
+    "779_YAHOO_id_229_WebService_tr_500_1st_25.csv": {
+        "file": "779_YAHOO_id_229_WebService_tr_500_1st_25.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.05550349259059157,
+                "AUC-ROC": 0.858956780923994,
+                "VUS-PR": 0.3209847707090643,
+                "VUS-ROC": 0.9247926539907476,
+                "Standard-F1": 0.05612244897959184,
+                "PA-F1": 0.05612244897959184,
+                "Event-based-F1": 0.05612244897959177,
+                "R-based-F1": 0.2032766990291262,
+                "accuracy": 0.7591145833333334,
+                "precision": 0.028871391076115485,
+                "recall": 1.0,
+                "f1_score": 0.05612244897959184,
+                "confusion_matrix": [
+                    [
+                        1155,
+                        370
+                    ],
+                    [
+                        0,
+                        11
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "780_YAHOO_id_230_Synthetic_tr_500_1st_893.csv": {
+        "file": "780_YAHOO_id_230_Synthetic_tr_500_1st_893.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 1.0,
+                "AUC-ROC": 1.0,
+                "VUS-PR": 1.0,
+                "VUS-ROC": 1.0,
+                "Standard-F1": 0.010582010582010581,
+                "PA-F1": 0.010582010582010581,
+                "Event-based-F1": 0.010582010582010571,
+                "R-based-F1": 0.03076923076923077,
+                "accuracy": 0.85390625,
+                "precision": 0.005319148936170213,
+                "recall": 1.0,
+                "f1_score": 0.010582010582010581,
+                "confusion_matrix": [
+                    [
+                        1092,
+                        187
+                    ],
+                    [
+                        0,
+                        1
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "781_YAHOO_id_231_Synthetic_tr_500_1st_623.csv": {
+        "file": "781_YAHOO_id_231_Synthetic_tr_500_1st_623.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 1.0,
+                "AUC-ROC": 1.0,
+                "VUS-PR": 0.9257925792579248,
+                "VUS-ROC": 0.9996788821289682,
+                "Standard-F1": 0.024657534246575342,
+                "PA-F1": 0.024657534246575342,
+                "Event-based-F1": 0.024657534246575314,
+                "R-based-F1": 0.07647058823529412,
+                "accuracy": 0.44375,
+                "precision": 0.012482662968099861,
+                "recall": 1.0,
+                "f1_score": 0.024657534246575342,
+                "confusion_matrix": [
+                    [
+                        559,
+                        712
+                    ],
+                    [
+                        0,
+                        9
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "782_YAHOO_id_232_Synthetic_tr_500_1st_623.csv": {
+        "file": "782_YAHOO_id_232_Synthetic_tr_500_1st_623.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 1.0,
+                "AUC-ROC": 1.0,
+                "VUS-PR": 0.9257925792579248,
+                "VUS-ROC": 0.9996788821289682,
+                "Standard-F1": 0.03441682600382409,
+                "PA-F1": 0.03441682600382409,
+                "Event-based-F1": 0.03441682600382406,
+                "R-based-F1": 0.09375,
+                "accuracy": 0.60546875,
+                "precision": 0.017509727626459144,
+                "recall": 1.0,
+                "f1_score": 0.03441682600382409,
+                "confusion_matrix": [
+                    [
+                        766,
+                        505
+                    ],
+                    [
+                        0,
+                        9
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "783_YAHOO_id_233_WebService_tr_500_1st_24.csv": {
+        "file": "783_YAHOO_id_233_WebService_tr_500_1st_24.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.15068925064041128,
+                "AUC-ROC": 0.6425950196592399,
+                "VUS-PR": 0.2614327491572646,
+                "VUS-ROC": 0.8970418576070098,
+                "Standard-F1": 0.045112781954887216,
+                "PA-F1": 0.045112781954887216,
+                "Event-based-F1": 0.045112781954887146,
+                "R-based-F1": 0.14443305310641788,
+                "accuracy": 0.8346354166666666,
+                "precision": 0.0234375,
+                "recall": 0.6,
+                "f1_score": 0.045112781954887216,
+                "confusion_matrix": [
+                    [
+                        1276,
+                        250
+                    ],
+                    [
+                        4,
+                        6
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "784_YAHOO_id_234_Synthetic_tr_500_1st_623.csv": {
+        "file": "784_YAHOO_id_234_Synthetic_tr_500_1st_623.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 1.0,
+                "AUC-ROC": 1.0,
+                "VUS-PR": 0.8855885588558836,
+                "VUS-ROC": 0.9995049072177086,
+                "Standard-F1": 0.09045226130653267,
+                "PA-F1": 0.09045226130653267,
+                "Event-based-F1": 0.09045226130653258,
+                "R-based-F1": 0.09375,
+                "accuracy": 0.85859375,
+                "precision": 0.04736842105263158,
+                "recall": 1.0,
+                "f1_score": 0.09045226130653267,
+                "confusion_matrix": [
+                    [
+                        1090,
+                        181
+                    ],
+                    [
+                        0,
+                        9
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "785_YAHOO_id_235_Synthetic_tr_500_1st_658.csv": {
+        "file": "785_YAHOO_id_235_Synthetic_tr_500_1st_658.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 1.0,
+                "AUC-ROC": 1.0,
+                "VUS-PR": 0.7083333333333337,
+                "VUS-ROC": 0.999314263322886,
+                "Standard-F1": 0.025157232704402517,
+                "PA-F1": 0.025157232704402517,
+                "Event-based-F1": 0.02515723270440249,
+                "R-based-F1": 0.04184100418410042,
+                "accuracy": 0.7578125,
+                "precision": 0.012738853503184714,
+                "recall": 1.0,
+                "f1_score": 0.025157232704402517,
+                "confusion_matrix": [
+                    [
+                        966,
+                        310
+                    ],
+                    [
+                        0,
+                        4
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "786_YAHOO_id_236_Synthetic_tr_500_1st_623.csv": {
+        "file": "786_YAHOO_id_236_Synthetic_tr_500_1st_623.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7664138741916519,
+                "AUC-ROC": 0.995104467173704,
+                "VUS-PR": 0.909679636629521,
+                "VUS-ROC": 0.9983771951606119,
+                "Standard-F1": 0.1782178217821782,
+                "PA-F1": 0.1782178217821782,
+                "Event-based-F1": 0.17821782178217804,
+                "R-based-F1": 0.11160714285714286,
+                "accuracy": 0.93515625,
+                "precision": 0.09782608695652174,
+                "recall": 1.0,
+                "f1_score": 0.1782178217821782,
+                "confusion_matrix": [
+                    [
+                        1188,
+                        83
+                    ],
+                    [
+                        0,
+                        9
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "787_YAHOO_id_237_Synthetic_tr_500_1st_623.csv": {
+        "file": "787_YAHOO_id_237_Synthetic_tr_500_1st_623.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 1.0,
+                "AUC-ROC": 1.0,
+                "VUS-PR": 0.9892259995368462,
+                "VUS-ROC": 0.9999533627990588,
+                "Standard-F1": 0.11688311688311688,
+                "PA-F1": 0.11688311688311688,
+                "Event-based-F1": 0.11688311688311677,
+                "R-based-F1": 0.07265774378585085,
+                "accuracy": 0.89375,
+                "precision": 0.06206896551724138,
+                "recall": 1.0,
+                "f1_score": 0.11688311688311688,
+                "confusion_matrix": [
+                    [
+                        1135,
+                        136
+                    ],
+                    [
+                        0,
+                        9
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "788_YAHOO_id_238_WebService_tr_500_1st_973.csv": {
+        "file": "788_YAHOO_id_238_WebService_tr_500_1st_973.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0007163323782234957,
+                "AUC-ROC": 0.0912052117263844,
+                "VUS-PR": 0.00570217834051384,
+                "VUS-ROC": 0.8440256267629759,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.8841145833333334,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        1358,
+                        177
+                    ],
+                    [
+                        1,
+                        0
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "789_YAHOO_id_239_WebService_tr_500_1st_421.csv": {
+        "file": "789_YAHOO_id_239_WebService_tr_500_1st_421.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.9166666666666666,
+                "AUC-ROC": 0.9997389715478987,
+                "VUS-PR": 0.7731677728595303,
+                "VUS-ROC": 0.9994669149905123,
+                "Standard-F1": 0.18181818181818182,
+                "PA-F1": 0.18181818181818182,
+                "Event-based-F1": 0.18181818181818163,
+                "R-based-F1": 0.044444444444444446,
+                "accuracy": 0.97890625,
+                "precision": 0.1,
+                "recall": 1.0,
+                "f1_score": 0.18181818181818182,
+                "confusion_matrix": [
+                    [
+                        1250,
+                        27
+                    ],
+                    [
+                        0,
+                        3
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "790_YAHOO_id_240_WebService_tr_500_1st_119.csv": {
+        "file": "790_YAHOO_id_240_WebService_tr_500_1st_119.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.45924021510942403,
+                "AUC-ROC": 0.9067276290006532,
+                "VUS-PR": 0.30339554689432496,
+                "VUS-ROC": 0.9709438432572713,
+                "Standard-F1": 0.027777777777777776,
+                "PA-F1": 0.027777777777777776,
+                "Event-based-F1": 0.027777777777777714,
+                "R-based-F1": 0.07017543859649124,
+                "accuracy": 0.9088541666666666,
+                "precision": 0.014388489208633094,
+                "recall": 0.4,
+                "f1_score": 0.027777777777777776,
+                "confusion_matrix": [
+                    [
+                        1394,
+                        137
+                    ],
+                    [
+                        3,
+                        2
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "791_YAHOO_id_241_WebService_tr_500_1st_593.csv": {
+        "file": "791_YAHOO_id_241_WebService_tr_500_1st_593.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.5064516129032258,
+                "AUC-ROC": 0.9501303780964798,
+                "VUS-PR": 0.2617140695559183,
+                "VUS-ROC": 0.9313438762602846,
+                "Standard-F1": 0.014925373134328358,
+                "PA-F1": 0.014925373134328358,
+                "Event-based-F1": 0.01492537313432834,
+                "R-based-F1": 0.06153846153846154,
+                "accuracy": 0.828125,
+                "precision": 0.007518796992481203,
+                "recall": 1.0,
+                "f1_score": 0.014925373134328358,
+                "confusion_matrix": [
+                    [
+                        1270,
+                        264
+                    ],
+                    [
+                        0,
+                        2
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "792_YAHOO_id_242_Synthetic_tr_500_1st_893.csv": {
+        "file": "792_YAHOO_id_242_Synthetic_tr_500_1st_893.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 1.0,
+                "AUC-ROC": 1.0,
+                "VUS-PR": 1.0,
+                "VUS-ROC": 1.0,
+                "Standard-F1": 0.004629629629629629,
+                "PA-F1": 0.004629629629629629,
+                "Event-based-F1": 0.004629629629629624,
+                "R-based-F1": 0.03636363636363636,
+                "accuracy": 0.6640625,
+                "precision": 0.002320185614849188,
+                "recall": 1.0,
+                "f1_score": 0.004629629629629629,
+                "confusion_matrix": [
+                    [
+                        849,
+                        430
+                    ],
+                    [
+                        0,
+                        1
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "793_YAHOO_id_243_WebService_tr_500_1st_28.csv": {
+        "file": "793_YAHOO_id_243_WebService_tr_500_1st_28.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.34694272445820434,
+                "AUC-ROC": 0.9828655352480419,
+                "VUS-PR": 0.1872033330372669,
+                "VUS-ROC": 0.9795815599286187,
+                "Standard-F1": 0.04519774011299435,
+                "PA-F1": 0.04519774011299435,
+                "Event-based-F1": 0.0451977401129943,
+                "R-based-F1": 0.16666666666666669,
+                "accuracy": 0.8899739583333334,
+                "precision": 0.023121387283236993,
+                "recall": 1.0,
+                "f1_score": 0.04519774011299435,
+                "confusion_matrix": [
+                    [
+                        1363,
+                        169
+                    ],
+                    [
+                        0,
+                        4
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "794_YAHOO_id_244_Synthetic_tr_500_1st_658.csv": {
+        "file": "794_YAHOO_id_244_Synthetic_tr_500_1st_658.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 1.0,
+                "AUC-ROC": 1.0,
+                "VUS-PR": 0.7083333333333337,
+                "VUS-ROC": 0.999314263322886,
+                "Standard-F1": 0.0427807486631016,
+                "PA-F1": 0.0427807486631016,
+                "Event-based-F1": 0.04278074866310156,
+                "R-based-F1": 0.06451612903225806,
+                "accuracy": 0.86015625,
+                "precision": 0.02185792349726776,
+                "recall": 1.0,
+                "f1_score": 0.0427807486631016,
+                "confusion_matrix": [
+                    [
+                        1097,
+                        179
+                    ],
+                    [
+                        0,
+                        4
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "795_YAHOO_id_245_WebService_tr_500_1st_84.csv": {
+        "file": "795_YAHOO_id_245_WebService_tr_500_1st_84.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7976979524204049,
+                "AUC-ROC": 0.993946335078534,
+                "VUS-PR": 0.6219271504104886,
+                "VUS-ROC": 0.9917224312012297,
+                "Standard-F1": 0.058577405857740586,
+                "PA-F1": 0.058577405857740586,
+                "Event-based-F1": 0.058577405857740523,
+                "R-based-F1": 0.20588235294117646,
+                "accuracy": 0.853515625,
+                "precision": 0.030303030303030304,
+                "recall": 0.875,
+                "f1_score": 0.058577405857740586,
+                "confusion_matrix": [
+                    [
+                        1304,
+                        224
+                    ],
+                    [
+                        1,
+                        7
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "796_YAHOO_id_246_WebService_tr_500_1st_222.csv": {
+        "file": "796_YAHOO_id_246_WebService_tr_500_1st_222.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.33516578153644344,
+                "AUC-ROC": 0.4923579359895493,
+                "VUS-PR": 0.173219710572535,
+                "VUS-ROC": 0.9145713025738325,
+                "Standard-F1": 0.009732360097323601,
+                "PA-F1": 0.009732360097323601,
+                "Event-based-F1": 0.009732360097323579,
+                "R-based-F1": 0.00564826700898588,
+                "accuracy": 0.7350260416666666,
+                "precision": 0.0049261083743842365,
+                "recall": 0.4,
+                "f1_score": 0.009732360097323601,
+                "confusion_matrix": [
+                    [
+                        1127,
+                        404
+                    ],
+                    [
+                        3,
+                        2
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "797_YAHOO_id_247_Synthetic_tr_500_1st_893.csv": {
+        "file": "797_YAHOO_id_247_Synthetic_tr_500_1st_893.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.09090909090909091,
+                "AUC-ROC": 0.9921813917122753,
+                "VUS-PR": 0.09090909090909097,
+                "VUS-ROC": 0.9937451133698217,
+                "Standard-F1": 0.027777777777777776,
+                "PA-F1": 0.027777777777777776,
+                "Event-based-F1": 0.02777777777777775,
+                "R-based-F1": 0.04545454545454545,
+                "accuracy": 0.9453125,
+                "precision": 0.014084507042253521,
+                "recall": 1.0,
+                "f1_score": 0.027777777777777776,
+                "confusion_matrix": [
+                    [
+                        1209,
+                        70
+                    ],
+                    [
+                        0,
+                        1
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "798_YAHOO_id_248_WebService_tr_500_1st_105.csv": {
+        "file": "798_YAHOO_id_248_WebService_tr_500_1st_105.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7172170138158296,
+                "AUC-ROC": 0.9643326450159564,
+                "VUS-PR": 0.7756214421829615,
+                "VUS-ROC": 0.9839119906922985,
+                "Standard-F1": 0.18461538461538463,
+                "PA-F1": 0.18461538461538463,
+                "Event-based-F1": 0.18435754189944115,
+                "R-based-F1": 0.29729729729729726,
+                "accuracy": 0.9309895833333334,
+                "precision": 0.10344827586206896,
+                "recall": 0.8571428571428571,
+                "f1_score": 0.18461538461538463,
+                "confusion_matrix": [
+                    [
+                        1418,
+                        104
+                    ],
+                    [
+                        2,
+                        12
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "799_YAHOO_id_249_WebService_tr_500_1st_852.csv": {
+        "file": "799_YAHOO_id_249_WebService_tr_500_1st_852.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.6732507583417593,
+                "AUC-ROC": 0.9198257080610022,
+                "VUS-PR": 0.4287937344476716,
+                "VUS-ROC": 0.9583104530048558,
+                "Standard-F1": 0.02952029520295203,
+                "PA-F1": 0.02952029520295203,
+                "Event-based-F1": 0.029520295202951987,
+                "R-based-F1": 0.08543417366946779,
+                "accuracy": 0.8287760416666666,
+                "precision": 0.01509433962264151,
+                "recall": 0.6666666666666666,
+                "f1_score": 0.02952029520295203,
+                "confusion_matrix": [
+                    [
+                        1269,
+                        261
+                    ],
+                    [
+                        2,
+                        4
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "800_YAHOO_id_250_Synthetic_tr_500_1st_623.csv": {
+        "file": "800_YAHOO_id_250_Synthetic_tr_500_1st_623.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 1.0,
+                "AUC-ROC": 1.0,
+                "VUS-PR": 0.9257925792579248,
+                "VUS-ROC": 0.9996788821289682,
+                "Standard-F1": 0.1978021978021978,
+                "PA-F1": 0.1978021978021978,
+                "Event-based-F1": 0.1978021978021976,
+                "R-based-F1": 0.18181818181818182,
+                "accuracy": 0.94296875,
+                "precision": 0.10975609756097561,
+                "recall": 1.0,
+                "f1_score": 0.1978021978021978,
+                "confusion_matrix": [
+                    [
+                        1198,
+                        73
+                    ],
+                    [
+                        0,
+                        9
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "801_YAHOO_id_251_WebService_tr_500_1st_190.csv": {
+        "file": "801_YAHOO_id_251_WebService_tr_500_1st_190.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.6328597435794915,
+                "AUC-ROC": 0.8793357329842932,
+                "VUS-PR": 0.5120016387108415,
+                "VUS-ROC": 0.9802203266220995,
+                "Standard-F1": 0.43243243243243246,
+                "PA-F1": 0.43243243243243246,
+                "Event-based-F1": 0.432432432432432,
+                "R-based-F1": 0.45714285714285713,
+                "accuracy": 0.986328125,
+                "precision": 0.27586206896551724,
+                "recall": 1.0,
+                "f1_score": 0.43243243243243246,
+                "confusion_matrix": [
+                    [
+                        1507,
+                        21
+                    ],
+                    [
+                        0,
+                        8
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "802_YAHOO_id_252_WebService_tr_500_1st_63.csv": {
+        "file": "802_YAHOO_id_252_WebService_tr_500_1st_63.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8500000000000001,
+                "AUC-ROC": 0.9980404964075767,
+                "VUS-PR": 0.79166930378604,
+                "VUS-ROC": 0.9982849762979257,
+                "Standard-F1": 0.01718213058419244,
+                "PA-F1": 0.01718213058419244,
+                "Event-based-F1": 0.01718213058419242,
+                "R-based-F1": 0.07023421557579265,
+                "accuracy": 0.6276041666666666,
+                "precision": 0.008665511265164644,
+                "recall": 1.0,
+                "f1_score": 0.01718213058419244,
+                "confusion_matrix": [
+                    [
+                        959,
+                        572
+                    ],
+                    [
+                        0,
+                        5
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "803_YAHOO_id_253_WebService_tr_500_1st_58.csv": {
+        "file": "803_YAHOO_id_253_WebService_tr_500_1st_58.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.6985467018124593,
+                "AUC-ROC": 0.9127843394575679,
+                "VUS-PR": 0.6913143717524869,
+                "VUS-ROC": 0.978664237676181,
+                "Standard-F1": 0.13138686131386862,
+                "PA-F1": 0.13138686131386862,
+                "Event-based-F1": 0.13138686131386845,
+                "R-based-F1": 0.1728813559322034,
+                "accuracy": 0.9225260416666666,
+                "precision": 0.072,
+                "recall": 0.75,
+                "f1_score": 0.13138686131386862,
+                "confusion_matrix": [
+                    [
+                        1408,
+                        116
+                    ],
+                    [
+                        3,
+                        9
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "804_YAHOO_id_254_WebService_tr_500_1st_420.csv": {
+        "file": "804_YAHOO_id_254_WebService_tr_500_1st_420.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.6798648535433669,
+                "AUC-ROC": 0.921846315237346,
+                "VUS-PR": 0.39009675522424336,
+                "VUS-ROC": 0.9312088399645566,
+                "Standard-F1": 0.1891891891891892,
+                "PA-F1": 0.1891891891891892,
+                "Event-based-F1": 0.18543046357615872,
+                "R-based-F1": 0.14213197969543145,
+                "accuracy": 0.953125,
+                "precision": 0.1076923076923077,
+                "recall": 0.7777777777777778,
+                "f1_score": 0.1891891891891892,
+                "confusion_matrix": [
+                    [
+                        1213,
+                        58
+                    ],
+                    [
+                        2,
+                        7
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "805_YAHOO_id_255_WebService_tr_500_1st_95.csv": {
+        "file": "805_YAHOO_id_255_WebService_tr_500_1st_95.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.49695942313116764,
+                "AUC-ROC": 0.7501273375536637,
+                "VUS-PR": 0.4659261870539869,
+                "VUS-ROC": 0.968925235572454,
+                "Standard-F1": 0.08571428571428572,
+                "PA-F1": 0.08571428571428572,
+                "Event-based-F1": 0.0857142857142856,
+                "R-based-F1": 0.16901408450704225,
+                "accuracy": 0.9166666666666666,
+                "precision": 0.04580152671755725,
+                "recall": 0.6666666666666666,
+                "f1_score": 0.08571428571428572,
+                "confusion_matrix": [
+                    [
+                        1402,
+                        125
+                    ],
+                    [
+                        3,
+                        6
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "806_YAHOO_id_256_Synthetic_tr_500_1st_893.csv": {
+        "file": "806_YAHOO_id_256_Synthetic_tr_500_1st_893.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.003115264797507788,
+                "AUC-ROC": 0.7498045347928068,
+                "VUS-PR": 0.010931470897802314,
+                "VUS-ROC": 0.8819095032856472,
+                "Standard-F1": 0.058823529411764705,
+                "PA-F1": 0.058823529411764705,
+                "Event-based-F1": 0.05882352941176464,
+                "R-based-F1": 0.10526315789473684,
+                "accuracy": 0.975,
+                "precision": 0.030303030303030304,
+                "recall": 1.0,
+                "f1_score": 0.058823529411764705,
+                "confusion_matrix": [
+                    [
+                        1247,
+                        32
+                    ],
+                    [
+                        0,
+                        1
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "807_YAHOO_id_257_WebService_tr_500_1st_1210.csv": {
+        "file": "807_YAHOO_id_257_WebService_tr_500_1st_1210.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7346983081680317,
+                "AUC-ROC": 0.9906019978969506,
+                "VUS-PR": 0.7694224725705038,
+                "VUS-ROC": 0.9967732801437004,
+                "Standard-F1": 0.16216216216216217,
+                "PA-F1": 0.16216216216216217,
+                "Event-based-F1": 0.16216216216216203,
+                "R-based-F1": 0.0486815415821501,
+                "accuracy": 0.903125,
+                "precision": 0.08823529411764706,
+                "recall": 1.0,
+                "f1_score": 0.16216216216216217,
+                "confusion_matrix": [
+                    [
+                        1144,
+                        124
+                    ],
+                    [
+                        0,
+                        12
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "808_YAHOO_id_258_WebService_tr_500_1st_142.csv": {
+        "file": "808_YAHOO_id_258_WebService_tr_500_1st_142.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8766666666666667,
+                "AUC-ROC": 0.9995294117647059,
+                "VUS-PR": 0.9937764933603653,
+                "VUS-ROC": 0.9999853537174889,
+                "Standard-F1": 0.3225806451612903,
+                "PA-F1": 0.3225806451612903,
+                "Event-based-F1": 0.32258064516129004,
+                "R-based-F1": 0.3846153846153846,
+                "accuracy": 0.98359375,
+                "precision": 0.19230769230769232,
+                "recall": 1.0,
+                "f1_score": 0.3225806451612903,
+                "confusion_matrix": [
+                    [
+                        1254,
+                        21
+                    ],
+                    [
+                        0,
+                        5
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "809_YAHOO_id_259_WebService_tr_500_1st_123.csv": {
+        "file": "809_YAHOO_id_259_WebService_tr_500_1st_123.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0760781886679375,
+                "AUC-ROC": 0.9248286140089419,
+                "VUS-PR": 0.39871961314012677,
+                "VUS-ROC": 0.9457230485784635,
+                "Standard-F1": 0.06042296072507553,
+                "PA-F1": 0.06042296072507553,
+                "Event-based-F1": 0.06042296072507546,
+                "R-based-F1": 0.21633456732363956,
+                "accuracy": 0.7975260416666666,
+                "precision": 0.03125,
+                "recall": 0.9090909090909091,
+                "f1_score": 0.06042296072507553,
+                "confusion_matrix": [
+                    [
+                        1215,
+                        310
+                    ],
+                    [
+                        1,
+                        10
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "810_Exathlon_id_1_Facility_tr_10766_1st_12590.csv": {
+        "file": "810_Exathlon_id_1_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.11280277654174552,
+                "AUC-ROC": 0.49250237076985637,
+                "VUS-PR": 0.11534668792373531,
+                "VUS-ROC": 0.5007389006228091,
+                "Standard-F1": 0.06550327516375819,
+                "PA-F1": 0.4333670783559425,
+                "Event-based-F1": 0.08560412990916805,
+                "R-based-F1": 0.08358757259988199,
+                "accuracy": 0.5641557835820895,
+                "precision": 0.04471600218459858,
+                "recall": 0.12240702672397683,
+                "f1_score": 0.06550327516375819,
+                "confusion_matrix": [
+                    [
+                        23536,
+                        13993
+                    ],
+                    [
+                        4696,
+                        655
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "811_Exathlon_id_2_Facility_tr_10766_1st_12590.csv": {
+        "file": "811_Exathlon_id_2_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.10928533029210591,
+                "AUC-ROC": 0.45214069524227496,
+                "VUS-PR": 0.10848342787595226,
+                "VUS-ROC": 0.45937174477155795,
+                "Standard-F1": 0.1084728564180619,
+                "PA-F1": 0.4460653551183728,
+                "Event-based-F1": 0.1385792066372827,
+                "R-based-F1": 0.12733442086745392,
+                "accuracy": 0.590205223880597,
+                "precision": 0.07444808134271189,
+                "recall": 0.1997757428518034,
+                "f1_score": 0.1084728564180619,
+                "confusion_matrix": [
+                    [
+                        24239,
+                        13290
+                    ],
+                    [
+                        4282,
+                        1069
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "812_Exathlon_id_3_Facility_tr_10766_1st_12590.csv": {
+        "file": "812_Exathlon_id_3_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.21018487331508603,
+                "AUC-ROC": 0.7228434404921094,
+                "VUS-PR": 0.21340527625040967,
+                "VUS-ROC": 0.7286513760733453,
+                "Standard-F1": 0.208876735380732,
+                "PA-F1": 0.7718159526900332,
+                "Event-based-F1": 0.38563106796116475,
+                "R-based-F1": 0.19178726320782125,
+                "accuracy": 0.824580223880597,
+                "precision": 0.23887418811643013,
+                "recall": 0.1855727901326855,
+                "f1_score": 0.208876735380732,
+                "confusion_matrix": [
+                    [
+                        34365,
+                        3164
+                    ],
+                    [
+                        4358,
+                        993
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "813_Exathlon_id_4_Facility_tr_10766_1st_12590.csv": {
+        "file": "813_Exathlon_id_4_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.11546762935671447,
+                "AUC-ROC": 0.4360723938055274,
+                "VUS-PR": 0.11864520284321119,
+                "VUS-ROC": 0.44307464493979276,
+                "Standard-F1": 0.1304247990815155,
+                "PA-F1": 0.7931520047432001,
+                "Event-based-F1": 0.28927934810287725,
+                "R-based-F1": 0.13482806405010436,
+                "accuracy": 0.8233675373134328,
+                "precision": 0.1690979458172075,
+                "recall": 0.10614838347972341,
+                "f1_score": 0.1304247990815155,
+                "confusion_matrix": [
+                    [
+                        34738,
+                        2791
+                    ],
+                    [
+                        4783,
+                        568
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "814_Exathlon_id_5_Facility_tr_10766_1st_12590.csv": {
+        "file": "814_Exathlon_id_5_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.10928533029210591,
+                "AUC-ROC": 0.45214069524227496,
+                "VUS-PR": 0.10848342787595226,
+                "VUS-ROC": 0.45937174477155795,
+                "Standard-F1": 0.1084728564180619,
+                "PA-F1": 0.4460653551183728,
+                "Event-based-F1": 0.1385792066372827,
+                "R-based-F1": 0.12733442086745392,
+                "accuracy": 0.590205223880597,
+                "precision": 0.07444808134271189,
+                "recall": 0.1997757428518034,
+                "f1_score": 0.1084728564180619,
+                "confusion_matrix": [
+                    [
+                        24239,
+                        13290
+                    ],
+                    [
+                        4282,
+                        1069
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "815_Exathlon_id_6_Facility_tr_10766_1st_12590.csv": {
+        "file": "815_Exathlon_id_6_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.21018487331508603,
+                "AUC-ROC": 0.7228434404921094,
+                "VUS-PR": 0.21340527625040967,
+                "VUS-ROC": 0.7286513760733453,
+                "Standard-F1": 0.208876735380732,
+                "PA-F1": 0.7718159526900332,
+                "Event-based-F1": 0.38563106796116475,
+                "R-based-F1": 0.19178726320782125,
+                "accuracy": 0.824580223880597,
+                "precision": 0.23887418811643013,
+                "recall": 0.1855727901326855,
+                "f1_score": 0.208876735380732,
+                "confusion_matrix": [
+                    [
+                        34365,
+                        3164
+                    ],
+                    [
+                        4358,
+                        993
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "816_Exathlon_id_7_Facility_tr_10766_1st_12590.csv": {
+        "file": "816_Exathlon_id_7_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1347287716860417,
+                "AUC-ROC": 0.5160322214460012,
+                "VUS-PR": 0.13650133399221848,
+                "VUS-ROC": 0.5253460386079162,
+                "Standard-F1": 0.13757115749525617,
+                "PA-F1": 0.8105733545406347,
+                "Event-based-F1": 0.3168533187653644,
+                "R-based-F1": 0.16249417301334199,
+                "accuracy": 0.830410447761194,
+                "precision": 0.18825056799740345,
+                "recall": 0.1083909549616894,
+                "f1_score": 0.13757115749525617,
+                "confusion_matrix": [
+                    [
+                        35028,
+                        2501
+                    ],
+                    [
+                        4771,
+                        580
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "817_Exathlon_id_8_Facility_tr_10766_1st_12590.csv": {
+        "file": "817_Exathlon_id_8_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1480653831098255,
+                "AUC-ROC": 0.6154007038394265,
+                "VUS-PR": 0.15186318689635217,
+                "VUS-ROC": 0.6233555540675451,
+                "Standard-F1": 0.08437596939303071,
+                "PA-F1": 0.7323114821404133,
+                "Event-based-F1": 0.17258883248730944,
+                "R-based-F1": 0.1102717994197333,
+                "accuracy": 0.7934934701492538,
+                "precision": 0.09444444444444444,
+                "recall": 0.07624743038684358,
+                "f1_score": 0.08437596939303071,
+                "confusion_matrix": [
+                    [
+                        33617,
+                        3912
+                    ],
+                    [
+                        4943,
+                        408
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "818_Exathlon_id_9_Facility_tr_11665_1st_13484.csv": {
+        "file": "818_Exathlon_id_9_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.15289967364040694,
+                "AUC-ROC": 0.6206910228680793,
+                "VUS-PR": 0.14644535938830813,
+                "VUS-ROC": 0.6336977930194944,
+                "Standard-F1": 0.16434385104247964,
+                "PA-F1": 0.524731182795699,
+                "Event-based-F1": 0.21746827972853328,
+                "R-based-F1": 0.0840761574894866,
+                "accuracy": 0.8386923209366391,
+                "precision": 0.12199966892898527,
+                "recall": 0.25170765027322406,
+                "f1_score": 0.16434385104247964,
+                "confusion_matrix": [
+                    [
+                        38232,
+                        5304
+                    ],
+                    [
+                        2191,
+                        737
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "819_Exathlon_id_10_Facility_tr_10766_1st_12590.csv": {
+        "file": "819_Exathlon_id_10_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.11278710483020082,
+                "AUC-ROC": 0.399441450570694,
+                "VUS-PR": 0.11443524138748157,
+                "VUS-ROC": 0.40646109471428493,
+                "Standard-F1": 0.13948943446928055,
+                "PA-F1": 0.8253258270995604,
+                "Event-based-F1": 0.33519225124743146,
+                "R-based-F1": 0.14851891558979557,
+                "accuracy": 0.8357042910447762,
+                "precision": 0.20133991537376586,
+                "recall": 0.10670902635021491,
+                "f1_score": 0.13948943446928055,
+                "confusion_matrix": [
+                    [
+                        35264,
+                        2265
+                    ],
+                    [
+                        4780,
+                        571
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "820_Exathlon_id_11_Facility_tr_11665_1st_13484.csv": {
+        "file": "820_Exathlon_id_11_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.05763980645991502,
+                "AUC-ROC": 0.44392362993856727,
+                "VUS-PR": 0.056994132594567634,
+                "VUS-ROC": 0.45770703558393255,
+                "Standard-F1": 0.06508577194752775,
+                "PA-F1": 0.405736853045105,
+                "Event-based-F1": 0.08277189605389788,
+                "R-based-F1": 0.16764378163375332,
+                "accuracy": 0.7607179752066116,
+                "precision": 0.04317269076305221,
+                "recall": 0.13217213114754098,
+                "f1_score": 0.06508577194752775,
+                "confusion_matrix": [
+                    [
+                        34959,
+                        8577
+                    ],
+                    [
+                        2541,
+                        387
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "821_Exathlon_id_12_Facility_tr_6985_1st_7085.csv": {
+        "file": "821_Exathlon_id_12_Facility_tr_6985_1st_7085.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1829057755704696,
+                "AUC-ROC": 0.5920102390492007,
+                "VUS-PR": 0.19043538569881094,
+                "VUS-ROC": 0.604891242140328,
+                "Standard-F1": 0.24424702986192873,
+                "PA-F1": 0.7437586154081789,
+                "Event-based-F1": 0.40547263681592,
+                "R-based-F1": 0.13397022058078217,
+                "accuracy": 0.8480328856749312,
+                "precision": 0.2542901716068643,
+                "recall": 0.2349670510708402,
+                "f1_score": 0.24424702986192873,
+                "confusion_matrix": [
+                    [
+                        38262,
+                        3346
+                    ],
+                    [
+                        3715,
+                        1141
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "822_Exathlon_id_13_Facility_tr_10766_1st_12590.csv": {
+        "file": "822_Exathlon_id_13_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1480653831098255,
+                "AUC-ROC": 0.6154007038394265,
+                "VUS-PR": 0.15186318689635217,
+                "VUS-ROC": 0.6233555540675451,
+                "Standard-F1": 0.08437596939303071,
+                "PA-F1": 0.7323114821404133,
+                "Event-based-F1": 0.17258883248730944,
+                "R-based-F1": 0.1102717994197333,
+                "accuracy": 0.7934934701492538,
+                "precision": 0.09444444444444444,
+                "recall": 0.07624743038684358,
+                "f1_score": 0.08437596939303071,
+                "confusion_matrix": [
+                    [
+                        33617,
+                        3912
+                    ],
+                    [
+                        4943,
+                        408
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "823_Exathlon_id_14_Facility_tr_10766_1st_12590.csv": {
+        "file": "823_Exathlon_id_14_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.17762456442898406,
+                "AUC-ROC": 0.5716809026559858,
+                "VUS-PR": 0.17849991858543404,
+                "VUS-ROC": 0.5800612772484961,
+                "Standard-F1": 0.15595416043846538,
+                "PA-F1": 0.65041935091771,
+                "Event-based-F1": 0.24613368283093026,
+                "R-based-F1": 0.18959916700313043,
+                "accuracy": 0.7629664179104477,
+                "precision": 0.14033776714990284,
+                "recall": 0.17548121846383855,
+                "f1_score": 0.15595416043846538,
+                "confusion_matrix": [
+                    [
+                        31777,
+                        5752
+                    ],
+                    [
+                        4412,
+                        939
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "824_Exathlon_id_15_Facility_tr_10766_1st_12590.csv": {
+        "file": "824_Exathlon_id_15_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2580932081092932,
+                "AUC-ROC": 0.8149345058409923,
+                "VUS-PR": 0.26583289921058706,
+                "VUS-ROC": 0.8201472418887271,
+                "Standard-F1": 0.11962051423071635,
+                "PA-F1": 0.8780047583887112,
+                "Event-based-F1": 0.3691132795927022,
+                "R-based-F1": 0.19760486858120638,
+                "accuracy": 0.8506763059701492,
+                "precision": 0.22632674297606659,
+                "recall": 0.08129321622126705,
+                "f1_score": 0.11962051423071635,
+                "confusion_matrix": [
+                    [
+                        36042,
+                        1487
+                    ],
+                    [
+                        4916,
+                        435
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "825_Exathlon_id_16_Facility_tr_10766_1st_12590.csv": {
+        "file": "825_Exathlon_id_16_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.10928533029210591,
+                "AUC-ROC": 0.45214069524227496,
+                "VUS-PR": 0.10848342787595226,
+                "VUS-ROC": 0.45937174477155795,
+                "Standard-F1": 0.1084728564180619,
+                "PA-F1": 0.4460653551183728,
+                "Event-based-F1": 0.1385792066372827,
+                "R-based-F1": 0.12733442086745392,
+                "accuracy": 0.590205223880597,
+                "precision": 0.07444808134271189,
+                "recall": 0.1997757428518034,
+                "f1_score": 0.1084728564180619,
+                "confusion_matrix": [
+                    [
+                        24239,
+                        13290
+                    ],
+                    [
+                        4282,
+                        1069
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "826_Exathlon_id_17_Facility_tr_11665_1st_13484.csv": {
+        "file": "826_Exathlon_id_17_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.05763980645991502,
+                "AUC-ROC": 0.44392362993856727,
+                "VUS-PR": 0.056994132594567634,
+                "VUS-ROC": 0.45770703558393255,
+                "Standard-F1": 0.06508577194752775,
+                "PA-F1": 0.405736853045105,
+                "Event-based-F1": 0.08277189605389788,
+                "R-based-F1": 0.16764378163375332,
+                "accuracy": 0.7607179752066116,
+                "precision": 0.04317269076305221,
+                "recall": 0.13217213114754098,
+                "f1_score": 0.06508577194752775,
+                "confusion_matrix": [
+                    [
+                        34959,
+                        8577
+                    ],
+                    [
+                        2541,
+                        387
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "827_Exathlon_id_18_Facility_tr_10766_1st_12590.csv": {
+        "file": "827_Exathlon_id_18_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2580932081092932,
+                "AUC-ROC": 0.8149345058409923,
+                "VUS-PR": 0.26583289921058706,
+                "VUS-ROC": 0.8201472418887271,
+                "Standard-F1": 0.11962051423071635,
+                "PA-F1": 0.8780047583887112,
+                "Event-based-F1": 0.3691132795927022,
+                "R-based-F1": 0.19760486858120638,
+                "accuracy": 0.8506763059701492,
+                "precision": 0.22632674297606659,
+                "recall": 0.08129321622126705,
+                "f1_score": 0.11962051423071635,
+                "confusion_matrix": [
+                    [
+                        36042,
+                        1487
+                    ],
+                    [
+                        4916,
+                        435
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "828_Exathlon_id_19_Facility_tr_11663_1st_13482.csv": {
+        "file": "828_Exathlon_id_19_Facility_tr_11663_1st_13482.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.054179706699457555,
+                "AUC-ROC": 0.41631394987143017,
+                "VUS-PR": 0.05558886554678679,
+                "VUS-ROC": 0.4301430826378595,
+                "Standard-F1": 0.06966570367313248,
+                "PA-F1": 0.4027047332832457,
+                "Event-based-F1": 0.08801752007508594,
+                "R-based-F1": 0.15373084506511106,
+                "accuracy": 0.7574251033057852,
+                "precision": 0.046034689647649174,
+                "recall": 0.14314789687924015,
+                "f1_score": 0.06966570367313248,
+                "confusion_matrix": [
+                    [
+                        34771,
+                        8745
+                    ],
+                    [
+                        2526,
+                        422
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "829_Exathlon_id_20_Facility_tr_10766_1st_12590.csv": {
+        "file": "829_Exathlon_id_20_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1347287716860417,
+                "AUC-ROC": 0.5160322214460012,
+                "VUS-PR": 0.13650133399221848,
+                "VUS-ROC": 0.5253460386079162,
+                "Standard-F1": 0.13757115749525617,
+                "PA-F1": 0.8105733545406347,
+                "Event-based-F1": 0.3168533187653644,
+                "R-based-F1": 0.16249417301334199,
+                "accuracy": 0.830410447761194,
+                "precision": 0.18825056799740345,
+                "recall": 0.1083909549616894,
+                "f1_score": 0.13757115749525617,
+                "confusion_matrix": [
+                    [
+                        35028,
+                        2501
+                    ],
+                    [
+                        4771,
+                        580
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "830_Exathlon_id_21_Facility_tr_10766_1st_12590.csv": {
+        "file": "830_Exathlon_id_21_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.10255335966449186,
+                "AUC-ROC": 0.40608676191302856,
+                "VUS-PR": 0.10438196601353077,
+                "VUS-ROC": 0.41607755835554505,
+                "Standard-F1": 0.08609834949804322,
+                "PA-F1": 0.644737634797277,
+                "Event-based-F1": 0.14647561152120409,
+                "R-based-F1": 0.20411420661212762,
+                "accuracy": 0.7494869402985075,
+                "precision": 0.07902545681711698,
+                "recall": 0.09456176415623248,
+                "f1_score": 0.08609834949804322,
+                "confusion_matrix": [
+                    [
+                        31632,
+                        5897
+                    ],
+                    [
+                        4845,
+                        506
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "831_Exathlon_id_22_Facility_tr_11665_1st_13484.csv": {
+        "file": "831_Exathlon_id_22_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.05763980645991502,
+                "AUC-ROC": 0.44392362993856727,
+                "VUS-PR": 0.056994132594567634,
+                "VUS-ROC": 0.45770703558393255,
+                "Standard-F1": 0.06508577194752775,
+                "PA-F1": 0.405736853045105,
+                "Event-based-F1": 0.08277189605389788,
+                "R-based-F1": 0.16764378163375332,
+                "accuracy": 0.7607179752066116,
+                "precision": 0.04317269076305221,
+                "recall": 0.13217213114754098,
+                "f1_score": 0.06508577194752775,
+                "confusion_matrix": [
+                    [
+                        34959,
+                        8577
+                    ],
+                    [
+                        2541,
+                        387
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "832_Exathlon_id_23_Facility_tr_10766_1st_12590.csv": {
+        "file": "832_Exathlon_id_23_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1347287716860417,
+                "AUC-ROC": 0.5160322214460012,
+                "VUS-PR": 0.13650133399221848,
+                "VUS-ROC": 0.5253460386079162,
+                "Standard-F1": 0.13757115749525617,
+                "PA-F1": 0.8105733545406347,
+                "Event-based-F1": 0.3168533187653644,
+                "R-based-F1": 0.16249417301334199,
+                "accuracy": 0.830410447761194,
+                "precision": 0.18825056799740345,
+                "recall": 0.1083909549616894,
+                "f1_score": 0.13757115749525617,
+                "confusion_matrix": [
+                    [
+                        35028,
+                        2501
+                    ],
+                    [
+                        4771,
+                        580
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "833_Exathlon_id_24_Facility_tr_10766_1st_12590.csv": {
+        "file": "833_Exathlon_id_24_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.21018487331508603,
+                "AUC-ROC": 0.7228434404921094,
+                "VUS-PR": 0.21340527625040967,
+                "VUS-ROC": 0.7286513760733453,
+                "Standard-F1": 0.208876735380732,
+                "PA-F1": 0.7718159526900332,
+                "Event-based-F1": 0.38563106796116475,
+                "R-based-F1": 0.19178726320782125,
+                "accuracy": 0.824580223880597,
+                "precision": 0.23887418811643013,
+                "recall": 0.1855727901326855,
+                "f1_score": 0.208876735380732,
+                "confusion_matrix": [
+                    [
+                        34365,
+                        3164
+                    ],
+                    [
+                        4358,
+                        993
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "834_Exathlon_id_25_Facility_tr_11665_1st_13484.csv": {
+        "file": "834_Exathlon_id_25_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.05763980645991502,
+                "AUC-ROC": 0.44392362993856727,
+                "VUS-PR": 0.056994132594567634,
+                "VUS-ROC": 0.45770703558393255,
+                "Standard-F1": 0.06508577194752775,
+                "PA-F1": 0.405736853045105,
+                "Event-based-F1": 0.08277189605389788,
+                "R-based-F1": 0.16764378163375332,
+                "accuracy": 0.7607179752066116,
+                "precision": 0.04317269076305221,
+                "recall": 0.13217213114754098,
+                "f1_score": 0.06508577194752775,
+                "confusion_matrix": [
+                    [
+                        34959,
+                        8577
+                    ],
+                    [
+                        2541,
+                        387
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "835_Exathlon_id_26_Facility_tr_10766_1st_12590.csv": {
+        "file": "835_Exathlon_id_26_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.10355056711771628,
+                "AUC-ROC": 0.41209814002481326,
+                "VUS-PR": 0.10608108431775919,
+                "VUS-ROC": 0.4219899076924728,
+                "Standard-F1": 0.05940362957343759,
+                "PA-F1": 0.486919332089722,
+                "Event-based-F1": 0.08279788531923538,
+                "R-based-F1": 0.06538014558429886,
+                "accuracy": 0.6240904850746268,
+                "precision": 0.043186831834379776,
+                "recall": 0.09512240702672398,
+                "f1_score": 0.05940362957343759,
+                "confusion_matrix": [
+                    [
+                        26252,
+                        11277
+                    ],
+                    [
+                        4842,
+                        509
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "836_Exathlon_id_27_Facility_tr_10766_1st_12590.csv": {
+        "file": "836_Exathlon_id_27_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.21018487331508603,
+                "AUC-ROC": 0.7228434404921094,
+                "VUS-PR": 0.21340527625040967,
+                "VUS-ROC": 0.7286513760733453,
+                "Standard-F1": 0.208876735380732,
+                "PA-F1": 0.7718159526900332,
+                "Event-based-F1": 0.38563106796116475,
+                "R-based-F1": 0.19178726320782125,
+                "accuracy": 0.824580223880597,
+                "precision": 0.23887418811643013,
+                "recall": 0.1855727901326855,
+                "f1_score": 0.208876735380732,
+                "confusion_matrix": [
+                    [
+                        34365,
+                        3164
+                    ],
+                    [
+                        4358,
+                        993
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "837_Exathlon_id_28_Facility_tr_8898_1st_8998.csv": {
+        "file": "837_Exathlon_id_28_Facility_tr_8898_1st_8998.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.15588829778796137,
+                "AUC-ROC": 0.4497071361417986,
+                "VUS-PR": 0.149476568499604,
+                "VUS-ROC": 0.46865359434561266,
+                "Standard-F1": 0.151437417072092,
+                "PA-F1": 0.5426778242677824,
+                "Event-based-F1": 0.20701330108827065,
+                "R-based-F1": 0.12764373493367656,
+                "accuracy": 0.7935390840220385,
+                "precision": 0.11545724305368223,
+                "recall": 0.21999485993317913,
+                "f1_score": 0.151437417072092,
+                "confusion_matrix": [
+                    [
+                        36015,
+                        6558
+                    ],
+                    [
+                        3035,
+                        856
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "838_Exathlon_id_29_Facility_tr_10766_1st_12590.csv": {
+        "file": "838_Exathlon_id_29_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1480653831098255,
+                "AUC-ROC": 0.6154007038394265,
+                "VUS-PR": 0.15186318689635217,
+                "VUS-ROC": 0.6233555540675451,
+                "Standard-F1": 0.08437596939303071,
+                "PA-F1": 0.7323114821404133,
+                "Event-based-F1": 0.17258883248730944,
+                "R-based-F1": 0.1102717994197333,
+                "accuracy": 0.7934934701492538,
+                "precision": 0.09444444444444444,
+                "recall": 0.07624743038684358,
+                "f1_score": 0.08437596939303071,
+                "confusion_matrix": [
+                    [
+                        33617,
+                        3912
+                    ],
+                    [
+                        4943,
+                        408
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "839_Exathlon_id_30_Facility_tr_10766_1st_12590.csv": {
+        "file": "839_Exathlon_id_30_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1347287716860417,
+                "AUC-ROC": 0.5160322214460012,
+                "VUS-PR": 0.13650133399221848,
+                "VUS-ROC": 0.5253460386079162,
+                "Standard-F1": 0.13757115749525617,
+                "PA-F1": 0.8105733545406347,
+                "Event-based-F1": 0.3168533187653644,
+                "R-based-F1": 0.16249417301334199,
+                "accuracy": 0.830410447761194,
+                "precision": 0.18825056799740345,
+                "recall": 0.1083909549616894,
+                "f1_score": 0.13757115749525617,
+                "confusion_matrix": [
+                    [
+                        35028,
+                        2501
+                    ],
+                    [
+                        4771,
+                        580
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "840_Exathlon_id_31_Facility_tr_10766_1st_12590.csv": {
+        "file": "840_Exathlon_id_31_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2580932081092932,
+                "AUC-ROC": 0.8149345058409923,
+                "VUS-PR": 0.26583289921058706,
+                "VUS-ROC": 0.8201472418887271,
+                "Standard-F1": 0.11962051423071635,
+                "PA-F1": 0.8780047583887112,
+                "Event-based-F1": 0.3691132795927022,
+                "R-based-F1": 0.19760486858120638,
+                "accuracy": 0.8506763059701492,
+                "precision": 0.22632674297606659,
+                "recall": 0.08129321622126705,
+                "f1_score": 0.11962051423071635,
+                "confusion_matrix": [
+                    [
+                        36042,
+                        1487
+                    ],
+                    [
+                        4916,
+                        435
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "841_Exathlon_id_32_Facility_tr_11663_1st_13482.csv": {
+        "file": "841_Exathlon_id_32_Facility_tr_11663_1st_13482.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1483499417681991,
+                "AUC-ROC": 0.6705547440994895,
+                "VUS-PR": 0.14132337978406173,
+                "VUS-ROC": 0.6890083209083755,
+                "Standard-F1": 0.19162464371848278,
+                "PA-F1": 0.526616648803144,
+                "Event-based-F1": 0.24801362088535733,
+                "R-based-F1": 0.15007216453836117,
+                "accuracy": 0.8412964876033058,
+                "precision": 0.14156138645934566,
+                "recall": 0.296472184531886,
+                "f1_score": 0.19162464371848278,
+                "confusion_matrix": [
+                    [
+                        38216,
+                        5300
+                    ],
+                    [
+                        2074,
+                        874
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "842_OPPORTUNITY_id_1_HumanActivity_tr_7295_1st_27516.csv": {
+        "file": "842_OPPORTUNITY_id_1_HumanActivity_tr_7295_1st_27516.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.007708156045721711,
+                "AUC-ROC": 0.3262385042375295,
+                "VUS-PR": 0.016276644497044187,
+                "VUS-ROC": 0.3983613408912183,
+                "Standard-F1": 0.007807925043919578,
+                "PA-F1": 0.12147984538928769,
+                "Event-based-F1": 0.00831082484936629,
+                "R-based-F1": 0.02098621925384633,
+                "accuracy": 0.8250619493392071,
+                "precision": 0.004172751929897768,
+                "recall": 0.06060606060606061,
+                "f1_score": 0.007807925043919578,
+                "confusion_matrix": [
+                    [
+                        23953,
+                        4773
+                    ],
+                    [
+                        310,
+                        20
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "843_OPPORTUNITY_id_2_HumanActivity_tr_808_1st_908.csv": {
+        "file": "843_OPPORTUNITY_id_2_HumanActivity_tr_808_1st_908.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.12186141808263953,
+                "AUC-ROC": 0.2180427420695561,
+                "VUS-PR": 0.1286321924141748,
+                "VUS-ROC": 0.246810263588378,
+                "Standard-F1": 0.09633357296908698,
+                "PA-F1": 0.6026385224274406,
+                "Event-based-F1": 0.1510710259301013,
+                "R-based-F1": 0.04157573755461633,
+                "accuracy": 0.7153532608695652,
+                "precision": 0.08170731707317073,
+                "recall": 0.11733800350262696,
+                "f1_score": 0.09633357296908698,
+                "confusion_matrix": [
+                    [
+                        6184,
+                        1506
+                    ],
+                    [
+                        1008,
+                        134
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "844_OPPORTUNITY_id_3_HumanActivity_tr_500_1st_566.csv": {
+        "file": "844_OPPORTUNITY_id_3_HumanActivity_tr_500_1st_566.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.09104914178529741,
+                "AUC-ROC": 0.5336394026780172,
+                "VUS-PR": 0.11511571460875222,
+                "VUS-ROC": 0.5812658591945371,
+                "Standard-F1": 0.1450381679389313,
+                "PA-F1": 0.3621044748174499,
+                "Event-based-F1": 0.16719628452701035,
+                "R-based-F1": 0.11075198172693734,
+                "accuracy": 0.7396694214876033,
+                "precision": 0.09122432648706322,
+                "recall": 0.3536711478800414,
+                "f1_score": 0.1450381679389313,
+                "confusion_matrix": [
+                    [
+                        11114,
+                        3407
+                    ],
+                    [
+                        625,
+                        342
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "845_OPPORTUNITY_id_4_HumanActivity_tr_7295_1st_27516.csv": {
+        "file": "845_OPPORTUNITY_id_4_HumanActivity_tr_7295_1st_27516.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.011668719186273642,
+                "AUC-ROC": 0.5114679131353921,
+                "VUS-PR": 0.024047534972444846,
+                "VUS-ROC": 0.5701205630378802,
+                "Standard-F1": 0.011507936507936509,
+                "PA-F1": 0.12357236472570679,
+                "Event-based-F1": 0.012238868959696125,
+                "R-based-F1": 0.02249435351910038,
+                "accuracy": 0.8285379955947136,
+                "precision": 0.0061571125265392785,
+                "recall": 0.08787878787878788,
+                "f1_score": 0.011507936507936509,
+                "confusion_matrix": [
+                    [
+                        24045,
+                        4681
+                    ],
+                    [
+                        301,
+                        29
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "846_OPPORTUNITY_id_5_HumanActivity_tr_2085_1st_2185.csv": {
+        "file": "846_OPPORTUNITY_id_5_HumanActivity_tr_2085_1st_2185.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.02782479198367396,
+                "AUC-ROC": 0.38227495743359097,
+                "VUS-PR": 0.03723046450138649,
+                "VUS-ROC": 0.4334552474519528,
+                "Standard-F1": 0.04933674656737259,
+                "PA-F1": 0.2581047381546135,
+                "Event-based-F1": 0.057437008940666376,
+                "R-based-F1": 0.0338552296525498,
+                "accuracy": 0.814453125,
+                "precision": 0.03046852543834435,
+                "recall": 0.1295843520782396,
+                "f1_score": 0.04933674656737259,
+                "confusion_matrix": [
+                    [
+                        17825,
+                        3373
+                    ],
+                    [
+                        712,
+                        106
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "847_OPPORTUNITY_id_6_HumanActivity_tr_808_1st_908.csv": {
+        "file": "847_OPPORTUNITY_id_6_HumanActivity_tr_808_1st_908.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.17483186437458673,
+                "AUC-ROC": 0.51181692511256,
+                "VUS-PR": 0.1782011819242647,
+                "VUS-ROC": 0.5295134129751715,
+                "Standard-F1": 0.1308980213089802,
+                "PA-F1": 0.6347971095052807,
+                "Event-based-F1": 0.2074788902291916,
+                "R-based-F1": 0.1659469177399912,
+                "accuracy": 0.7413949275362319,
+                "precision": 0.11574697173620457,
+                "recall": 0.15061295971978983,
+                "f1_score": 0.1308980213089802,
+                "confusion_matrix": [
+                    [
+                        6376,
+                        1314
+                    ],
+                    [
+                        970,
+                        172
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "848_OPPORTUNITY_id_7_HumanActivity_tr_1477_1st_1577.csv": {
+        "file": "848_OPPORTUNITY_id_7_HumanActivity_tr_1477_1st_1577.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0197218505254045,
+                "AUC-ROC": 0.5224065387911573,
+                "VUS-PR": 0.026013452501517875,
+                "VUS-ROC": 0.5752861206386275,
+                "Standard-F1": 0.02445302445302445,
+                "PA-F1": 0.2072992700729927,
+                "Event-based-F1": 0.027230383375134334,
+                "R-based-F1": 0.01202948608631679,
+                "accuracy": 0.8295863309352518,
+                "precision": 0.013803123864874683,
+                "recall": 0.10704225352112676,
+                "f1_score": 0.02445302445302445,
+                "confusion_matrix": [
+                    [
+                        14722,
+                        2715
+                    ],
+                    [
+                        317,
+                        38
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "849_OPPORTUNITY_id_8_HumanActivity_tr_1100_1st_1200.csv": {
+        "file": "849_OPPORTUNITY_id_8_HumanActivity_tr_1100_1st_1200.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.026593747614404854,
+                "AUC-ROC": 0.42870151794139233,
+                "VUS-PR": 0.04029616965941895,
+                "VUS-ROC": 0.4921510015533764,
+                "Standard-F1": 0.06490787269681741,
+                "PA-F1": 0.23254924459743737,
+                "Event-based-F1": 0.07170946102243804,
+                "R-based-F1": 0.03896483418696299,
+                "accuracy": 0.8192195595854922,
+                "precision": 0.03718809980806142,
+                "recall": 0.25493421052631576,
+                "f1_score": 0.06490787269681741,
+                "confusion_matrix": [
+                    [
+                        20083,
+                        4013
+                    ],
+                    [
+                        453,
+                        155
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "850_OPPORTUNITY_id_9_HumanActivity_tr_895_1st_995.csv": {
+        "file": "850_OPPORTUNITY_id_9_HumanActivity_tr_895_1st_995.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.02821419956441527,
+                "AUC-ROC": 0.4599033914610517,
+                "VUS-PR": 0.03323654269776936,
+                "VUS-ROC": 0.5002667022072935,
+                "Standard-F1": 0.02732422525824725,
+                "PA-F1": 0.2577987051206592,
+                "Event-based-F1": 0.03149001536098307,
+                "R-based-F1": 0.021139176339351706,
+                "accuracy": 0.7999588815789473,
+                "precision": 0.015996878657822865,
+                "recall": 0.09360730593607305,
+                "f1_score": 0.02732422525824725,
+                "confusion_matrix": [
+                    [
+                        11632,
+                        2522
+                    ],
+                    [
+                        397,
+                        41
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "851_OPPORTUNITY_id_10_HumanActivity_tr_6213_1st_7311.csv": {
+        "file": "851_OPPORTUNITY_id_10_HumanActivity_tr_6213_1st_7311.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.02974574639470761,
+                "AUC-ROC": 0.41259511342393695,
+                "VUS-PR": 0.03623496956259523,
+                "VUS-ROC": 0.43670489849279637,
+                "Standard-F1": 0.02677313292625646,
+                "PA-F1": 0.3437808003153952,
+                "Event-based-F1": 0.03311065930874234,
+                "R-based-F1": 0.0863045007417601,
+                "accuracy": 0.8322538860103627,
+                "precision": 0.01683402244536326,
+                "recall": 0.06536697247706422,
+                "f1_score": 0.02677313292625646,
+                "confusion_matrix": [
+                    [
+                        20503,
+                        3329
+                    ],
+                    [
+                        815,
+                        57
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "852_OPPORTUNITY_id_11_HumanActivity_tr_500_1st_566.csv": {
+        "file": "852_OPPORTUNITY_id_11_HumanActivity_tr_500_1st_566.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.07290158601496938,
+                "AUC-ROC": 0.4523004767121496,
+                "VUS-PR": 0.1056469018650359,
+                "VUS-ROC": 0.500809367682772,
+                "Standard-F1": 0.14583898075359175,
+                "PA-F1": 0.44084795988146797,
+                "Event-based-F1": 0.17987295218990287,
+                "R-based-F1": 0.13623647270392916,
+                "accuracy": 0.7965521694214877,
+                "precision": 0.0988243938280676,
+                "recall": 0.2781799379524302,
+                "f1_score": 0.14583898075359175,
+                "confusion_matrix": [
+                    [
+                        12068,
+                        2453
+                    ],
+                    [
+                        698,
+                        269
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "853_OPPORTUNITY_id_12_HumanActivity_tr_808_1st_908.csv": {
+        "file": "853_OPPORTUNITY_id_12_HumanActivity_tr_808_1st_908.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1144314126440132,
+                "AUC-ROC": 0.46101448648254717,
+                "VUS-PR": 0.12290831412004866,
+                "VUS-ROC": 0.4836035806065967,
+                "Standard-F1": 0.09293193717277487,
+                "PA-F1": 0.5631163708086785,
+                "Event-based-F1": 0.1381322957198442,
+                "R-based-F1": 0.21900949707347686,
+                "accuracy": 0.686141304347826,
+                "precision": 0.0741901776384535,
+                "recall": 0.1243432574430823,
+                "f1_score": 0.09293193717277487,
+                "confusion_matrix": [
+                    [
+                        5918,
+                        1772
+                    ],
+                    [
+                        1000,
+                        142
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "854_OPPORTUNITY_id_13_HumanActivity_tr_1477_1st_1577.csv": {
+        "file": "854_OPPORTUNITY_id_13_HumanActivity_tr_1477_1st_1577.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.02453004899519031,
+                "AUC-ROC": 0.42040181676167,
+                "VUS-PR": 0.035629121603011835,
+                "VUS-ROC": 0.4926707888185518,
+                "Standard-F1": 0.0410035068788778,
+                "PA-F1": 0.17812343201204214,
+                "Event-based-F1": 0.04434072345390893,
+                "R-based-F1": 0.03563574504890965,
+                "accuracy": 0.8001910971223022,
+                "precision": 0.022673031026252982,
+                "recall": 0.2140845070422535,
+                "f1_score": 0.0410035068788778,
+                "confusion_matrix": [
+                    [
+                        14161,
+                        3276
+                    ],
+                    [
+                        279,
+                        76
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "855_OPPORTUNITY_id_14_HumanActivity_tr_808_1st_908.csv": {
+        "file": "855_OPPORTUNITY_id_14_HumanActivity_tr_808_1st_908.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.12470011582648588,
+                "AUC-ROC": 0.460041243546444,
+                "VUS-PR": 0.125732682894689,
+                "VUS-ROC": 0.47475543044837587,
+                "Standard-F1": 0.10121765601217655,
+                "PA-F1": 0.6279901017321968,
+                "Event-based-F1": 0.1642989499691166,
+                "R-based-F1": 0.16550837275384564,
+                "accuracy": 0.7325634057971014,
+                "precision": 0.08950201884253028,
+                "recall": 0.11646234676007006,
+                "f1_score": 0.10121765601217655,
+                "confusion_matrix": [
+                    [
+                        6337,
+                        1353
+                    ],
+                    [
+                        1009,
+                        133
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "856_OPPORTUNITY_id_15_HumanActivity_tr_808_1st_908.csv": {
+        "file": "856_OPPORTUNITY_id_15_HumanActivity_tr_808_1st_908.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1343503648603717,
+                "AUC-ROC": 0.5121346211218882,
+                "VUS-PR": 0.13575987430987135,
+                "VUS-ROC": 0.5262030559926528,
+                "Standard-F1": 0.07815552950371239,
+                "PA-F1": 0.6342682588169953,
+                "Event-based-F1": 0.1318391562294,
+                "R-based-F1": 0.15422151196125553,
+                "accuracy": 0.7329030797101449,
+                "precision": 0.07057163020465773,
+                "recall": 0.08756567425569177,
+                "f1_score": 0.07815552950371239,
+                "confusion_matrix": [
+                    [
+                        6373,
+                        1317
+                    ],
+                    [
+                        1042,
+                        100
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "857_OPPORTUNITY_id_16_HumanActivity_tr_500_1st_566.csv": {
+        "file": "857_OPPORTUNITY_id_16_HumanActivity_tr_500_1st_566.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.07454821114959488,
+                "AUC-ROC": 0.4879799302183829,
+                "VUS-PR": 0.11313677454320632,
+                "VUS-ROC": 0.5341199615561385,
+                "Standard-F1": 0.0851472471190781,
+                "PA-F1": 0.48863062152602327,
+                "Event-based-F1": 0.11615720524017456,
+                "R-based-F1": 0.12073094682000682,
+                "accuracy": 0.815470041322314,
+                "precision": 0.061659712563745944,
+                "recall": 0.1375387797311272,
+                "f1_score": 0.0851472471190781,
+                "confusion_matrix": [
+                    [
+                        12497,
+                        2024
+                    ],
+                    [
+                        834,
+                        133
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "858_OPPORTUNITY_id_17_HumanActivity_tr_808_1st_908.csv": {
+        "file": "858_OPPORTUNITY_id_17_HumanActivity_tr_808_1st_908.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.16305067130443596,
+                "AUC-ROC": 0.4332316857929533,
+                "VUS-PR": 0.19298485837928062,
+                "VUS-ROC": 0.4633163655095263,
+                "Standard-F1": 0.15723873441994246,
+                "PA-F1": 0.5674534161490683,
+                "Event-based-F1": 0.22033139274518562,
+                "R-based-F1": 0.16172237072776996,
+                "accuracy": 0.7014266304347826,
+                "precision": 0.12380473074987418,
+                "recall": 0.21541155866900175,
+                "f1_score": 0.15723873441994246,
+                "confusion_matrix": [
+                    [
+                        5949,
+                        1741
+                    ],
+                    [
+                        896,
+                        246
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "859_OPPORTUNITY_id_18_HumanActivity_tr_895_1st_995.csv": {
+        "file": "859_OPPORTUNITY_id_18_HumanActivity_tr_895_1st_995.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.03027864622933287,
+                "AUC-ROC": 0.5303931702350465,
+                "VUS-PR": 0.035328939572822474,
+                "VUS-ROC": 0.5740418659689233,
+                "Standard-F1": 0.01982815598149372,
+                "PA-F1": 0.25509609784507864,
+                "Event-based-F1": 0.022918258212375836,
+                "R-based-F1": 0.042278775677121024,
+                "accuracy": 0.7967379385964912,
+                "precision": 0.011591962905718702,
+                "recall": 0.0684931506849315,
+                "f1_score": 0.01982815598149372,
+                "confusion_matrix": [
+                    [
+                        11596,
+                        2558
+                    ],
+                    [
+                        408,
+                        30
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "860_OPPORTUNITY_id_19_HumanActivity_tr_808_1st_908.csv": {
+        "file": "860_OPPORTUNITY_id_19_HumanActivity_tr_808_1st_908.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.10762218650512075,
+                "AUC-ROC": 0.43939737963420544,
+                "VUS-PR": 0.11188919958555751,
+                "VUS-ROC": 0.45421955469871367,
+                "Standard-F1": 0.09905316824471959,
+                "PA-F1": 0.6087420042643923,
+                "Event-based-F1": 0.1563218390804596,
+                "R-based-F1": 0.1467749570144222,
+                "accuracy": 0.7198822463768116,
+                "precision": 0.08478802992518704,
+                "recall": 0.1190893169877408,
+                "f1_score": 0.09905316824471959,
+                "confusion_matrix": [
+                    [
+                        6222,
+                        1468
+                    ],
+                    [
+                        1006,
+                        136
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "861_OPPORTUNITY_id_20_HumanActivity_tr_2085_1st_2185.csv": {
+        "file": "861_OPPORTUNITY_id_20_HumanActivity_tr_2085_1st_2185.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.031246480941512497,
+                "AUC-ROC": 0.3911102698944473,
+                "VUS-PR": 0.04310002259496774,
+                "VUS-ROC": 0.4426862802096189,
+                "Standard-F1": 0.05089820359281437,
+                "PA-F1": 0.2398609501738123,
+                "Event-based-F1": 0.05810546874999989,
+                "R-based-F1": 0.05577841771990881,
+                "accuracy": 0.7984193313953488,
+                "precision": 0.03084499740798341,
+                "recall": 0.14547677261613692,
+                "f1_score": 0.05089820359281437,
+                "confusion_matrix": [
+                    [
+                        17459,
+                        3739
+                    ],
+                    [
+                        699,
+                        119
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "862_OPPORTUNITY_id_21_HumanActivity_tr_500_1st_566.csv": {
+        "file": "862_OPPORTUNITY_id_21_HumanActivity_tr_500_1st_566.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.07275402297501316,
+                "AUC-ROC": 0.4870802596845264,
+                "VUS-PR": 0.10944202974065015,
+                "VUS-ROC": 0.5310194256245103,
+                "Standard-F1": 0.07979407979407979,
+                "PA-F1": 0.4117521822439855,
+                "Event-based-F1": 0.10087862024080692,
+                "R-based-F1": 0.12635844049813927,
+                "accuracy": 0.7691761363636364,
+                "precision": 0.05311857436600411,
+                "recall": 0.16028955532574973,
+                "f1_score": 0.07979407979407979,
+                "confusion_matrix": [
+                    [
+                        11758,
+                        2763
+                    ],
+                    [
+                        812,
+                        155
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "863_OPPORTUNITY_id_22_HumanActivity_tr_808_1st_908.csv": {
+        "file": "863_OPPORTUNITY_id_22_HumanActivity_tr_808_1st_908.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.13350724073641923,
+                "AUC-ROC": 0.24576234516589654,
+                "VUS-PR": 0.14144415591367893,
+                "VUS-ROC": 0.2690337080336643,
+                "Standard-F1": 0.15276073619631902,
+                "PA-F1": 0.5499638815314231,
+                "Event-based-F1": 0.21039290240811132,
+                "R-based-F1": 0.06746032344574396,
+                "accuracy": 0.6872735507246377,
+                "precision": 0.11756373937677053,
+                "recall": 0.2180385288966725,
+                "f1_score": 0.15276073619631902,
+                "confusion_matrix": [
+                    [
+                        5821,
+                        1869
+                    ],
+                    [
+                        893,
+                        249
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "864_OPPORTUNITY_id_23_HumanActivity_tr_895_1st_995.csv": {
+        "file": "864_OPPORTUNITY_id_23_HumanActivity_tr_895_1st_995.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.041628494655895305,
+                "AUC-ROC": 0.5223766552269459,
+                "VUS-PR": 0.05480827107639747,
+                "VUS-ROC": 0.5831855745667703,
+                "Standard-F1": 0.11177525403466826,
+                "PA-F1": 0.24353628023352794,
+                "Event-based-F1": 0.12084006462035528,
+                "R-based-F1": 0.04917379839007817,
+                "accuracy": 0.7963267543859649,
+                "precision": 0.06430536451169189,
+                "recall": 0.4269406392694064,
+                "f1_score": 0.11177525403466826,
+                "confusion_matrix": [
+                    [
+                        11433,
+                        2721
+                    ],
+                    [
+                        251,
+                        187
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "865_OPPORTUNITY_id_24_HumanActivity_tr_2085_1st_2185.csv": {
+        "file": "865_OPPORTUNITY_id_24_HumanActivity_tr_2085_1st_2185.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.08614365922257818,
+                "AUC-ROC": 0.48633105581995445,
+                "VUS-PR": 0.09351134157769161,
+                "VUS-ROC": 0.5236432901602748,
+                "Standard-F1": 0.10180995475113122,
+                "PA-F1": 0.25789036544850497,
+                "Event-based-F1": 0.1110562685093779,
+                "R-based-F1": 0.04736475536589945,
+                "accuracy": 0.8196765988372093,
+                "precision": 0.06246529705719045,
+                "recall": 0.27506112469437655,
+                "f1_score": 0.10180995475113122,
+                "confusion_matrix": [
+                    [
+                        17821,
+                        3377
+                    ],
+                    [
+                        593,
+                        225
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "866_OPPORTUNITY_id_25_HumanActivity_tr_6213_1st_7311.csv": {
+        "file": "866_OPPORTUNITY_id_25_HumanActivity_tr_6213_1st_7311.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.029594569180150257,
+                "AUC-ROC": 0.4537602764458242,
+                "VUS-PR": 0.03317681139105337,
+                "VUS-ROC": 0.47444849097736747,
+                "Standard-F1": 0.030232063018948267,
+                "PA-F1": 0.31720625682066206,
+                "Event-based-F1": 0.036447638603696056,
+                "R-based-F1": 0.07707649091453532,
+                "accuracy": 0.8156169041450777,
+                "precision": 0.018562091503267975,
+                "recall": 0.08142201834862385,
+                "f1_score": 0.030232063018948267,
+                "confusion_matrix": [
+                    [
+                        20078,
+                        3754
+                    ],
+                    [
+                        801,
+                        71
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "867_OPPORTUNITY_id_26_HumanActivity_tr_808_1st_908.csv": {
+        "file": "867_OPPORTUNITY_id_26_HumanActivity_tr_808_1st_908.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.12347546679960424,
+                "AUC-ROC": 0.45207686649252216,
+                "VUS-PR": 0.12253837364756526,
+                "VUS-ROC": 0.4712910413164768,
+                "Standard-F1": 0.08440170940170941,
+                "PA-F1": 0.48307952622673433,
+                "Event-based-F1": 0.11449275362318827,
+                "R-based-F1": 0.19304761420326716,
+                "accuracy": 0.6118659420289855,
+                "precision": 0.06072252113758647,
+                "recall": 0.138353765323993,
+                "f1_score": 0.08440170940170941,
+                "confusion_matrix": [
+                    [
+                        5246,
+                        2444
+                    ],
+                    [
+                        984,
+                        158
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "868_OPPORTUNITY_id_27_HumanActivity_tr_2085_1st_2185.csv": {
+        "file": "868_OPPORTUNITY_id_27_HumanActivity_tr_2085_1st_2185.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.03434919528573892,
+                "AUC-ROC": 0.3741071204069397,
+                "VUS-PR": 0.04406090313970621,
+                "VUS-ROC": 0.42597004957664464,
+                "Standard-F1": 0.08128498418106596,
+                "PA-F1": 0.27218934911242604,
+                "Event-based-F1": 0.09213793103448259,
+                "R-based-F1": 0.050148478970889844,
+                "accuracy": 0.8285337936046512,
+                "precision": 0.05074445457307809,
+                "recall": 0.2041564792176039,
+                "f1_score": 0.08128498418106596,
+                "confusion_matrix": [
+                    [
+                        18074,
+                        3124
+                    ],
+                    [
+                        651,
+                        167
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "869_OPPORTUNITY_id_28_HumanActivity_tr_500_1st_566.csv": {
+        "file": "869_OPPORTUNITY_id_28_HumanActivity_tr_500_1st_566.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.07285119871576154,
+                "AUC-ROC": 0.44535813659880097,
+                "VUS-PR": 0.11372995886286166,
+                "VUS-ROC": 0.49390772363498764,
+                "Standard-F1": 0.09326424870466321,
+                "PA-F1": 0.45197476045805096,
+                "Event-based-F1": 0.12139378044211303,
+                "R-based-F1": 0.16015368445250536,
+                "accuracy": 0.79661673553719,
+                "precision": 0.06461906661348225,
+                "recall": 0.16752843846949328,
+                "f1_score": 0.09326424870466321,
+                "confusion_matrix": [
+                    [
+                        12176,
+                        2345
+                    ],
+                    [
+                        805,
+                        162
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "870_OPPORTUNITY_id_29_HumanActivity_tr_1477_1st_1577.csv": {
+        "file": "870_OPPORTUNITY_id_29_HumanActivity_tr_1477_1st_1577.csv",
+        "thresholds": [
+            {
+                "q_low": 0.05,
+                "q_high": 0.95,
+                "range": "0.05-0.95"
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.019194468513257033,
+                "AUC-ROC": 0.5060522912666686,
+                "VUS-PR": 0.028160411973755923,
+                "VUS-ROC": 0.5718613467707425,
+                "Standard-F1": 0.04293381037567084,
+                "PA-F1": 0.195215837228485,
+                "Event-based-F1": 0.04689026375773359,
+                "R-based-F1": 0.05951327678604649,
+                "accuracy": 0.8195818345323741,
+                "precision": 0.02400800266755585,
+                "recall": 0.2028169014084507,
+                "f1_score": 0.04293381037567084,
+                "confusion_matrix": [
+                    [
+                        14510,
+                        2927
+                    ],
+                    [
+                        283,
+                        72
+                    ]
+                ],
+                "thresholds": {
+                    "q_low": 0.05,
+                    "q_high": 0.95,
+                    "range": "0.05-0.95"
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 128,
+        "step_size": 128,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
     }
 }
