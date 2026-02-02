@@ -29644,5 +29644,188 @@
         ],
         "use_restricted_dataset": false,
         "colab": false
+    },
+    "487_UCR_id_185_Medical_tr_49938_1st_191200.csv": {
+        "file": "487_UCR_id_185_Medical_tr_49938_1st_191200.csv",
+        "thresholds": [
+            {
+                "ensemble_horizons": [
+                    1,
+                    8,
+                    32,
+                    64
+                ]
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0017982761056064222,
+                "AUC-ROC": 0.36384119307338436,
+                "VUS-PR": 0.002000251343759177,
+                "VUS-ROC": 0.40037159083388774,
+                "Standard-F1": 0.0028623222974906975,
+                "PA-F1": 0.09119095385737735,
+                "Event-based-F1": 0.003001200480192074,
+                "R-based-F1": 0.007697545000815895,
+                "accuracy": 0.9476444773966015,
+                "precision": 0.0015028554253080854,
+                "recall": 0.03,
+                "f1_score": 0.0028623222974906975,
+                "confusion_matrix": [
+                    [
+                        189150,
+                        9966
+                    ],
+                    [
+                        485,
+                        15
+                    ]
+                ],
+                "horizons": {
+                    "ensemble_horizons": [
+                        1,
+                        8,
+                        32,
+                        64
+                    ]
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "488_UCR_id_186_Medical_tr_7500_1st_16000.csv": {
+        "file": "488_UCR_id_186_Medical_tr_7500_1st_16000.csv",
+        "thresholds": [
+            {
+                "ensemble_horizons": [
+                    1,
+                    8,
+                    32,
+                    64
+                ]
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0038589087467950835,
+                "AUC-ROC": 0.4972730629783806,
+                "VUS-PR": 0.004705666371666405,
+                "VUS-ROC": 0.5791141884629939,
+                "Standard-F1": 0.005015673981191223,
+                "PA-F1": 0.11827321111768184,
+                "Event-based-F1": 0.005336891260840554,
+                "R-based-F1": 0.005859769650434432,
+                "accuracy": 0.9469017665952891,
+                "precision": 0.0026755852842809363,
+                "recall": 0.04,
+                "f1_score": 0.005015673981191223,
+                "confusion_matrix": [
+                    [
+                        28297,
+                        1491
+                    ],
+                    [
+                        96,
+                        4
+                    ]
+                ],
+                "horizons": {
+                    "ensemble_horizons": [
+                        1,
+                        8,
+                        32,
+                        64
+                    ]
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
+    },
+    "489_UCR_id_187_Medical_tr_1875_1st_4485.csv": {
+        "file": "489_UCR_id_187_Medical_tr_1875_1st_4485.csv",
+        "thresholds": [
+            {
+                "ensemble_horizons": [
+                    1,
+                    8,
+                    32,
+                    64
+                ]
+            }
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.017109771170536997,
+                "AUC-ROC": 0.5954146607664835,
+                "VUS-PR": 0.02167902423883082,
+                "VUS-ROC": 0.6692437136726352,
+                "Standard-F1": 0.00851063829787234,
+                "PA-F1": 0.35789473684210527,
+                "Event-based-F1": 0.0108108108108108,
+                "R-based-F1": 0.06528189910979229,
+                "accuracy": 0.9366847826086957,
+                "precision": 0.005434782608695652,
+                "recall": 0.0196078431372549,
+                "f1_score": 0.00851063829787234,
+                "confusion_matrix": [
+                    [
+                        6892,
+                        366
+                    ],
+                    [
+                        100,
+                        2
+                    ]
+                ],
+                "horizons": {
+                    "ensemble_horizons": [
+                        1,
+                        8,
+                        32,
+                        64
+                    ]
+                }
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false
     }
 }
