@@ -376,7 +376,7 @@ def main(configuration:dict, name:str)->None:
             with open(os.path.join(out_initial_path, save_path), 'w', encoding='utf-8') as f:
                 existing_results[filename] = {**result, **configuration}
                 json_dump(existing_results, f, indent=4)
-                print(f"Results saved for {filename}")
+                print(f"\nResults saved for {filename}\n")
 
 
 if __name__ == "__main__":
