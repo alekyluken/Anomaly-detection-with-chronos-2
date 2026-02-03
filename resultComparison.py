@@ -15,6 +15,8 @@ def computeFileStats(file: str) -> dict[str, float]:
         with open(file, "r", encoding="utf-8") as f:
             results = json_load(f)
 
+        # results = dict(filter(lambda x: x[0].split("_")[1]=="MSL", results.items()))
+
         return {
             key: [
                 np.mean([results[run]['metrics'][0][key] for run in results.keys() if isinstance(results[run]['metrics'][0][key], float)]),
