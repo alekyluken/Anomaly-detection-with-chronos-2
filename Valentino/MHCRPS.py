@@ -170,8 +170,8 @@ def computeMultiHorizonAnomalyScore(predictions_df, actual_values_full, predicti
     """Compute multi-horizon anomaly scores using CRPS"""
     all_horizon_crps = []
     cols = predictions_df.columns.tolist()
-    quantile_cols = [col for col in cols if col not in ['item_id', 'timestamp']]
-    quantiles = np.array([float(col) for col in quantile_cols])
+    quantile_cols = [col for col in cols if '.' in col]
+    quantiles = np.array([float(col) for col in quantile_cols if "." in col])
     
     for h in horizons:
         idx_to_check = prediction_indices + (h - 1)
@@ -334,7 +334,7 @@ def main(configuration:dict, name:str)->None:
         except Exception as e:
             tqdm.write(f"Error processing file {filename}: {e}")
             continue
-        
+            
         if result is not None:
             with open(os.path.join(out_initial_path, save_path), 'w', encoding='utf-8') as f:
                 existing_results[filename] = {**result, **configuration}
