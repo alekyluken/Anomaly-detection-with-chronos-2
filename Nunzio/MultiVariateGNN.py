@@ -245,10 +245,34 @@ def evaluateGrangerCausality(X: np.ndarray, max_lag: int = 3, alpha: float = 1.0
     return W / row_sums
 
 
+def evaluateMatrixViaChronos2Encodings(df: pd.DataFrame, chronos2: Chronos2Pipeline, aggregation: str = "topk_mean") -> np.ndarray:
+    """
+    Evaluate pairwise relationships between variables using Chronos-2 encodings.
+    
+    Args:
+        df (pd.DataFrame): Input data of shape (T, D)
+        chronos2 (Chronos2Pipeline): Pretrained Chronos-2 pipeline for embeddings
+        aggregation (str): Method to aggregate patch embeddings ('mean', 'max', 'topk_mean', etc.)
+    
+    Returns:
+        np.ndarray: Matrix of shape (D, D) representing relationships between variables
+    """
+    emb, _ = chronos2.embed(inputs=torch.tensor(np.expand_dims(df.values.T, axis=0), dtype=torch.float32), batch_size=1)
+
+    match aggregation:
+        case "max": emb_agg = emb[0].max(dim=1).values  # (D, d_model)
+        case "last": emb_agg = emb[0][:, -2, :]  # (D, d_model)
+        case "first": emb_agg = emb[0][:, 1, :]  # (D, d_model)
+        case "topk_mean": emb_agg = emb[0].topk(k=int(np.log2(emb[0].shape[1])), dim=1).values.mean(dim=1)  # (D, d_model)
+        case _ : emb_agg = emb[0].mean(dim=1)  # Default to mean
+
+    similarity_matrix = (torch.nn.functional.cosine_similarity(emb_agg.unsqueeze(1), emb_agg.unsqueeze(0), dim=-1)+1) / 2
+    similarity_matrix.fill_diagonal_(0)  # Set diagonal to 0 to ignore self-similarity
+    return similarity_matrix.cpu().numpy()
 
 
 def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], pastData: pd.DataFrame, grouping: pd.Series, howToEvaluate_u: str = 'sum_CRPS', percentile: float = 95.0,
-                                    beta: float = 0.15)-> tuple[np.ndarray, np.ndarray]:
+                                    beta: float = 0.15, chronos2:Chronos2Pipeline=None)-> tuple[np.ndarray, np.ndarray]:
     """
     Aggregate anomaly scores across multiple horizons and determine thresholds
     
@@ -272,7 +296,8 @@ def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], p
 
     for item in sorted(grouping[grouping >= 0].unique().tolist()):
         # PT = evaluateGrangerCausality(pastData.loc[groupingExtended == item, :].values, max_lag=3)
-        PT = np.abs(pastData.loc[groupingExtended <= item, :].corr('spearman').fillna(0).values) 
+        # PT = np.abs(pastData.loc[groupingExtended <= item, :].corr('spearman').fillna(0).values)
+        PT = evaluateMatrixViaChronos2Encodings(pastData.loc[groupingExtended == item, :], chronos2=chronos2)
         PT = (PT / (PT.sum(axis=1, keepdims=True)+1e-6)).T
         z = np.ones(PT.shape[0]) / PT.shape[0]
 
@@ -347,7 +372,8 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
         )
 
     continuosAnomalyScores, discreteAnomalyScores = aggregateAnomalyScoresViaPageRank(continuousScores=continuousScores, pastData=time_series_df, grouping = predictions_df['item_id'], 
-                                    howToEvaluate_u=configuration.get('howToEvaluate_u', 'sum_CRPS'), percentile=configuration.get('percentile', 95))
+                                    howToEvaluate_u=configuration.get('howToEvaluate_u', 'sum_CRPS'), percentile=configuration.get('percentile', 95),
+                                    chronos2=pipeline)
 
     # Calculate metrics
     return {
