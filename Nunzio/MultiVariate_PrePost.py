@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import argparse
 
-
+from sklearn.linear_model import Ridge
 from chronos import Chronos2Pipeline
 
 # Ensure project root is on sys.path so local packages resolve when running as a script
@@ -165,7 +165,7 @@ def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chron
 
 
 def computeMultiHorizonAnomalyScore(predictions_df: pd.DataFrame, actual_values: np.ndarray, prediction_indices: np.ndarray,
-                                    horizons: list[int] = [32, 64], quantile_col: str = 'predictions'):
+                                    horizons: list[int] = [1, 8, 32, 64], quantile_col: str = 'predictions'):
     """
     Compute multi-horizon anomaly scores using prediction errors across multiple forecast horizons.
     
@@ -202,27 +202,101 @@ def computeMultiHorizonAnomalyScore(predictions_df: pd.DataFrame, actual_values:
     return np.max(all_horizon_scores, axis=0)  # [cite: 829]
 
 
-def aggregateAnomalyScores(continuousScores: dict[str, np.ndarray], aggregation_method: str = 'mean', 
-                        percentile: float = 95.0):
+def evaluateGrangerCausality(X: np.ndarray, max_lag: int = 3, alpha: float = 1.0):
+    """
+    Evaluate Granger causality using Ridge regression for dense data.
+    
+    Args:
+        X (np.ndarray): Time series data of shape (T, D) where T is time
+        max_lag (int): Maximum lag to consider
+        alpha (float): Regularization strength for Ridge regression
+    
+    Returns:
+            np.ndarray: Granger causality matrix of shape (D, D)
+    """
+    T, D = X.shape
+    n = T - max_lag
+
+    X_lag = np.zeros((n, D * max_lag))
+    for d in range(D):
+        for l in range(max_lag):
+            X_lag[:, d*max_lag + l] = X[max_lag-l-1:T-l-1, d]
+
+    W = np.zeros((D, D))
+
+    for j in range(D):
+        y = X[max_lag:, j]
+        X_j = X_lag[:, j*max_lag:(j+1)*max_lag]
+
+        reg_r = Ridge(alpha=alpha, fit_intercept=False).fit(X_j, y)
+        rss_r = np.sum((y - reg_r.predict(X_j))**2)
+
+        for i in range(D):
+            if i == j:
+                continue
+
+            X_ij = np.hstack([X_j, X_lag[:, i*max_lag:(i+1)*max_lag]])
+            rss_f = np.sum((y - Ridge(alpha=alpha, fit_intercept=False).fit(X_ij, y).predict(X_ij))**2)
+
+            W[i, j] = max(rss_r - rss_f, 0)
+
+    row_sums = W.sum(axis=1, keepdims=True)
+    row_sums[row_sums == 0] = 1
+    return W / row_sums
+
+
+
+
+def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], pastData: pd.DataFrame, grouping: pd.Series, howToEvaluate_u: str = 'sum_CRPS', percentile: float = 95.0,
+                                    beta: float = 0.15)-> tuple[np.ndarray, np.ndarray]:
     """
     Aggregate anomaly scores across multiple horizons and determine thresholds
     
     Args:
-        continuousScores: Dictionary of anomaly scores for each target column
+        continuousScores(dict[str, np.ndarray]): Dictionary with keys as target columns and values as arrays of anomaly scores for each prediction
+        pastData (pd.DataFrame): DataFrame with historical data (used for Granger causality)
+        grouping (pd.Series): Series indicating group/item for each prediction (e.g., item_id)
+        howToEvaluate_u (str): Method to evaluate utility for PageRank aggregation (e.g., 'sum_CRPS', )
+        percentile (float): Percentile to determine threshold for binary classification
+        beta (float): Damping factor for PageRank algorithm (default 0.15)
     
     Returns:
         - continuosAnomalyScores: List of aggregated anomaly scores
         - discreteAnomalyScores: List of binary anomaly predictions based on thresholds
     """
-    if not continuousScores:
-        return np.array([]), []
-    
-    match aggregation_method.lower():
-        case 'max': aggregated_scores = np.max(np.column_stack(list(continuousScores.values())), axis=1)
-        case 'sum': aggregated_scores = np.sum(np.column_stack(list(continuousScores.values())), axis=1)
-        case _:     aggregated_scores = np.mean(np.column_stack(list(continuousScores.values())), axis=1)
-    
-    return aggregated_scores, (aggregated_scores > np.percentile(aggregated_scores, percentile)).astype(np.int8)
+    pastData = pastData.copy().drop(columns=['timestamp', 'item_id'], inplace=False, errors='ignore')
+    groupingExtended = pd.concat([grouping, pd.Series([max(grouping)+2]*(len(pastData) - len(grouping)))], ignore_index=True).astype(int)
+
+    enumVal = dict(enumerate(pastData.columns.tolist())) 
+    scores = []
+
+    for item in sorted(grouping[grouping >= 0].unique().tolist()):
+        # PT = evaluateGrangerCausality(pastData.loc[groupingExtended == item, :].values, max_lag=3)
+        PT = np.abs(pastData.loc[groupingExtended <= item, :].corr('spearman').fillna(0).values) 
+        PT = (PT / (PT.sum(axis=1, keepdims=True)+1e-6)).T
+        z = np.ones(PT.shape[0]) / PT.shape[0]
+
+        itemMaskIndex = pastData.index[groupingExtended == item]
+
+        match howToEvaluate_u.lower().strip():
+            case 'sum_crps': u = np.array([np.sum(continuousScores[enumVal[i]][itemMaskIndex]) for i in range(PT.shape[0])])
+            case 'surprise' | 'likelihood': u = np.array([np.max((continuousScores[enumVal[i]][itemMaskIndex] - np.mean(continuousScores[enumVal[i]][pastData.index[groupingExtended <= item]])) / (np.std(continuousScores[enumVal[i]][pastData.index[groupingExtended <= item]]) + 1e-6) ) for i in range(PT.shape[0])])
+            case _ : 
+                u = np.array([np.sum(continuousScores[enumVal[i]][itemMaskIndex]) for i in range(PT.shape[0])])
+                u = u + 0.5*PT.T @ u
+        u, PT = beta*(u / np.sum(u) if np.sum(u) > 0 else np.ones_like(u) / len(u)), (1-beta) * PT
+
+        # PageRank iteration
+        for _ in range(1_000):
+            z_new =  PT @ z + u
+            if np.linalg.norm(z_new - z, 1) < 1e-6:
+                break
+            z = z_new
+
+        scores.extend(z @ np.array([continuousScores[enumVal[i]][itemMaskIndex] for i in range(PT.shape[0])]))
+
+    continuosAnomalyScores = np.array(scores)
+    return continuosAnomalyScores, (continuosAnomalyScores >= np.percentile(continuosAnomalyScores, percentile)).astype(int)
 
 
 def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration: dict):
@@ -272,8 +346,8 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
             horizons=horizons
         )
 
-    continuosAnomalyScores, discreteAnomalyScores = aggregateAnomalyScores(continuousScores=continuousScores, 
-                                    aggregation_method=configuration.get('aggregation_method', 'max'), percentile=configuration.get('percentile', 95))
+    continuosAnomalyScores, discreteAnomalyScores = aggregateAnomalyScoresViaPageRank(continuousScores=continuousScores, pastData=time_series_df, grouping = predictions_df['item_id'], 
+                                    howToEvaluate_u=configuration.get('howToEvaluate_u', 'sum_CRPS'), percentile=configuration.get('percentile', 95))
 
     # Calculate metrics
     return {
@@ -295,6 +369,7 @@ def main(configuration:dict, name:str)->None:
     """Main execution function"""
     # Configuration
     data_path = "./TSB-AD-M/" 
+    # data_path = './Nunzio/provaData/multivariate/'
     out_initial_path = f"./results/{name}/MultiVariate/"
 
     os.makedirs(out_initial_path, exist_ok=True)
@@ -312,7 +387,7 @@ def main(configuration:dict, name:str)->None:
         existing_results = {}
 
     # Process datasets
-    dataset_files = sorted(pd.read_csv("test_files_U.csv")["name"].tolist()) if configuration.get('use_restricted_dataset', True) else sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
+    dataset_files = sorted(pd.read_csv("test_files_M.csv")["name"].tolist()) if configuration.get('use_restricted_dataset', True) else sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
 
     if all(fname in existing_results for fname in dataset_files):
         existing_results = {}
@@ -336,8 +411,8 @@ def main(configuration:dict, name:str)->None:
             )
         except Exception as e:
             tqdm.write(f"Error processing file {filename}: {e}")
-            # raise e
-            continue
+            raise e
+            # continue
         
         if result is not None:
             with open(os.path.join(out_initial_path, save_path), 'w', encoding='utf-8') as f:
@@ -349,7 +424,7 @@ def main(configuration:dict, name:str)->None:
 if __name__ == "__main__":
     args = argparse.ArgumentParser(description="Run Chronos-2 Anomaly Detection on datasets")
     args.add_argument('--user', type=str, help='Username of the person running the script', 
-                        choices=['Nunzio', 'Aldo', 'Sara', 'Valentino', 'Simone'], default='Nunzio')
+                        choices=['Nunzio', 'Aldo', 'Sara', 'Valentino', 'Simone'], required=True)
     
     args.add_argument('--context_length', type=int, default=-1, help='Context length for Chronos-2')
     args.add_argument('--prediction_length', type=int, default=-1, help='Prediction length for Chronos-2')
@@ -362,6 +437,7 @@ if __name__ == "__main__":
     args.add_argument('--colab', action='store_true', default=False, help='Flag to indicate running in Google Colab environment')
     args.add_argument('--horizons', type=str, help='Comma-separated list of horizons for multi-horizon scoring')
     args.add_argument('--aggregation_method', type=str, default='max', help='Method to aggregate anomaly scores across horizons (mean, max, sum)')
+    args.add_argument('--howToEvaluate_u', type=str, default='sum_CRPS', help='Method to evaluate utility for PageRank aggregation (e.g., sum_CRPS, mean_CRPS)')
     parsed_args = args.parse_args()
 
     configuration = {
@@ -376,6 +452,7 @@ if __name__ == "__main__":
         'colab': bool(parsed_args.colab),
         'horizons': list(map(int, parsed_args.horizons.split(','))) if parsed_args.horizons else [1, 8, 32, 64],
         'aggregation_method': parsed_args.aggregation_method,
+        'howToEvaluate_u': parsed_args.howToEvaluate_u,
         'percentile': 95.0,
     }
 
