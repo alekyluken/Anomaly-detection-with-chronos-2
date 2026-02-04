@@ -295,13 +295,14 @@ def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], p
     enumVal = dict(enumerate(colsToKeep)) 
     scores = []
 
+    context_length = pastData[pastData['item_id'] == 0].shape[0]
+
     maxIndex = pastData.index[pastData['item_id'] == 0].max() + 1
 
     for item in range(1, pastData['item_id'].max()):
-        past_mask = pastData['item_id'] == (item - 1)
-        # PT = evaluateGrangerCausality(pastData.loc[past_mask, colsToKeep].values, max_lag=3)
-        # PT = np.abs(pastData.loc[past_mask, colsToKeep].corr('spearman').fillna(0).values)
-        PT = evaluateMatrixViaChronos2Encodings(pastData.loc[past_mask, colsToKeep], chronos2=chronos2, aggregation=aggregation_method)
+        # PT = evaluateGrangerCausality(pastData.loc[pastData['item_id'] < item, colsToKeep].iloc[-context_length:, :].values, max_lag=3)
+        # PT = np.abs(pastData.loc[pastData['item_id'] < item, colsToKeep].iloc[-context_length:, :].corr('spearman').fillna(0).values)
+        PT = evaluateMatrixViaChronos2Encodings(pastData.loc[pastData['item_id'] < item, colsToKeep].iloc[-context_length:, :], chronos2=chronos2, aggregation=aggregation_method)
         PT = (PT / (PT.sum(axis=1, keepdims=True)+1e-6)).T
         z = np.ones(PT.shape[0]) / PT.shape[0]
 
