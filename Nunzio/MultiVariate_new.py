@@ -204,126 +204,29 @@ def computeMultiHorizonAnomalyScore(predictions_df: pd.DataFrame, actual_values:
     return np.max(all_horizon_scores, axis=0)  # [cite: 829]
 
 
-def evaluateGrangerCausality(X: np.ndarray, max_lag: int = 3, alpha: float = 1.0):
-    """
-    Evaluate Granger causality using Ridge regression for dense data.
-    
-    Args:
-        X (np.ndarray): Time series data of shape (T, D) where T is time
-        max_lag (int): Maximum lag to consider
-        alpha (float): Regularization strength for Ridge regression
-    
-    Returns:
-            np.ndarray: Granger causality matrix of shape (D, D)
-    """
-    T, D = X.shape
-    n = T - max_lag
-
-    X_lag = np.zeros((n, D * max_lag))
-    for d in range(D):
-        for l in range(max_lag):
-            X_lag[:, d*max_lag + l] = X[max_lag-l-1:T-l-1, d]
-
-    W = np.zeros((D, D))
-
-    for j in range(D):
-        y = X[max_lag:, j]
-        X_j = X_lag[:, j*max_lag:(j+1)*max_lag]
-
-        reg_r = Ridge(alpha=alpha, fit_intercept=False).fit(X_j, y)
-        rss_r = np.sum((y - reg_r.predict(X_j))**2)
-
-        for i in range(D):
-            if i == j:
-                continue
-
-            X_ij = np.hstack([X_j, X_lag[:, i*max_lag:(i+1)*max_lag]])
-            rss_f = np.sum((y - Ridge(alpha=alpha, fit_intercept=False).fit(X_ij, y).predict(X_ij))**2)
-
-            W[i, j] = max(rss_r - rss_f, 0)
-
-    row_sums = W.sum(axis=1, keepdims=True)
-    row_sums[row_sums == 0] = 1
-    return W / row_sums
-
-
-def evaluateMatrixViaChronos2Encodings(df: pd.DataFrame, chronos2: Chronos2Pipeline, aggregation: str = "topk_mean") -> np.ndarray:
-    """
-    Evaluate pairwise relationships between variables using Chronos-2 encodings.
-    
-    Args:
-        df (pd.DataFrame): Input data of shape (T, D)
-        chronos2 (Chronos2Pipeline): Pretrained Chronos-2 pipeline for embeddings
-        aggregation (str): Method to aggregate patch embeddings ('mean', 'max', 'topk_mean', etc.)
-    
-    Returns:
-        np.ndarray: Matrix of shape (D, D) representing relationships between variables
-    """
-    emb, _ = chronos2.embed(inputs=torch.tensor(np.expand_dims(df.values.T, axis=0), dtype=torch.float32), batch_size=1)
-
-    match aggregation:
-        case "max": emb_agg = emb[0].max(dim=1).values  # (D, d_model)
-        case "last": emb_agg = emb[0][:, -2, :]  # (D, d_model)
-        case "first": emb_agg = emb[0][:, 1, :]  # (D, d_model)
-        case "topk_mean": emb_agg = emb[0].topk(k=int(np.log2(emb[0].shape[1])), dim=1).values.mean(dim=1)  # (D, d_model)
-        case _ : emb_agg = emb[0].mean(dim=1)  # Default to mean
-
-    similarity_matrix = (torch.nn.functional.cosine_similarity(emb_agg.unsqueeze(1), emb_agg.unsqueeze(0), dim=-1)+1) / 2
-    similarity_matrix.fill_diagonal_(0)  # Set diagonal to 0 to ignore self-similarity
-    return similarity_matrix.cpu().numpy()
-
-
-def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], pastData: pd.DataFrame, grouping: pd.Series, howToEvaluate_u: str = 'sum_CRPS', percentile: float = 95.0,
-                                    beta: float = 0.15, chronos2:Chronos2Pipeline=None)-> tuple[np.ndarray, np.ndarray]:
+def aggregateAnomalyScores(continuousScores: dict[str, np.ndarray], aggregation_method: str = 'mean', 
+                        percentile: float = 95.0):
     """
     Aggregate anomaly scores across multiple horizons and determine thresholds
     
     Args:
-        continuousScores(dict[str, np.ndarray]): Dictionary with keys as target columns and values as arrays of anomaly scores for each prediction
-        pastData (pd.DataFrame): DataFrame with historical data (used for Granger causality)
-        grouping (pd.Series): Series indicating group/item for each prediction (e.g., item_id)
-        howToEvaluate_u (str): Method to evaluate utility for PageRank aggregation (e.g., 'sum_CRPS', )
-        percentile (float): Percentile to determine threshold for binary classification
-        beta (float): Damping factor for PageRank algorithm (default 0.15)
+        continuousScores: Dictionary of anomaly scores for each target column
     
     Returns:
         - continuosAnomalyScores: List of aggregated anomaly scores
         - discreteAnomalyScores: List of binary anomaly predictions based on thresholds
     """
-    pastData = pastData.copy().drop(columns=['timestamp', 'item_id'], inplace=False, errors='ignore')
-    groupingExtended = pd.concat([grouping, pd.Series([max(grouping)+2]*(len(pastData) - len(grouping)))], ignore_index=True).astype(int)
+    if not continuousScores:
+        return np.array([]), []
+    
+    match aggregation_method.lower():
+        case 'max': aggregated_scores = np.max(np.column_stack(list(continuousScores.values())), axis=1)
+        case 'sum': aggregated_scores = np.sum(np.column_stack(list(continuousScores.values())), axis=1)
+        case _:     aggregated_scores = np.mean(np.column_stack(list(continuousScores.values())), axis=1)
+    
+    return aggregated_scores, (aggregated_scores > np.percentile(aggregated_scores, percentile)).astype(np.int8)
 
-    enumVal = dict(enumerate(pastData.columns.tolist())) 
-    scores = []
 
-    for item in sorted(grouping[grouping >= 0].unique().tolist()):
-        # PT = evaluateGrangerCausality(pastData.loc[groupingExtended == item, :].values, max_lag=3)
-        # PT = np.abs(pastData.loc[groupingExtended <= item, :].corr('spearman').fillna(0).values)
-        PT = evaluateMatrixViaChronos2Encodings(pastData.loc[groupingExtended == item, :], chronos2=chronos2)
-        PT = (PT / (PT.sum(axis=1, keepdims=True)+1e-6)).T
-        z = np.ones(PT.shape[0]) / PT.shape[0]
-
-        itemMaskIndex = pastData.index[groupingExtended == item]
-
-        match howToEvaluate_u.lower().strip():
-            case 'sum_crps': u = np.array([np.sum(continuousScores[enumVal[i]][itemMaskIndex]) for i in range(PT.shape[0])])
-            case 'surprise' | 'likelihood': u = np.array([np.max((continuousScores[enumVal[i]][itemMaskIndex] - np.mean(continuousScores[enumVal[i]][pastData.index[groupingExtended <= item]])) / (np.std(continuousScores[enumVal[i]][pastData.index[groupingExtended <= item]]) + 1e-6) ) for i in range(PT.shape[0])])
-            case _ : 
-                u = np.array([np.sum(continuousScores[enumVal[i]][itemMaskIndex]) for i in range(PT.shape[0])])
-                u = u + 0.5*PT.T @ u
-        u, PT = beta*(u / np.sum(u) if np.sum(u) > 0 else np.ones_like(u) / len(u)), (1-beta) * PT
-
-        # PageRank iteration
-        for _ in range(1_000):
-            z_new =  PT @ z + u
-            if np.linalg.norm(z_new - z, 1) < 1e-6:
-                break
-            z = z_new
-
-        scores.extend(z @ np.array([continuousScores[enumVal[i]][itemMaskIndex] for i in range(PT.shape[0])]))
-
-    continuosAnomalyScores = np.array(scores)
-    return continuosAnomalyScores, (continuosAnomalyScores >= np.percentile(continuosAnomalyScores, percentile)).astype(int)
 
 
 def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration: dict):
@@ -378,13 +281,10 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
             horizons=horizons
         ) for col in target_cols}
     
-    continuosAnomalyScores, discreteAnomalyScores = aggregateAnomalyScoresViaPageRank(
+    continuosAnomalyScores, discreteAnomalyScores = aggregateAnomalyScores(
         continuousScores=continuousScores, 
-        pastData=time_series_df, 
-        grouping=time_series_df.loc[prediction_indices, 'item_id'].reset_index(drop=True),
-        howToEvaluate_u=configuration.get('howToEvaluate_u', 'sum_CRPS'), 
+        aggregation_method=configuration.get('aggregation_method', 'mean'),
         percentile=configuration.get('percentile', 95),
-        chronos2=pipeline
     )
 
     # Calculate metrics
@@ -408,7 +308,7 @@ def main(configuration:dict, name:str)->None:
     # Configuration
     data_path = "./TSB-AD-M/" 
     # data_path = './Nunzio/provaData/multivariate/'
-    out_initial_path = f"./results/{name}/MultiVariate/"
+    out_initial_path = f"./results/{name}/MultiVariateNew/"
 
     os.makedirs(out_initial_path, exist_ok=True)
 
@@ -472,7 +372,6 @@ if __name__ == "__main__":
     args.add_argument('--use_naive', action='store_true', default=False, help='Use naive anomaly scoring method')
     args.add_argument('--thresholds', type=str, default='0.05-0.95', help='Comma-separated list of quantile thresholds (e.g., "0.05-0.95,0.1-0.9")')
     args.add_argument('--use_restricted_dataset', action='store_true', default=False, help='Use restricted dataset from test_files_M.csv')
-    args.add_argument('--colab', action='store_true', default=False, help='Flag to indicate running in Google Colab environment')
     args.add_argument('--horizons', type=str, help='Comma-separated list of horizons for multi-horizon scoring')
     args.add_argument('--aggregation_method', type=str, default='max', help='Method to aggregate anomaly scores across horizons (mean, max, sum)')
     args.add_argument('--howToEvaluate_u', type=str, default='sum_CRPS', help='Method to evaluate utility for PageRank aggregation (e.g., sum_CRPS, mean_CRPS)')
@@ -487,7 +386,6 @@ if __name__ == "__main__":
         'use_naive': bool(parsed_args.use_naive),
         'thresholds_percentile': [[float(pair.split('-')[0]), float(pair.split('-')[1])] for pair in parsed_args.thresholds.strip().split(',')] if parsed_args.thresholds else [[0.05, 0.95]],
         'use_restricted_dataset': bool(parsed_args.use_restricted_dataset),
-        'colab': bool(parsed_args.colab),
         'horizons': list(map(int, parsed_args.horizons.split(','))) if parsed_args.horizons else [1, 8, 32, 64],
         'aggregation_method': parsed_args.aggregation_method,
         'howToEvaluate_u': parsed_args.howToEvaluate_u,
