@@ -7750,5 +7750,3653 @@
         ],
         "aggregation_method": "max",
         "percentile": 95.0
+    },
+    "137_CreditCard_id_1_Finance_tr_500_1st_541.csv": {
+        "file": "137_CreditCard_id_1_Finance_tr_500_1st_541.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0018991502561564756,
+                "AUC-ROC": 0.49048257945982937,
+                "VUS-PR": 0.05890371197922744,
+                "VUS-ROC": 0.9218541165982584,
+                "Standard-F1": 0.002716284123319299,
+                "PA-F1": 0.0031230905017312783,
+                "Event-based-F1": 0.002721273556024158,
+                "R-based-F1": 0.002601824704668308,
+                "accuracy": 0.9484108026079137,
+                "precision": 0.001405086412814388,
+                "recall": 0.04065040650406504,
+                "f1_score": 0.002716284123319299,
+                "confusion_matrix": [
+                    [
+                        269966,
+                        14214
+                    ],
+                    [
+                        472,
+                        20
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "138_CATSv2_id_1_Sensor_tr_16568_1st_16668.csv": {
+        "file": "138_CATSv2_id_1_Sensor_tr_16568_1st_16668.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.04348852326229902,
+                "AUC-ROC": 0.5059029180294359,
+                "VUS-PR": 0.022034209315565254,
+                "VUS-ROC": 0.5212421797663835,
+                "Standard-F1": 0.02488558352402746,
+                "PA-F1": 0.3168799512492383,
+                "Event-based-F1": 0.033967789165446516,
+                "R-based-F1": 0.20254360609656655,
+                "accuracy": 0.9317107371794872,
+                "precision": 0.017427884615384616,
+                "recall": 0.0435,
+                "f1_score": 0.02488558352402746,
+                "confusion_matrix": [
+                    [
+                        92935,
+                        4905
+                    ],
+                    [
+                        1913,
+                        87
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "139_CATSv2_id_2_Sensor_tr_5592_1st_5692.csv": {
+        "file": "139_CATSv2_id_2_Sensor_tr_5592_1st_5692.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.10316193865603784,
+                "AUC-ROC": 0.5934429033805229,
+                "VUS-PR": 0.05755508802517681,
+                "VUS-ROC": 0.5842667670112628,
+                "Standard-F1": 0.11563876651982379,
+                "PA-F1": 0.2793452148164702,
+                "Event-based-F1": 0.1465798045602602,
+                "R-based-F1": 0.05936283842802228,
+                "accuracy": 0.9258312807881773,
+                "precision": 0.09698275862068965,
+                "recall": 0.1431818181818182,
+                "f1_score": 0.11563876651982379,
+                "confusion_matrix": [
+                    [
+                        179481,
+                        8799
+                    ],
+                    [
+                        5655,
+                        945
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "140_CATSv2_id_3_Sensor_tr_28307_1st_28407.csv": {
+        "file": "140_CATSv2_id_3_Sensor_tr_28307_1st_28407.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.11562601990788617,
+                "AUC-ROC": 0.5892288931790662,
+                "VUS-PR": 0.10350376026882768,
+                "VUS-ROC": 0.5994173259826676,
+                "Standard-F1": 0.10159603283743801,
+                "PA-F1": 0.6331012962073932,
+                "Event-based-F1": 0.200266380337141,
+                "R-based-F1": 0.1503755877194306,
+                "accuracy": 0.8921704945582587,
+                "precision": 0.12193658097429229,
+                "recall": 0.08707142857142858,
+                "f1_score": 0.10159603283743801,
+                "confusion_matrix": [
+                    [
+                        354316,
+                        17556
+                    ],
+                    [
+                        25562,
+                        2438
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "141_CATSv2_id_4_Sensor_tr_41727_1st_41827.csv": {
+        "file": "141_CATSv2_id_4_Sensor_tr_41727_1st_41827.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.11418667628074067,
+                "AUC-ROC": 0.5572847220851995,
+                "VUS-PR": 0.05112076422047099,
+                "VUS-ROC": 0.567863363532375,
+                "Standard-F1": 0.09997443109179238,
+                "PA-F1": 0.20528921627822727,
+                "Event-based-F1": 0.12401543585135029,
+                "R-based-F1": 0.2199406370578843,
+                "accuracy": 0.9277504105090312,
+                "precision": 0.08025451559934318,
+                "recall": 0.13254237288135592,
+                "f1_score": 0.09997443109179238,
+                "confusion_matrix": [
+                    [
+                        180018,
+                        8962
+                    ],
+                    [
+                        5118,
+                        782
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "142_CATSv2_id_5_Sensor_tr_30704_1st_30804.csv": {
+        "file": "142_CATSv2_id_5_Sensor_tr_30704_1st_30804.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1225523036078378,
+                "AUC-ROC": 0.5746478243669801,
+                "VUS-PR": 0.07756861120857432,
+                "VUS-ROC": 0.5702943741609264,
+                "Standard-F1": 0.10903309726839139,
+                "PA-F1": 0.5656778267447214,
+                "Event-based-F1": 0.18346526587142328,
+                "R-based-F1": 0.24506440145638425,
+                "accuracy": 0.9119060956648984,
+                "precision": 0.10780222920834524,
+                "recall": 0.11029239766081872,
+                "f1_score": 0.10903309726839139,
+                "confusion_matrix": [
+                    [
+                        317179,
+                        15609
+                    ],
+                    [
+                        15214,
+                        1886
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "143_CATSv2_id_6_Sensor_tr_50000_1st_60232.csv": {
+        "file": "143_CATSv2_id_6_Sensor_tr_50000_1st_60232.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.050694966103782865,
+                "AUC-ROC": 0.5240996977618037,
+                "VUS-PR": 0.025680254924636835,
+                "VUS-ROC": 0.5308190412691695,
+                "Standard-F1": 0.04030298699442618,
+                "PA-F1": 0.2089864158829676,
+                "Event-based-F1": 0.05294780322944037,
+                "R-based-F1": 0.10591295566475137,
+                "accuracy": 0.9328069964777458,
+                "precision": 0.028216930158094858,
+                "recall": 0.0705,
+                "f1_score": 0.04030298699442618,
+                "confusion_matrix": [
+                    [
+                        186160,
+                        9712
+                    ],
+                    [
+                        3718,
+                        282
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "144_SMAP_id_1_Sensor_tr_2052_1st_5300.csv": {
+        "file": "144_SMAP_id_1_Sensor_tr_2052_1st_5300.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.6196876439946989,
+                "AUC-ROC": 0.8306432537254099,
+                "VUS-PR": 0.6536335459860848,
+                "VUS-ROC": 0.8435466323354945,
+                "Standard-F1": 0.44459016393442624,
+                "PA-F1": 0.9718248807975726,
+                "Event-based-F1": 0.9125168236877518,
+                "R-based-F1": 0.3305489060282964,
+                "accuracy": 0.8949652777777778,
+                "precision": 0.8391089108910891,
+                "recall": 0.3024085637823372,
+                "f1_score": 0.44459016393442624,
+                "confusion_matrix": [
+                    [
+                        6878,
+                        65
+                    ],
+                    [
+                        782,
+                        339
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "145_SMAP_id_2_Sensor_tr_2133_1st_5400.csv": {
+        "file": "145_SMAP_id_2_Sensor_tr_2133_1st_5400.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.5489463404961381,
+                "AUC-ROC": 0.740491774425488,
+                "VUS-PR": 0.5561471828189062,
+                "VUS-ROC": 0.7610946043240007,
+                "Standard-F1": 0.5906040268456376,
+                "PA-F1": 0.9175257731958762,
+                "Event-based-F1": 0.8461538461538455,
+                "R-based-F1": 0.11932773109243698,
+                "accuracy": 0.9490696564885496,
+                "precision": 0.7333333333333333,
+                "recall": 0.4943820224719101,
+                "f1_score": 0.5906040268456376,
+                "confusion_matrix": [
+                    [
+                        7649,
+                        112
+                    ],
+                    [
+                        315,
+                        308
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "146_SMAP_id_3_Sensor_tr_2128_1st_5000.csv": {
+        "file": "146_SMAP_id_3_Sensor_tr_2128_1st_5000.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1599507329113954,
+                "AUC-ROC": 0.7461495104253318,
+                "VUS-PR": 0.19158260568463611,
+                "VUS-ROC": 0.7847468861847464,
+                "Standard-F1": 0.27972027972027974,
+                "PA-F1": 0.6483516483516484,
+                "Event-based-F1": 0.38461538461538425,
+                "R-based-F1": 0.087793700792153,
+                "accuracy": 0.9385734732824428,
+                "precision": 0.23809523809523808,
+                "recall": 0.3389830508474576,
+                "f1_score": 0.27972027972027974,
+                "confusion_matrix": [
+                    [
+                        7769,
+                        320
+                    ],
+                    [
+                        195,
+                        100
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "147_SMAP_id_4_Sensor_tr_2160_1st_6449.csv": {
+        "file": "147_SMAP_id_4_Sensor_tr_2160_1st_6449.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.014475446040050452,
+                "AUC-ROC": 0.5263234614812604,
+                "VUS-PR": 0.01843139013792696,
+                "VUS-ROC": 0.591643640790648,
+                "Standard-F1": 0.010968921389396709,
+                "PA-F1": 0.36390977443609024,
+                "Event-based-F1": 0.01398601398601397,
+                "R-based-F1": 0.015804170875170814,
+                "accuracy": 0.9364426691729323,
+                "precision": 0.007042253521126761,
+                "recall": 0.024793388429752067,
+                "f1_score": 0.010968921389396709,
+                "confusion_matrix": [
+                    [
+                        7968,
+                        423
+                    ],
+                    [
+                        118,
+                        3
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "148_SMAP_id_5_Sensor_tr_2011_1st_5060.csv": {
+        "file": "148_SMAP_id_5_Sensor_tr_2011_1st_5060.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1331114281039345,
+                "AUC-ROC": 0.9613226722061549,
+                "VUS-PR": 0.2554982548609325,
+                "VUS-ROC": 0.975774880652612,
+                "Standard-F1": 0.13675213675213677,
+                "PA-F1": 0.28007889546351084,
+                "Event-based-F1": 0.14918414918414902,
+                "R-based-F1": 0.009382670937589325,
+                "accuracy": 0.9490927419354839,
+                "precision": 0.08060453400503778,
+                "recall": 0.4507042253521127,
+                "f1_score": 0.13675213675213677,
+                "confusion_matrix": [
+                    [
+                        7500,
+                        365
+                    ],
+                    [
+                        39,
+                        32
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "149_SMAP_id_6_Sensor_tr_2128_1st_5000.csv": {
+        "file": "149_SMAP_id_6_Sensor_tr_2128_1st_5000.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.06057090495875908,
+                "AUC-ROC": 0.41236466802976174,
+                "VUS-PR": 0.06418561847118838,
+                "VUS-ROC": 0.4501268402774548,
+                "Standard-F1": 0.031904287138584245,
+                "PA-F1": 0.7426751592356687,
+                "Event-based-F1": 0.07339449541284396,
+                "R-based-F1": 0.056722034765182276,
+                "accuracy": 0.8841841603053435,
+                "precision": 0.0380952380952381,
+                "recall": 0.0274442538593482,
+                "f1_score": 0.031904287138584245,
+                "confusion_matrix": [
+                    [
+                        7397,
+                        404
+                    ],
+                    [
+                        567,
+                        16
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "150_SMAP_id_7_Sensor_tr_2077_1st_5394.csv": {
+        "file": "150_SMAP_id_7_Sensor_tr_2077_1st_5394.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.182299956299325,
+                "AUC-ROC": 0.4694926790076973,
+                "VUS-PR": 0.23264907052761466,
+                "VUS-ROC": 0.5161455103598844,
+                "Standard-F1": 0.22865412445730826,
+                "PA-F1": 0.6293393057110862,
+                "Event-based-F1": 0.32310838445807744,
+                "R-based-F1": 0.060281897665305985,
+                "accuracy": 0.9349365234375,
+                "precision": 0.1926829268292683,
+                "recall": 0.28113879003558717,
+                "f1_score": 0.22865412445730826,
+                "confusion_matrix": [
+                    [
+                        7580,
+                        331
+                    ],
+                    [
+                        202,
+                        79
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "151_SMAP_id_8_Sensor_tr_1971_1st_4870.csv": {
+        "file": "151_SMAP_id_8_Sensor_tr_1971_1st_4870.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.008055053287755111,
+                "AUC-ROC": 0.40763618026656867,
+                "VUS-PR": 0.012200076044343101,
+                "VUS-ROC": 0.5323448545949535,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9394369834710744,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        7275,
+                        388
+                    ],
+                    [
+                        81,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "152_SMAP_id_9_Sensor_tr_2073_1st_5600.csv": {
+        "file": "152_SMAP_id_9_Sensor_tr_2073_1st_5600.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0560092415019289,
+                "AUC-ROC": 0.5391282166365668,
+                "VUS-PR": 0.05954376445103,
+                "VUS-ROC": 0.5606477497284567,
+                "Standard-F1": 0.16415868673050615,
+                "PA-F1": 0.6471774193548387,
+                "Event-based-F1": 0.25531914893616997,
+                "R-based-F1": 0.06070528176749343,
+                "accuracy": 0.9254150390625,
+                "precision": 0.14634146341463414,
+                "recall": 0.18691588785046728,
+                "f1_score": 0.16415868673050615,
+                "confusion_matrix": [
+                    [
+                        7521,
+                        350
+                    ],
+                    [
+                        261,
+                        60
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "153_SMAP_id_10_Sensor_tr_1840_1st_4030.csv": {
+        "file": "153_SMAP_id_10_Sensor_tr_1840_1st_4030.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.004449846894796469,
+                "AUC-ROC": 0.40342433461881555,
+                "VUS-PR": 0.007083582110959027,
+                "VUS-ROC": 0.5279031089959959,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9442754424778761,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        6829,
+                        362
+                    ],
+                    [
+                        41,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "154_SMAP_id_11_Sensor_tr_2117_1st_4770.csv": {
+        "file": "154_SMAP_id_11_Sensor_tr_2117_1st_4770.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.016846040716186728,
+                "AUC-ROC": 0.5219821203754943,
+                "VUS-PR": 0.020173277406926104,
+                "VUS-ROC": 0.582952248026732,
+                "Standard-F1": 0.0223463687150838,
+                "PA-F1": 0.37116564417177916,
+                "Event-based-F1": 0.028436018957345943,
+                "R-based-F1": 0.03830740934725149,
+                "accuracy": 0.9368990384615384,
+                "precision": 0.014423076923076924,
+                "recall": 0.049586776859504134,
+                "f1_score": 0.0223463687150838,
+                "confusion_matrix": [
+                    [
+                        7789,
+                        410
+                    ],
+                    [
+                        115,
+                        6
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "155_SMAP_id_12_Sensor_tr_1907_1st_4800.csv": {
+        "file": "155_SMAP_id_12_Sensor_tr_1907_1st_4800.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0061501311967947885,
+                "AUC-ROC": 0.49015389401693177,
+                "VUS-PR": 0.008212755011289105,
+                "VUS-ROC": 0.5587625942480021,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9431089743589743,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        7062,
+                        375
+                    ],
+                    [
+                        51,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "156_SMAP_id_13_Sensor_tr_1173_1st_2750.csv": {
+        "file": "156_SMAP_id_13_Sensor_tr_1173_1st_2750.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.17948897452978396,
+                "AUC-ROC": 0.9745770108622127,
+                "VUS-PR": 0.25540442666484064,
+                "VUS-ROC": 0.9793899881708796,
+                "Standard-F1": 0.2867383512544803,
+                "PA-F1": 0.35172413793103446,
+                "Event-based-F1": 0.29850746268656686,
+                "R-based-F1": 0.13392680043478605,
+                "accuracy": 0.956205985915493,
+                "precision": 0.17543859649122806,
+                "recall": 0.7843137254901961,
+                "f1_score": 0.2867383512544803,
+                "confusion_matrix": [
+                    [
+                        4305,
+                        188
+                    ],
+                    [
+                        11,
+                        40
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "157_SMAP_id_14_Sensor_tr_2126_1st_5000.csv": {
+        "file": "157_SMAP_id_14_Sensor_tr_2126_1st_5000.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.04126646269462178,
+                "AUC-ROC": 0.5662358954130334,
+                "VUS-PR": 0.04842173591201948,
+                "VUS-ROC": 0.6066517209485631,
+                "Standard-F1": 0.005390835579514825,
+                "PA-F1": 0.6064030131826742,
+                "Event-based-F1": 0.00947867298578198,
+                "R-based-F1": 0.018556767158434892,
+                "accuracy": 0.9119751908396947,
+                "precision": 0.004761904761904762,
+                "recall": 0.006211180124223602,
+                "f1_score": 0.005390835579514825,
+                "confusion_matrix": [
+                    [
+                        7644,
+                        418
+                    ],
+                    [
+                        320,
+                        2
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "158_SMAP_id_15_Sensor_tr_2075_1st_5610.csv": {
+        "file": "158_SMAP_id_15_Sensor_tr_2075_1st_5610.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.006658613028301297,
+                "AUC-ROC": 0.4347623416045764,
+                "VUS-PR": 0.009124775794464092,
+                "VUS-ROC": 0.5120771367527853,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.94189453125,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        7716,
+                        410
+                    ],
+                    [
+                        66,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "159_SMAP_id_16_Sensor_tr_1757_1st_2650.csv": {
+        "file": "159_SMAP_id_16_Sensor_tr_1757_1st_2650.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.05258400790205245,
+                "AUC-ROC": 0.5303441215056566,
+                "VUS-PR": 0.11676047783983706,
+                "VUS-ROC": 0.7078137136326984,
+                "Standard-F1": 0.023880597014925373,
+                "PA-F1": 0.5190156599552572,
+                "Event-based-F1": 0.10126582278480988,
+                "R-based-F1": 0.06413994169096209,
+                "accuracy": 0.9526909722222222,
+                "precision": 0.05970149253731343,
+                "recall": 0.014925373134328358,
+                "f1_score": 0.023880597014925373,
+                "confusion_matrix": [
+                    [
+                        6581,
+                        63
+                    ],
+                    [
+                        264,
+                        4
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "160_SMAP_id_17_Sensor_tr_1832_1st_5300.csv": {
+        "file": "160_SMAP_id_17_Sensor_tr_1832_1st_5300.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.4190481759188396,
+                "AUC-ROC": 0.5479498830782313,
+                "VUS-PR": 0.4201167159396269,
+                "VUS-ROC": 0.5624338919350467,
+                "Standard-F1": 0.42379182156133827,
+                "PA-F1": 0.8265682656826568,
+                "Event-based-F1": 0.6452830188679242,
+                "R-based-F1": 0.26216037460040553,
+                "accuracy": 0.9351283482142857,
+                "precision": 0.4763231197771588,
+                "recall": 0.38169642857142855,
+                "f1_score": 0.42379182156133827,
+                "confusion_matrix": [
+                    [
+                        6532,
+                        188
+                    ],
+                    [
+                        277,
+                        171
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "161_SMAP_id_18_Sensor_tr_2075_1st_5550.csv": {
+        "file": "161_SMAP_id_18_Sensor_tr_2075_1st_5550.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.08693053748743793,
+                "AUC-ROC": 0.4229110552283617,
+                "VUS-PR": 0.07264880476953967,
+                "VUS-ROC": 0.45351268547659823,
+                "Standard-F1": 0.052562417871222074,
+                "PA-F1": 0.6428571428571429,
+                "Event-based-F1": 0.09302325581395339,
+                "R-based-F1": 0.009299214637093293,
+                "accuracy": 0.9119873046875,
+                "precision": 0.04878048780487805,
+                "recall": 0.05698005698005698,
+                "f1_score": 0.052562417871222074,
+                "confusion_matrix": [
+                    [
+                        7451,
+                        390
+                    ],
+                    [
+                        331,
+                        20
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "162_SMAP_id_19_Sensor_tr_1908_1st_4690.csv": {
+        "file": "162_SMAP_id_19_Sensor_tr_1908_1st_4690.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.17141620751349662,
+                "AUC-ROC": 0.6494893302244698,
+                "VUS-PR": 0.5470276887281255,
+                "VUS-ROC": 0.8941751720007761,
+                "Standard-F1": 0.06419753086419754,
+                "PA-F1": 0.14657210401891252,
+                "Event-based-F1": 0.06718346253229968,
+                "R-based-F1": 0.005139074109354162,
+                "accuracy": 0.9493856837606838,
+                "precision": 0.034759358288770054,
+                "recall": 0.41935483870967744,
+                "f1_score": 0.06419753086419754,
+                "confusion_matrix": [
+                    [
+                        7096,
+                        361
+                    ],
+                    [
+                        18,
+                        13
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "163_SMAP_id_20_Sensor_tr_2051_1st_4575.csv": {
+        "file": "163_SMAP_id_20_Sensor_tr_2051_1st_4575.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.020550576399743843,
+                "AUC-ROC": 0.4615514280956632,
+                "VUS-PR": 0.027965781606886196,
+                "VUS-ROC": 0.534884675499272,
+                "Standard-F1": 0.006779661016949152,
+                "PA-F1": 0.4806201550387597,
+                "Event-based-F1": 0.009852216748768463,
+                "R-based-F1": 0.022003474232773598,
+                "accuracy": 0.9273313492063492,
+                "precision": 0.0049504950495049506,
+                "recall": 0.010752688172043012,
+                "f1_score": 0.006779661016949152,
+                "confusion_matrix": [
+                    [
+                        7476,
+                        402
+                    ],
+                    [
+                        184,
+                        2
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "164_SMAP_id_21_Sensor_tr_1976_1st_4200.csv": {
+        "file": "164_SMAP_id_21_Sensor_tr_1976_1st_4200.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.01757411426098866,
+                "AUC-ROC": 0.6328837267391033,
+                "VUS-PR": 0.02692438890468578,
+                "VUS-ROC": 0.8118728844000699,
+                "Standard-F1": 0.03644646924829157,
+                "PA-F1": 0.21161825726141079,
+                "Event-based-F1": 0.04040404040404036,
+                "R-based-F1": 0.04712256793366719,
+                "accuracy": 0.9453770661157025,
+                "precision": 0.020618556701030927,
+                "recall": 0.1568627450980392,
+                "f1_score": 0.03644646924829157,
+                "confusion_matrix": [
+                    [
+                        7313,
+                        380
+                    ],
+                    [
+                        43,
+                        8
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "165_SMAP_id_22_Sensor_tr_2129_1st_5000.csv": {
+        "file": "165_SMAP_id_22_Sensor_tr_2129_1st_5000.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.05478619346065384,
+                "AUC-ROC": 0.4033167391817262,
+                "VUS-PR": 0.05609128579058991,
+                "VUS-ROC": 0.4373480421323569,
+                "Standard-F1": 0.01939655172413793,
+                "PA-F1": 0.7119831814996496,
+                "Event-based-F1": 0.04195804195804192,
+                "R-based-F1": 0.029721752422827506,
+                "accuracy": 0.8914599236641222,
+                "precision": 0.02142857142857143,
+                "recall": 0.017716535433070866,
+                "f1_score": 0.01939655172413793,
+                "confusion_matrix": [
+                    [
+                        7465,
+                        411
+                    ],
+                    [
+                        499,
+                        9
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "166_SMAP_id_23_Sensor_tr_1113_1st_1890.csv": {
+        "file": "166_SMAP_id_23_Sensor_tr_1113_1st_1890.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.15414390251248677,
+                "AUC-ROC": 0.962059620596206,
+                "VUS-PR": 0.23121486576576453,
+                "VUS-ROC": 0.969200792124798,
+                "Standard-F1": 0.3178294573643411,
+                "PA-F1": 0.3178294573643411,
+                "Event-based-F1": 0.31782945736434076,
+                "R-based-F1": 0.119533527696793,
+                "accuracy": 0.9595588235294118,
+                "precision": 0.1889400921658986,
+                "recall": 1.0,
+                "f1_score": 0.3178294573643411,
+                "confusion_matrix": [
+                    [
+                        4135,
+                        176
+                    ],
+                    [
+                        0,
+                        41
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "167_SMAP_id_24_Sensor_tr_2094_1st_5600.csv": {
+        "file": "167_SMAP_id_24_Sensor_tr_2094_1st_5600.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.005703970844135348,
+                "AUC-ROC": 0.5673411219809095,
+                "VUS-PR": 0.010831612330736935,
+                "VUS-ROC": 0.5841652690930073,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9450096899224806,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        7802,
+                        413
+                    ],
+                    [
+                        41,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "168_SMAP_id_25_Sensor_tr_1998_1st_2098.csv": {
+        "file": "168_SMAP_id_25_Sensor_tr_1998_1st_2098.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.019684283111824234,
+                "AUC-ROC": 0.48129064249337095,
+                "VUS-PR": 0.0285782014595401,
+                "VUS-ROC": 0.5938588463114468,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9281486742424242,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        7841,
+                        423
+                    ],
+                    [
+                        184,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "169_SMAP_id_26_Sensor_tr_1811_1st_4510.csv": {
+        "file": "169_SMAP_id_26_Sensor_tr_1811_1st_4510.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.012653243630823301,
+                "AUC-ROC": 0.5348713134796954,
+                "VUS-PR": 0.03100799765406009,
+                "VUS-ROC": 0.7135145721957624,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9384853603603603,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        6667,
+                        356
+                    ],
+                    [
+                        81,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "170_SMAP_id_27_Sensor_tr_2160_1st_4690.csv": {
+        "file": "170_SMAP_id_27_Sensor_tr_2160_1st_4690.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.017825982053795826,
+                "AUC-ROC": 0.6000446743311066,
+                "VUS-PR": 0.02350436681603804,
+                "VUS-ROC": 0.6901947146156355,
+                "Standard-F1": 0.0273972602739726,
+                "PA-F1": 0.28862478777589134,
+                "Event-based-F1": 0.03233256351039258,
+                "R-based-F1": 0.01683601887674844,
+                "accuracy": 0.9416118421052632,
+                "precision": 0.01643192488262911,
+                "recall": 0.08235294117647059,
+                "f1_score": 0.0273972602739726,
+                "confusion_matrix": [
+                    [
+                        8008,
+                        419
+                    ],
+                    [
+                        78,
+                        7
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "171_SWaT_id_1_Sensor_tr_3749_1st_9522.csv": {
+        "file": "171_SWaT_id_1_Sensor_tr_3749_1st_9522.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2716809486064547,
+                "AUC-ROC": 0.5095728018693442,
+                "VUS-PR": 0.219281841497247,
+                "VUS-ROC": 0.5135925416275834,
+                "Standard-F1": 0.2242579699523635,
+                "PA-F1": 0.5171358629130967,
+                "Event-based-F1": 0.4516605166051656,
+                "R-based-F1": 0.18497396674972005,
+                "accuracy": 0.857421875,
+                "precision": 0.41184387617765816,
+                "recall": 0.1540785498489426,
+                "f1_score": 0.2242579699523635,
+                "confusion_matrix": [
+                    [
+                        12425,
+                        437
+                    ],
+                    [
+                        1680,
+                        306
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "172_SWaT_id_2_Sensor_tr_23700_1st_23800.csv": {
+        "file": "172_SWaT_id_2_Sensor_tr_23700_1st_23800.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1280750494976918,
+                "AUC-ROC": 0.2283759759037076,
+                "VUS-PR": 0.12457956437408889,
+                "VUS-ROC": 0.23265051748146687,
+                "Standard-F1": 0.11579112524782838,
+                "PA-F1": 0.8442087948623724,
+                "Event-based-F1": 0.3220187229412695,
+                "R-based-F1": 0.11185584412102594,
+                "accuracy": 0.8449480750760365,
+                "precision": 0.20304136861587715,
+                "recall": 0.08098886627558961,
+                "f1_score": 0.11579112524782838,
+                "confusion_matrix": [
+                    [
+                        333758,
+                        15932
+                    ],
+                    [
+                        46059,
+                        4059
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "173_GECCO_id_1_Sensor_tr_16165_1st_16265.csv": {
+        "file": "173_GECCO_id_1_Sensor_tr_16165_1st_16265.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.07188054298163357,
+                "AUC-ROC": 0.6242807218592527,
+                "VUS-PR": 0.04523521914132017,
+                "VUS-ROC": 0.6805149112163482,
+                "Standard-F1": 0.08953152111046848,
+                "PA-F1": 0.12509933023044614,
+                "Event-based-F1": 0.07581917029926,
+                "R-based-F1": 0.011610894601994133,
+                "accuracy": 0.9431154602220166,
+                "precision": 0.05593293828587946,
+                "recall": 0.2242178447276941,
+                "f1_score": 0.08953152111046848,
+                "confusion_matrix": [
+                    [
+                        130110,
+                        6532
+                    ],
+                    [
+                        1339,
+                        387
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "174_Exathlon_id_1_Facility_tr_10766_1st_12590.csv": {
+        "file": "174_Exathlon_id_1_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2508999190428183,
+                "AUC-ROC": 0.7264418280457142,
+                "VUS-PR": 0.27325616228769994,
+                "VUS-ROC": 0.7402205322323401,
+                "Standard-F1": 0.18273172021684517,
+                "PA-F1": 0.8814193863432896,
+                "Event-based-F1": 0.4867911236350824,
+                "R-based-F1": 0.3227914212180515,
+                "accuracy": 0.8560683681073026,
+                "precision": 0.32169459962756053,
+                "recall": 0.1276084949215143,
+                "f1_score": 0.18273172021684517,
+                "confusion_matrix": [
+                    [
+                        36072,
+                        1457
+                    ],
+                    [
+                        4724,
+                        691
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "175_Exathlon_id_2_Facility_tr_10684_1st_10784.csv": {
+        "file": "175_Exathlon_id_2_Facility_tr_10684_1st_10784.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.19915638547656028,
+                "AUC-ROC": 0.26253001121095293,
+                "VUS-PR": 0.22117450728759558,
+                "VUS-ROC": 0.29013924783326184,
+                "Standard-F1": 0.26618468616496876,
+                "PA-F1": 0.8320973990038738,
+                "Event-based-F1": 0.5164169588779084,
+                "R-based-F1": 0.12992325861702136,
+                "accuracy": 0.9040147867950481,
+                "precision": 0.3480876665234207,
+                "recall": 0.2154828411811652,
+                "f1_score": 0.26618468616496876,
+                "confusion_matrix": [
+                    [
+                        41252,
+                        1517
+                    ],
+                    [
+                        2949,
+                        810
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "176_Exathlon_id_3_Facility_tr_10766_1st_12590.csv": {
+        "file": "176_Exathlon_id_3_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2640848925298178,
+                "AUC-ROC": 0.7488007956518551,
+                "VUS-PR": 0.28653023634972535,
+                "VUS-ROC": 0.7627535502681961,
+                "Standard-F1": 0.18061615760941424,
+                "PA-F1": 0.8808458723058153,
+                "Event-based-F1": 0.48251501236312216,
+                "R-based-F1": 0.30429379834527637,
+                "accuracy": 0.8556957898658718,
+                "precision": 0.31797020484171323,
+                "recall": 0.12613111726685133,
+                "f1_score": 0.18061615760941424,
+                "confusion_matrix": [
+                    [
+                        36064,
+                        1465
+                    ],
+                    [
+                        4732,
+                        683
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "177_Exathlon_id_4_Facility_tr_11665_1st_13484.csv": {
+        "file": "177_Exathlon_id_4_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2985606292442368,
+                "AUC-ROC": 0.8624234377349977,
+                "VUS-PR": 0.3466053499148409,
+                "VUS-ROC": 0.8796245316206572,
+                "Standard-F1": 0.39124643196955283,
+                "PA-F1": 0.8184486373165618,
+                "Event-based-F1": 0.6128166915052156,
+                "R-based-F1": 0.3396732662526173,
+                "accuracy": 0.9312457015130674,
+                "precision": 0.4417705199828105,
+                "recall": 0.3510928961748634,
+                "f1_score": 0.39124643196955283,
+                "confusion_matrix": [
+                    [
+                        42301,
+                        1299
+                    ],
+                    [
+                        1900,
+                        1028
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "178_Exathlon_id_5_Facility_tr_12538_1st_12638.csv": {
+        "file": "178_Exathlon_id_5_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.26539246792553267,
+                "AUC-ROC": 0.7069754115074687,
+                "VUS-PR": 0.28012250892165846,
+                "VUS-ROC": 0.721637636208988,
+                "Standard-F1": 0.162677304964539,
+                "PA-F1": 0.8745587836003258,
+                "Event-based-F1": 0.4427020506634495,
+                "R-based-F1": 0.308325326689268,
+                "accuracy": 0.8536657164105107,
+                "precision": 0.284275755228505,
+                "recall": 0.11393977025768395,
+                "f1_score": 0.162677304964539,
+                "confusion_matrix": [
+                    [
+                        108363,
+                        4620
+                    ],
+                    [
+                        14270,
+                        1835
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "179_Exathlon_id_6_Facility_tr_11665_1st_13484.csv": {
+        "file": "179_Exathlon_id_6_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.3084556082609312,
+                "AUC-ROC": 0.863521523443375,
+                "VUS-PR": 0.3416802379547808,
+                "VUS-ROC": 0.879694428024831,
+                "Standard-F1": 0.3642245480494767,
+                "PA-F1": 0.8104068641018544,
+                "Event-based-F1": 0.5828258221680872,
+                "R-based-F1": 0.33185067025879167,
+                "accuracy": 0.9281937757909215,
+                "precision": 0.411259131929523,
+                "recall": 0.32684426229508196,
+                "f1_score": 0.3642245480494767,
+                "confusion_matrix": [
+                    [
+                        42230,
+                        1370
+                    ],
+                    [
+                        1971,
+                        957
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "180_Exathlon_id_7_Facility_tr_10766_1st_12590.csv": {
+        "file": "180_Exathlon_id_7_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2640848925298178,
+                "AUC-ROC": 0.7488007956518551,
+                "VUS-PR": 0.28653023634972535,
+                "VUS-ROC": 0.7627535502681961,
+                "Standard-F1": 0.18061615760941424,
+                "PA-F1": 0.8808458723058153,
+                "Event-based-F1": 0.48251501236312216,
+                "R-based-F1": 0.30429379834527637,
+                "accuracy": 0.8556957898658718,
+                "precision": 0.31797020484171323,
+                "recall": 0.12613111726685133,
+                "f1_score": 0.18061615760941424,
+                "confusion_matrix": [
+                    [
+                        36064,
+                        1465
+                    ],
+                    [
+                        4732,
+                        683
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "181_Exathlon_id_8_Facility_tr_11663_1st_13482.csv": {
+        "file": "181_Exathlon_id_8_Facility_tr_11663_1st_13482.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.3145617483843849,
+                "AUC-ROC": 0.9007729161049439,
+                "VUS-PR": 0.36033807998097034,
+                "VUS-ROC": 0.9173745626013522,
+                "Standard-F1": 0.30597156398104264,
+                "PA-F1": 0.7950377562028047,
+                "Event-based-F1": 0.5149968091895337,
+                "R-based-F1": 0.2995006556342768,
+                "accuracy": 0.9213161966987621,
+                "precision": 0.3467984529437043,
+                "recall": 0.2737449118046133,
+                "f1_score": 0.30597156398104264,
+                "confusion_matrix": [
+                    [
+                        42060,
+                        1520
+                    ],
+                    [
+                        2141,
+                        807
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "182_Exathlon_id_9_Facility_tr_10766_1st_12590.csv": {
+        "file": "182_Exathlon_id_9_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2640848925298178,
+                "AUC-ROC": 0.7488007956518551,
+                "VUS-PR": 0.28653023634972535,
+                "VUS-ROC": 0.7627535502681961,
+                "Standard-F1": 0.18061615760941424,
+                "PA-F1": 0.8808458723058153,
+                "Event-based-F1": 0.48251501236312216,
+                "R-based-F1": 0.30429379834527637,
+                "accuracy": 0.8556957898658718,
+                "precision": 0.31797020484171323,
+                "recall": 0.12613111726685133,
+                "f1_score": 0.18061615760941424,
+                "confusion_matrix": [
+                    [
+                        36064,
+                        1465
+                    ],
+                    [
+                        4732,
+                        683
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "183_Exathlon_id_10_Facility_tr_11665_1st_13484.csv": {
+        "file": "183_Exathlon_id_10_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2985606292442368,
+                "AUC-ROC": 0.8624234377349977,
+                "VUS-PR": 0.3466053499148409,
+                "VUS-ROC": 0.8796245316206572,
+                "Standard-F1": 0.39124643196955283,
+                "PA-F1": 0.8184486373165618,
+                "Event-based-F1": 0.6128166915052156,
+                "R-based-F1": 0.3396732662526173,
+                "accuracy": 0.9312457015130674,
+                "precision": 0.4417705199828105,
+                "recall": 0.3510928961748634,
+                "f1_score": 0.39124643196955283,
+                "confusion_matrix": [
+                    [
+                        42301,
+                        1299
+                    ],
+                    [
+                        1900,
+                        1028
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "184_Exathlon_id_11_Facility_tr_11665_1st_13484.csv": {
+        "file": "184_Exathlon_id_11_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2985606292442368,
+                "AUC-ROC": 0.8624234377349977,
+                "VUS-PR": 0.3466053499148409,
+                "VUS-ROC": 0.8796245316206572,
+                "Standard-F1": 0.39124643196955283,
+                "PA-F1": 0.8184486373165618,
+                "Event-based-F1": 0.6128166915052156,
+                "R-based-F1": 0.3396732662526173,
+                "accuracy": 0.9312457015130674,
+                "precision": 0.4417705199828105,
+                "recall": 0.3510928961748634,
+                "f1_score": 0.39124643196955283,
+                "confusion_matrix": [
+                    [
+                        42301,
+                        1299
+                    ],
+                    [
+                        1900,
+                        1028
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "185_Exathlon_id_12_Facility_tr_11665_1st_13484.csv": {
+        "file": "185_Exathlon_id_12_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2985606292442368,
+                "AUC-ROC": 0.8624234377349977,
+                "VUS-PR": 0.3466053499148409,
+                "VUS-ROC": 0.8796245316206572,
+                "Standard-F1": 0.39124643196955283,
+                "PA-F1": 0.8184486373165618,
+                "Event-based-F1": 0.6128166915052156,
+                "R-based-F1": 0.3396732662526173,
+                "accuracy": 0.9312457015130674,
+                "precision": 0.4417705199828105,
+                "recall": 0.3510928961748634,
+                "f1_score": 0.39124643196955283,
+                "confusion_matrix": [
+                    [
+                        42301,
+                        1299
+                    ],
+                    [
+                        1900,
+                        1028
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "186_Exathlon_id_13_Facility_tr_10766_1st_12590.csv": {
+        "file": "186_Exathlon_id_13_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2640848925298178,
+                "AUC-ROC": 0.7488007956518551,
+                "VUS-PR": 0.28653023634972535,
+                "VUS-ROC": 0.7627535502681961,
+                "Standard-F1": 0.18061615760941424,
+                "PA-F1": 0.8808458723058153,
+                "Event-based-F1": 0.48251501236312216,
+                "R-based-F1": 0.30429379834527637,
+                "accuracy": 0.8556957898658718,
+                "precision": 0.31797020484171323,
+                "recall": 0.12613111726685133,
+                "f1_score": 0.18061615760941424,
+                "confusion_matrix": [
+                    [
+                        36064,
+                        1465
+                    ],
+                    [
+                        4732,
+                        683
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "187_Exathlon_id_14_Facility_tr_6193_1st_6293.csv": {
+        "file": "187_Exathlon_id_14_Facility_tr_6193_1st_6293.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7943627302884734,
+                "AUC-ROC": 0.9183413970026428,
+                "VUS-PR": 0.8350494643414375,
+                "VUS-ROC": 0.9416143470577024,
+                "Standard-F1": 0.4449901768172888,
+                "PA-F1": 0.9576096798090378,
+                "Event-based-F1": 0.8755738100990572,
+                "R-based-F1": 0.3276884965147225,
+                "accuracy": 0.9028541953232462,
+                "precision": 0.7786850021486893,
+                "recall": 0.3115007735946364,
+                "f1_score": 0.4449901768172888,
+                "confusion_matrix": [
+                    [
+                        40196,
+                        515
+                    ],
+                    [
+                        4005,
+                        1812
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "188_Exathlon_id_15_Facility_tr_12538_1st_12638.csv": {
+        "file": "188_Exathlon_id_15_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.26539246792553267,
+                "AUC-ROC": 0.7069754115074687,
+                "VUS-PR": 0.28012250892165846,
+                "VUS-ROC": 0.721637636208988,
+                "Standard-F1": 0.162677304964539,
+                "PA-F1": 0.8745587836003258,
+                "Event-based-F1": 0.4427020506634495,
+                "R-based-F1": 0.308325326689268,
+                "accuracy": 0.8536657164105107,
+                "precision": 0.284275755228505,
+                "recall": 0.11393977025768395,
+                "f1_score": 0.162677304964539,
+                "confusion_matrix": [
+                    [
+                        108363,
+                        4620
+                    ],
+                    [
+                        14270,
+                        1835
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "189_Exathlon_id_16_Facility_tr_11663_1st_13482.csv": {
+        "file": "189_Exathlon_id_16_Facility_tr_11663_1st_13482.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.3145617483843849,
+                "AUC-ROC": 0.9007729161049439,
+                "VUS-PR": 0.36033807998097034,
+                "VUS-ROC": 0.9173745626013522,
+                "Standard-F1": 0.30597156398104264,
+                "PA-F1": 0.7950377562028047,
+                "Event-based-F1": 0.5149968091895337,
+                "R-based-F1": 0.2995006556342768,
+                "accuracy": 0.9213161966987621,
+                "precision": 0.3467984529437043,
+                "recall": 0.2737449118046133,
+                "f1_score": 0.30597156398104264,
+                "confusion_matrix": [
+                    [
+                        42060,
+                        1520
+                    ],
+                    [
+                        2141,
+                        807
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "190_Exathlon_id_17_Facility_tr_12538_1st_12638.csv": {
+        "file": "190_Exathlon_id_17_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.26539246792553267,
+                "AUC-ROC": 0.7069754115074687,
+                "VUS-PR": 0.28012250892165846,
+                "VUS-ROC": 0.721637636208988,
+                "Standard-F1": 0.162677304964539,
+                "PA-F1": 0.8745587836003258,
+                "Event-based-F1": 0.4427020506634495,
+                "R-based-F1": 0.308325326689268,
+                "accuracy": 0.8536657164105107,
+                "precision": 0.284275755228505,
+                "recall": 0.11393977025768395,
+                "f1_score": 0.162677304964539,
+                "confusion_matrix": [
+                    [
+                        108363,
+                        4620
+                    ],
+                    [
+                        14270,
+                        1835
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "191_Exathlon_id_18_Facility_tr_11665_1st_13484.csv": {
+        "file": "191_Exathlon_id_18_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2985606292442368,
+                "AUC-ROC": 0.8624234377349977,
+                "VUS-PR": 0.3466053499148409,
+                "VUS-ROC": 0.8796245316206572,
+                "Standard-F1": 0.39124643196955283,
+                "PA-F1": 0.8184486373165618,
+                "Event-based-F1": 0.6128166915052156,
+                "R-based-F1": 0.3396732662526173,
+                "accuracy": 0.9312457015130674,
+                "precision": 0.4417705199828105,
+                "recall": 0.3510928961748634,
+                "f1_score": 0.39124643196955283,
+                "confusion_matrix": [
+                    [
+                        42301,
+                        1299
+                    ],
+                    [
+                        1900,
+                        1028
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "192_Exathlon_id_19_Facility_tr_11665_1st_13484.csv": {
+        "file": "192_Exathlon_id_19_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2985606292442368,
+                "AUC-ROC": 0.8624234377349977,
+                "VUS-PR": 0.3466053499148409,
+                "VUS-ROC": 0.8796245316206572,
+                "Standard-F1": 0.39124643196955283,
+                "PA-F1": 0.8184486373165618,
+                "Event-based-F1": 0.6128166915052156,
+                "R-based-F1": 0.3396732662526173,
+                "accuracy": 0.9312457015130674,
+                "precision": 0.4417705199828105,
+                "recall": 0.3510928961748634,
+                "f1_score": 0.39124643196955283,
+                "confusion_matrix": [
+                    [
+                        42301,
+                        1299
+                    ],
+                    [
+                        1900,
+                        1028
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "193_Exathlon_id_20_Facility_tr_8898_1st_8998.csv": {
+        "file": "193_Exathlon_id_20_Facility_tr_8898_1st_8998.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.22681503171824466,
+                "AUC-ROC": 0.27105056247336395,
+                "VUS-PR": 0.26214295878234134,
+                "VUS-ROC": 0.3026018357206584,
+                "Standard-F1": 0.31907365712447733,
+                "PA-F1": 0.85357025337282,
+                "Event-based-F1": 0.5977704127749317,
+                "R-based-F1": 0.11561169377586357,
+                "accuracy": 0.9090010316368639,
+                "precision": 0.426299957026214,
+                "recall": 0.2549473143150861,
+                "f1_score": 0.31907365712447733,
+                "confusion_matrix": [
+                    [
+                        41302,
+                        1335
+                    ],
+                    [
+                        2899,
+                        992
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "194_Exathlon_id_21_Facility_tr_6985_1st_7085.csv": {
+        "file": "194_Exathlon_id_21_Facility_tr_6985_1st_7085.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.16568070736117102,
+                "AUC-ROC": 0.46804029924367374,
+                "VUS-PR": 0.19967632628743986,
+                "VUS-ROC": 0.5003481896865302,
+                "Standard-F1": 0.24056800779618545,
+                "PA-F1": 0.869082774049217,
+                "Event-based-F1": 0.5415230335318079,
+                "R-based-F1": 0.31935346625705247,
+                "accuracy": 0.8827587689133425,
+                "precision": 0.3712935109583154,
+                "recall": 0.17792421746293247,
+                "f1_score": 0.24056800779618545,
+                "confusion_matrix": [
+                    [
+                        40209,
+                        1463
+                    ],
+                    [
+                        3992,
+                        864
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "195_Exathlon_id_22_Facility_tr_10766_1st_12590.csv": {
+        "file": "195_Exathlon_id_22_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2640848925298178,
+                "AUC-ROC": 0.7488007956518551,
+                "VUS-PR": 0.28653023634972535,
+                "VUS-ROC": 0.7627535502681961,
+                "Standard-F1": 0.18061615760941424,
+                "PA-F1": 0.8808458723058153,
+                "Event-based-F1": 0.48251501236312216,
+                "R-based-F1": 0.30429379834527637,
+                "accuracy": 0.8556957898658718,
+                "precision": 0.31797020484171323,
+                "recall": 0.12613111726685133,
+                "f1_score": 0.18061615760941424,
+                "confusion_matrix": [
+                    [
+                        36064,
+                        1465
+                    ],
+                    [
+                        4732,
+                        683
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "196_Exathlon_id_23_Facility_tr_11665_1st_13484.csv": {
+        "file": "196_Exathlon_id_23_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2985606292442368,
+                "AUC-ROC": 0.8624234377349977,
+                "VUS-PR": 0.3466053499148409,
+                "VUS-ROC": 0.8796245316206572,
+                "Standard-F1": 0.39124643196955283,
+                "PA-F1": 0.8184486373165618,
+                "Event-based-F1": 0.6128166915052156,
+                "R-based-F1": 0.3396732662526173,
+                "accuracy": 0.9312457015130674,
+                "precision": 0.4417705199828105,
+                "recall": 0.3510928961748634,
+                "f1_score": 0.39124643196955283,
+                "confusion_matrix": [
+                    [
+                        42301,
+                        1299
+                    ],
+                    [
+                        1900,
+                        1028
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "197_Exathlon_id_24_Facility_tr_10766_1st_12590.csv": {
+        "file": "197_Exathlon_id_24_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2640848925298178,
+                "AUC-ROC": 0.7488007956518551,
+                "VUS-PR": 0.28653023634972535,
+                "VUS-ROC": 0.7627535502681961,
+                "Standard-F1": 0.18061615760941424,
+                "PA-F1": 0.8808458723058153,
+                "Event-based-F1": 0.48251501236312216,
+                "R-based-F1": 0.30429379834527637,
+                "accuracy": 0.8556957898658718,
+                "precision": 0.31797020484171323,
+                "recall": 0.12613111726685133,
+                "f1_score": 0.18061615760941424,
+                "confusion_matrix": [
+                    [
+                        36064,
+                        1465
+                    ],
+                    [
+                        4732,
+                        683
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "198_Exathlon_id_25_Facility_tr_12538_1st_12638.csv": {
+        "file": "198_Exathlon_id_25_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.26539246792553267,
+                "AUC-ROC": 0.7069754115074687,
+                "VUS-PR": 0.28012250892165846,
+                "VUS-ROC": 0.721637636208988,
+                "Standard-F1": 0.162677304964539,
+                "PA-F1": 0.8745587836003258,
+                "Event-based-F1": 0.4427020506634495,
+                "R-based-F1": 0.308325326689268,
+                "accuracy": 0.8536657164105107,
+                "precision": 0.284275755228505,
+                "recall": 0.11393977025768395,
+                "f1_score": 0.162677304964539,
+                "confusion_matrix": [
+                    [
+                        108363,
+                        4620
+                    ],
+                    [
+                        14270,
+                        1835
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "199_Exathlon_id_26_Facility_tr_12538_1st_12638.csv": {
+        "file": "199_Exathlon_id_26_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.26539246792553267,
+                "AUC-ROC": 0.7069754115074687,
+                "VUS-PR": 0.28012250892165846,
+                "VUS-ROC": 0.721637636208988,
+                "Standard-F1": 0.162677304964539,
+                "PA-F1": 0.8745587836003258,
+                "Event-based-F1": 0.4427020506634495,
+                "R-based-F1": 0.308325326689268,
+                "accuracy": 0.8536657164105107,
+                "precision": 0.284275755228505,
+                "recall": 0.11393977025768395,
+                "f1_score": 0.162677304964539,
+                "confusion_matrix": [
+                    [
+                        108363,
+                        4620
+                    ],
+                    [
+                        14270,
+                        1835
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
+    },
+    "200_Exathlon_id_27_Facility_tr_10766_1st_12590.csv": {
+        "file": "200_Exathlon_id_27_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2640848925298178,
+                "AUC-ROC": 0.7488007956518551,
+                "VUS-PR": 0.28653023634972535,
+                "VUS-ROC": 0.7627535502681961,
+                "Standard-F1": 0.18061615760941424,
+                "PA-F1": 0.8808458723058153,
+                "Event-based-F1": 0.48251501236312216,
+                "R-based-F1": 0.30429379834527637,
+                "accuracy": 0.8556957898658718,
+                "precision": 0.31797020484171323,
+                "recall": 0.12613111726685133,
+                "f1_score": 0.18061615760941424,
+                "confusion_matrix": [
+                    [
+                        36064,
+                        1465
+                    ],
+                    [
+                        4732,
+                        683
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "percentile": 95.0
     }
 }
