@@ -15,7 +15,7 @@ def computeFileStats(file: str) -> dict[str, float]:
         with open(file, "r", encoding="utf-8") as f:
             results = json_load(f)
 
-        # results = dict(filter(lambda x: x[0].split("_")[1]=="MSL", results.items()))
+        results = dict(filter(lambda x: x[0].split("_")[1]=="MSL", results.items()))
 
         return {
             key: [
