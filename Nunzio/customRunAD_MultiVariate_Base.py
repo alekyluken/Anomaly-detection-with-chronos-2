@@ -312,7 +312,7 @@ def main(configuration:dict, name:str)->None:
         existing_results = {}
 
     # Process datasets
-    dataset_files = sorted(pd.read_csv("test_files_U.csv")["name"].tolist()) if configuration.get('use_restricted_dataset', True) else sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
+    dataset_files = sorted(pd.read_csv("test_files_M.csv")["name"].tolist()) if configuration.get('use_restricted_dataset', False) else sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
 
     if all(fname in existing_results for fname in dataset_files):
         existing_results = {}
