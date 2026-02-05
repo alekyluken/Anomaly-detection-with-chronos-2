@@ -10,13 +10,21 @@ GREEN = "\033[92m"
 RESET = "\033[0m"
 
 
-def computeFileStats(file: str, restrictToMSL:bool=False) -> dict[str, float]:
+def computeFileStats(file: str, restrictToClasses:bool=False) -> dict[str, float]:
     if os.path.exists(file):
         with open(file, "r", encoding="utf-8") as f:
             results = json_load(f)
 
-        if restrictToMSL:
-            results = dict(filter(lambda x: x[0].split("_")[1]=="MSL", results.items()))
+        if restrictToClasses:
+            if isinstance(restrictToClasses, str):
+                restrictToClasses = restrictToClasses.strip().split(",")
+            if isinstance(restrictToClasses, (list, tuple, set)):
+                restrictToClasses = set(map(lambda x: x.strip().upper(), restrictToClasses))
+            results = dict(filter(lambda x: x[0].split("_")[1].upper() in restrictToClasses, results.items()))
+
+            print(f"Restricted to classes: {restrictToClasses}, found {len(results)} runs.")
+        else:
+            print(f"Processing all classes, found {len(results)} runs.")
 
         return {
             key: [
@@ -58,7 +66,7 @@ def build_dataframe(all_stats: dict[str, dict[str, list[float]]]) -> pd.DataFram
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compare results from multiple result files.")
     parser.add_argument("--files",type=str,nargs="+",required=True,help="List of result files to compare.")
-    parser.add_argument("--restrictToMSL",action="store_true",help="Restrict results to MSL datasets only.", default=False)
-    
+    parser.add_argument("--restrictTo", type=str, nargs="*", default="False", help="If a name or more than one class is provided (comma-separated), restrict the comparison to those classes only.")
+
     args = parser.parse_args()
-    display(build_dataframe({f: computeFileStats(f, restrictToMSL=args.restrictToMSL) for f in args.files}))
+    display(build_dataframe({f: computeFileStats(f, restrictToClasses=args.restrictTo) for f in args.files}))
