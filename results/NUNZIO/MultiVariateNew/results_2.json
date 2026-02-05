@@ -1,0 +1,61 @@
+{
+    "001_Genesis_id_1_Sensor_tr_4055_1st_15538.csv": {
+        "file": "001_Genesis_id_1_Sensor_tr_4055_1st_15538.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.004986366080881733,
+                "AUC-ROC": 0.5941026601723491,
+                "VUS-PR": 0.015592851978297824,
+                "VUS-ROC": 0.7454169138818849,
+                "Standard-F1": 0.02107728337236534,
+                "PA-F1": 0.05970149253731343,
+                "Event-based-F1": 0.02166064981949452,
+                "R-based-F1": 0.048943270300333706,
+                "accuracy": 0.9479581673306773,
+                "precision": 0.011194029850746268,
+                "recall": 0.18,
+                "f1_score": 0.02107728337236534,
+                "confusion_matrix": [
+                    [
+                        15219,
+                        795
+                    ],
+                    [
+                        41,
+                        9
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "topk_mean",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "beta": 0.15
+    }
+}

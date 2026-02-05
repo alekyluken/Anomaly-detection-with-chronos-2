@@ -10,12 +10,13 @@ GREEN = "\033[92m"
 RESET = "\033[0m"
 
 
-def computeFileStats(file: str) -> dict[str, float]:
+def computeFileStats(file: str, restrictToMSL:bool=False) -> dict[str, float]:
     if os.path.exists(file):
         with open(file, "r", encoding="utf-8") as f:
             results = json_load(f)
 
-        results = dict(filter(lambda x: x[0].split("_")[1]=="MSL", results.items()))
+        if restrictToMSL:
+            results = dict(filter(lambda x: x[0].split("_")[1]=="MSL", results.items()))
 
         return {
             key: [
@@ -56,12 +57,8 @@ def build_dataframe(all_stats: dict[str, dict[str, list[float]]]) -> pd.DataFram
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compare results from multiple result files.")
-    parser.add_argument(
-        "--files",
-        type=str,
-        nargs="+",
-        required=True,
-        help="List of result files to compare.",
-    )
+    parser.add_argument("--files",type=str,nargs="+",required=True,help="List of result files to compare.")
+    parser.add_argument("--restrictToMSL",action="store_true",help="Restrict results to MSL datasets only.", default=False)
     
-    display(build_dataframe({f: computeFileStats(f) for f in parser.parse_args().files}))
+    args = parser.parse_args()
+    display(build_dataframe({f: computeFileStats(f, restrictToMSL=args.restrictToMSL) for f in args.files}))
