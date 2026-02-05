@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import argparse
 
+
 from sklearn.linear_model import Ridge
 from chronos import Chronos2Pipeline
 
@@ -44,26 +45,14 @@ def get_pipeline(model_name: str = "amazon/chronos-2", device: str = None) -> Ch
     return Chronos2Pipeline.from_pretrained(model_name, device_map= device if device else ("cuda" if torch.cuda.is_available() else "cpu"))
 
 
-def get_timestamp(start_date: str = "2026-01-01 00:00:00", periods: int = 100, freq: str = 'min'):
-    """Generate timestamps for time series
-    
-    Args:
-        start_date(str): Starting date for timestamps
-        periods(int): Number of timestamps to generate
-        freq(str): Frequency of timestamps (e.g., 'min' for minutes)
-            
-    Returns:
-        dates (pd.DatetimeIndex): Generated timestamps
-    """
-    return pd.date_range(start=start_date, periods=periods, freq=freq)
-
-
-def prepare_data_for_chronos(dataset_path: str):
+def prepare_data_for_chronos(dataset_path: str, context_length: int = 100, prediction_length: int = 64):
     """
     Prepare data in Chronos-2 format (DataFrame with timestamp, item_id, target columns)
 
     Args:
         dataset_path(str): Path to CSV file with time series data and labels
+        context_length(int): Length of context window (item_id=0)
+        prediction_length(int): Length of each prediction segment (item_id=1, 2, 3, ...)
     
     Returns:
         - time_series_df: Formatted DataFrame for Chronos
@@ -75,93 +64,107 @@ def prepare_data_for_chronos(dataset_path: str):
 
     # Remove label from data
     df_clean = df.drop(columns=[df.columns[-1]])
+    item_ids = np.zeros(len(df_clean), dtype=np.int32)
+    
+    # Samples after context get sequential item_ids based on prediction_length segments
+    if context_length < len(df_clean):
+        for seg in range((len(df_clean) - context_length + prediction_length - 1) // prediction_length):
+            item_ids[context_length + seg * prediction_length:min(context_length + (seg + 1) * prediction_length, len(df_clean))] = seg + 1  # item_id starts from 1 for prediction segments
 
     # Create Chronos-compatible DataFrame
     df_chronos = pd.DataFrame()
-    df_chronos['timestamp'] = get_timestamp(periods=len(df_clean))
-    df_chronos['item_id'] = 0  # all data belongs to the same item
+    df_chronos['timestamp'] = pd.date_range(start="2026-01-01 00:00:00", periods=len(df_clean), freq="min")
+    df_chronos['item_id'] = item_ids
     df_chronos[df_clean.columns] = df_clean[df_clean.columns].values
     
     return df_chronos, df[df.columns[-1]].values, df_clean.columns.tolist()
 
 
 
-def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chronos2Pipeline,target_col: str,context_length: int = 100,prediction_length: int = 1,step_size: int = 1,batch_size: int = 32,
-                                    quantile_levels: list[float] = [0.01, 0.05, 0.1, 0.2,  0.5, 0.8, 0.9, 0.95, 0.99]):
+def make_predictions_multivariate( time_series_df: pd.DataFrame, pipeline: Chronos2Pipeline, target_cols: list[str],
+    context_length: int = 100, prediction_length: int = 64, quantile_levels: list[float] = [0.05, 0.5, 0.95], batch_size: int = 32,
+) -> tuple[dict[str, pd.DataFrame], np.ndarray]:
     """
-    Generate predictions using sliding window approach
+    Generate multivariate predictions where each segment (item_id >= 1) is predicted
+    using the context_length values before it. All D columns are used as multivariate target.
     
     Args:
-        time_series_df: DataFrame with columns [timestamp, item_id, target]
+        time_series_df: DataFrame with columns [timestamp, item_id, col1, col2, ..., colD]
         pipeline: Chronos2Pipeline instance
-        target_col: Name of target column
+        target_cols: List of target column names (D columns)
         context_length: Number of historical points for context
-        prediction_length: Number of steps to forecast
-        step_size: Stride of sliding window
-        batch_size: Batch size for inference
+        prediction_length: Number of steps to forecast per segment
+        quantile_levels: Quantile levels for probabilistic forecasts
+        batch_size: Number of segments to process in parallel
     
     Returns:
-        predictions_df: DataFrame with predictions and quantiles
-        prediction_indices: Indices in original series corresponding to each prediction
+        predictions_dict: Dict mapping each target_col to DataFrame with predictions
+        prediction_indices: Array of original indices for each prediction timestep
+    
+    Note:
+        - cross_learning=False ensures different item_ids don't influence each other
+        - All D columns are predicted jointly (multivariate forecasting within each segment)
     """
+    # Get unique item_ids (excluding 0 which is context-only)
+    prediction_item_ids = [iid for iid in sorted(time_series_df['item_id'].unique()) if iid > 0][:-1] # Exclude last segment, since we don't have the labels for it (it would be in the future of the series)
     
-    predictions_list = []
+    tasks, segment_start_indices = [], []  # Track where each segment starts in original data    
+    for item_id in prediction_item_ids:
+        segment_start = time_series_df.index[time_series_df['item_id'] == item_id].tolist()[0]
+        
+        tasks.append({
+            "target": time_series_df.loc[segment_start - context_length:segment_start-1, target_cols].values.T.astype(np.float32)
+        })
+        segment_start_indices.append(segment_start)
     
-    # Pre-calculate indices using numpy for efficiency
-    indices = np.arange(context_length, len(time_series_df) - prediction_length + 1, step_size)
+    # Run predictions in batches
+    # cross_learning=False: different segments don't influence each other
+    # But within each task, all D columns ARE predicted jointly (multivariate)
+    all_predictions = []
     
-    # Convert target column to numpy array for faster access
-    timestamps = time_series_df['timestamp'].values
-    
-    # Process in batches
-    for batch_start in tqdm(range(0, len(indices), batch_size), desc="Processing prediction batches", leave=False):
-        batch_indices = indices[batch_start:min(batch_start + batch_size, len(indices))]
+    for batch_start in tqdm(range(0, len(tasks), batch_size), desc="Predicting segments", leave=False):
+        batch_tasks = tasks[batch_start:batch_start + batch_size]
         
         try:
-            # Build contexts and futures using slicing instead of appending
-            combined_contexts_list = []
-            combined_futures_list = []
-            
-            for i, start_idx in enumerate(batch_indices):
-                combined_contexts_list.append(pd.DataFrame(
-                    {
-                        'timestamp': timestamps[start_idx - context_length:start_idx],
-                        'item_id': np.full(context_length, i, dtype=np.int32),
-                        target_col: time_series_df[target_col].iloc[start_idx - context_length:start_idx].values,
-                    }
-                ))
-
-                combined_futures_list.append(pd.DataFrame(
-                    {
-                        'timestamp': timestamps[start_idx:start_idx + prediction_length],
-                        'item_id': np.full(prediction_length, i, dtype=np.int32),
-                    }
-                ))
-            
-            # Make predictions
-            predictions_list.append(pipeline.predict_df(
-                df=pd.concat(combined_contexts_list, ignore_index=True),
-                future_df=pd.concat(combined_futures_list, ignore_index=True),
-                target=target_col,
-                prediction_length=prediction_length,
-                quantile_levels=quantile_levels,  # Use multiple quantiles
-                cross_learning=True,
-                batch_size=len(batch_indices),
-            ))
-            
+            # predict() returns list of tensors, each of shape (D, n_quantiles, prediction_length)
+            all_predictions.extend(pipeline.predict(
+                    inputs=batch_tasks,
+                    prediction_length=prediction_length,
+                    batch_size=len(batch_tasks),
+                    context_length=context_length,
+                    cross_learning=False,  # Segments don't influence each other
+                )
+            )
         except Exception as e:
-            print(f"Error processing batch starting at index {batch_start}: {e}")
-
-    # Build prediction_indices efficiently using numpy
-    if predictions_list:
-        prediction_indices = np.repeat(indices, prediction_length)
-        for i in range(len(indices)):
-            for j in range(1, prediction_length):
-                prediction_indices[i * prediction_length + j] = indices[i] + j
-
-        return pd.concat(predictions_list, ignore_index=True), prediction_indices
+            print(f"Error in batch starting at {batch_start}: {e}")
+            raise
     
-    return pd.DataFrame(), np.array([], dtype=np.int32)
+    # Convert predictions to DataFrames, one per target column
+    # all_predictions[i] has shape (D, n_quantiles, prediction_length)
+    predictions_dict = {col: [] for col in target_cols}
+    all_indices = []
+    
+    for seg_idx, (pred_tensor, seg_start) in enumerate(zip(all_predictions, segment_start_indices)):
+        # pred_tensor shape: (D, n_quantiles, prediction_length)
+        pred_np = pred_tensor.cpu().numpy() if hasattr(pred_tensor, 'cpu') else np.array(pred_tensor)
+        
+        # For each target column (variate)
+        for d_idx, col in enumerate(target_cols):
+            seg_df = pd.DataFrame({
+                'item_id': prediction_item_ids[seg_idx],  # item_id for this segment
+                'timestep': np.arange(seg_start, seg_start + prediction_length),
+                'predictions': pred_np[d_idx, len(quantile_levels) // 2, :],  # Median as point prediction
+            })
+            # Add quantile columns
+            for q_idx, q_level in enumerate(quantile_levels):
+                seg_df[str(q_level)] = pred_np[d_idx, q_idx, :]
+            
+            predictions_dict[col].append(seg_df)
+        
+        # Track original indices
+        all_indices.extend(range(seg_start, seg_start + prediction_length))
+    
+    return {col:pd.concat(predictions_dict[col], ignore_index=True) for col in target_cols}, np.array(all_indices, dtype=np.int32)
 
 
 def computeMultiHorizonAnomalyScore(predictions_df: pd.DataFrame, actual_values: np.ndarray, prediction_indices: np.ndarray,
@@ -343,37 +346,47 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
     """
     print(f"Processing: {os.path.basename(dataset_path)}")
     
-    # Prepare data
-    time_series_df, ground_truth_labels, target_col = prepare_data_for_chronos(dataset_path)
+    # Prepare data with proper item_id segmentation
+    context_length = configuration.get('context_length', 100)
+    horizons = configuration.get('horizons', [32, 64])
+    maxH = max(horizons)
+    
+    time_series_df, ground_truth_labels, target_cols = prepare_data_for_chronos(
+        dataset_path, 
+        context_length=context_length, 
+        prediction_length=maxH
+    )
     
     print(f"Ground truth anomaly rate: {np.mean(ground_truth_labels):.2%}")
-    
-    # Make predictions
-    continuousScores, horizons = {}, configuration.get('horizons', [32, 64])
-    maxH = max(horizons)
-    for col in tqdm(target_col, desc="Processing target columns", leave=False):
-        predictions_df, prediction_indices = make_predictions_sliding_window(
+
+    # Make multivariate predictions
+    # All D columns are predicted jointly, but different segments don't influence each other
+    predictions_dict, prediction_indices = make_predictions_multivariate(
         time_series_df=time_series_df,
-            pipeline=pipeline,
-            target_col=col,
-            context_length=configuration.get('context_length', 100),
-            prediction_length=maxH,
-            step_size=maxH,
-            batch_size=configuration.get('batch_size', 256),
-            quantile_levels=sorted(set([t for v in configuration.get('thresholds_percentile', [[0.05, 0.95]]) for t in v] + [0.5]))
-        )
-        
-        # Detect anomalies using reconstruction error
-        continuousScores[col] = computeMultiHorizonAnomalyScore(
-            predictions_df=predictions_df,
-            actual_values=time_series_df[col].iloc[prediction_indices].values,
+        pipeline=pipeline,
+        target_cols=target_cols,
+        context_length=context_length,
+        prediction_length=maxH,
+        quantile_levels=sorted(set([t for v in configuration.get('thresholds_percentile', [[0.05, 0.95]]) for t in v] + [0.5])),
+        batch_size=configuration.get('batch_size', 32),
+    )
+
+    # Compute anomaly scores for each column
+    continuousScores = {col: computeMultiHorizonAnomalyScore(
+            predictions_df=predictions_dict[col],
+            actual_values=time_series_df[col].values,
             prediction_indices=prediction_indices,
             horizons=horizons
-        )
-
-    continuosAnomalyScores, discreteAnomalyScores = aggregateAnomalyScoresViaPageRank(continuousScores=continuousScores, pastData=time_series_df, grouping = predictions_df['item_id'], 
-                                    howToEvaluate_u=configuration.get('howToEvaluate_u', 'sum_CRPS'), percentile=configuration.get('percentile', 95),
-                                    chronos2=pipeline)
+        ) for col in target_cols}
+    
+    continuosAnomalyScores, discreteAnomalyScores = aggregateAnomalyScoresViaPageRank(
+        continuousScores=continuousScores, 
+        pastData=time_series_df, 
+        grouping=time_series_df.loc[prediction_indices, 'item_id'].reset_index(drop=True),
+        howToEvaluate_u=configuration.get('howToEvaluate_u', 'sum_CRPS'), 
+        percentile=configuration.get('percentile', 95),
+        chronos2=pipeline
+    )
 
     # Calculate metrics
     return {

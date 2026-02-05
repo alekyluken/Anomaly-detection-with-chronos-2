@@ -1,0 +1,988 @@
+{
+    "001_Genesis_id_1_Sensor_tr_4055_1st_15538.csv": {
+        "file": "001_Genesis_id_1_Sensor_tr_4055_1st_15538.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.00288568485638809,
+                "AUC-ROC": 0.4740239790183589,
+                "VUS-PR": 0.00938307907740719,
+                "VUS-ROC": 0.6740789901200527,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9468376494023905,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        15210,
+                        804
+                    ],
+                    [
+                        50,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "002_MSL_id_1_Sensor_tr_500_1st_900.csv": {
+        "file": "002_MSL_id_1_Sensor_tr_500_1st_900.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.008973637853490883,
+                "AUC-ROC": 0.5660782049166804,
+                "VUS-PR": 0.041590203635590794,
+                "VUS-ROC": 0.8518791090318542,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9429086538461539,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        1569,
+                        84
+                    ],
+                    [
+                        11,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "003_MSL_id_2_Sensor_tr_883_1st_1238.csv": {
+        "file": "003_MSL_id_2_Sensor_tr_883_1st_1238.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.06905635977870384,
+                "AUC-ROC": 0.5058761394637035,
+                "VUS-PR": 0.09849227386145103,
+                "VUS-ROC": 0.6230887269045983,
+                "Standard-F1": 0.08040201005025126,
+                "PA-F1": 0.7475409836065574,
+                "Event-based-F1": 0.172043010752688,
+                "R-based-F1": 0.14396372174362537,
+                "accuracy": 0.8920990566037735,
+                "precision": 0.09411764705882353,
+                "recall": 0.07017543859649122,
+                "f1_score": 0.08040201005025126,
+                "confusion_matrix": [
+                    [
+                        3010,
+                        154
+                    ],
+                    [
+                        212,
+                        16
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "004_MSL_id_3_Sensor_tr_530_1st_630.csv": {
+        "file": "004_MSL_id_3_Sensor_tr_530_1st_630.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.03573268441112305,
+                "AUC-ROC": 0.31660123493713627,
+                "VUS-PR": 0.06311720103690859,
+                "VUS-ROC": 0.4320227538565355,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.8971354166666666,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        2067,
+                        116
+                    ],
+                    [
+                        121,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "005_MSL_id_4_Sensor_tr_855_1st_2700.csv": {
+        "file": "005_MSL_id_4_Sensor_tr_855_1st_2700.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.012119313329089818,
+                "AUC-ROC": 0.14989214964071934,
+                "VUS-PR": 0.016703785237240653,
+                "VUS-ROC": 0.25924814740781327,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9280024509803921,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        3029,
+                        164
+                    ],
+                    [
+                        71,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "006_MSL_id_5_Sensor_tr_1150_1st_1250.csv": {
+        "file": "006_MSL_id_5_Sensor_tr_1150_1st_1250.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.13023357998208707,
+                "AUC-ROC": 0.6210157875541491,
+                "VUS-PR": 0.16719719961799392,
+                "VUS-ROC": 0.6889108169792075,
+                "Standard-F1": 0.14328358208955225,
+                "PA-F1": 0.488456865127582,
+                "Event-based-F1": 0.24552429667519135,
+                "R-based-F1": 0.09015259789256895,
+                "accuracy": 0.8835227272727273,
+                "precision": 0.19433198380566802,
+                "recall": 0.11347517730496454,
+                "f1_score": 0.14328358208955225,
+                "confusion_matrix": [
+                    [
+                        4306,
+                        199
+                    ],
+                    [
+                        375,
+                        48
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "007_MSL_id_6_Sensor_tr_980_1st_3550.csv": {
+        "file": "007_MSL_id_6_Sensor_tr_980_1st_3550.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2097188126588975,
+                "AUC-ROC": 0.7230984242977848,
+                "VUS-PR": 0.3729936620207982,
+                "VUS-ROC": 0.79318774140727,
+                "Standard-F1": 0.4411764705882353,
+                "PA-F1": 0.7259615384615384,
+                "Event-based-F1": 0.5681818181818177,
+                "R-based-F1": 0.2035388256508509,
+                "accuracy": 0.9496822033898306,
+                "precision": 0.3968253968253968,
+                "recall": 0.4966887417218543,
+                "f1_score": 0.4411764705882353,
+                "confusion_matrix": [
+                    [
+                        3511,
+                        114
+                    ],
+                    [
+                        76,
+                        75
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "008_MSL_id_7_Sensor_tr_656_1st_1630.csv": {
+        "file": "008_MSL_id_7_Sensor_tr_656_1st_1630.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.45327482002082037,
+                "AUC-ROC": 0.918124588968916,
+                "VUS-PR": 0.5125940318485209,
+                "VUS-ROC": 0.9023097671061664,
+                "Standard-F1": 0.23631123919308358,
+                "PA-F1": 0.7928994082840237,
+                "Event-based-F1": 0.3961352657004826,
+                "R-based-F1": 0.18641451104220172,
+                "accuracy": 0.8938301282051282,
+                "precision": 0.328,
+                "recall": 0.18468468468468469,
+                "f1_score": 0.23631123919308358,
+                "confusion_matrix": [
+                    [
+                        2190,
+                        84
+                    ],
+                    [
+                        181,
+                        41
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "009_MSL_id_8_Sensor_tr_714_1st_1390.csv": {
+        "file": "009_MSL_id_8_Sensor_tr_714_1st_1390.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.061369037678928526,
+                "AUC-ROC": 0.9409774894945162,
+                "VUS-PR": 0.11389293162420594,
+                "VUS-ROC": 0.9542979837843942,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9422238372093024,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        2593,
+                        138
+                    ],
+                    [
+                        21,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "010_MSL_id_9_Sensor_tr_554_1st_1172.csv": {
+        "file": "010_MSL_id_9_Sensor_tr_554_1st_1172.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.025026096949133034,
+                "AUC-ROC": 0.3756127320578575,
+                "VUS-PR": 0.0435397606336146,
+                "VUS-ROC": 0.5497958670011822,
+                "Standard-F1": 0.011428571428571429,
+                "PA-F1": 0.5679012345679012,
+                "Event-based-F1": 0.018691588785046707,
+                "R-based-F1": 0.02156891712217462,
+                "accuracy": 0.9180871212121212,
+                "precision": 0.009433962264150943,
+                "recall": 0.014492753623188406,
+                "f1_score": 0.011428571428571429,
+                "confusion_matrix": [
+                    [
+                        1938,
+                        105
+                    ],
+                    [
+                        68,
+                        1
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "011_MSL_id_10_Sensor_tr_1525_1st_4590.csv": {
+        "file": "011_MSL_id_10_Sensor_tr_1525_1st_4590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.5911302219850408,
+                "AUC-ROC": 0.9518996106489926,
+                "VUS-PR": 0.7870235247196529,
+                "VUS-ROC": 0.9854065427793934,
+                "Standard-F1": 0.5501165501165501,
+                "PA-F1": 0.5927601809954751,
+                "Event-based-F1": 0.5673076923076918,
+                "R-based-F1": 0.014129049648953063,
+                "accuracy": 0.9675739247311828,
+                "precision": 0.3959731543624161,
+                "recall": 0.9007633587786259,
+                "f1_score": 0.5501165501165501,
+                "confusion_matrix": [
+                    [
+                        5641,
+                        180
+                    ],
+                    [
+                        13,
+                        118
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "012_MSL_id_11_Sensor_tr_539_1st_940.csv": {
+        "file": "012_MSL_id_11_Sensor_tr_539_1st_940.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.19994734495455746,
+                "AUC-ROC": 0.7460169745788139,
+                "VUS-PR": 0.2575360875203953,
+                "VUS-ROC": 0.841101893318778,
+                "Standard-F1": 0.39215686274509803,
+                "PA-F1": 0.7622641509433963,
+                "Event-based-F1": 0.5594405594405589,
+                "R-based-F1": 0.31587790534864185,
+                "accuracy": 0.939453125,
+                "precision": 0.3883495145631068,
+                "recall": 0.39603960396039606,
+                "f1_score": 0.39215686274509803,
+                "confusion_matrix": [
+                    [
+                        1884,
+                        63
+                    ],
+                    [
+                        61,
+                        40
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "013_MSL_id_12_Sensor_tr_554_1st_1200.csv": {
+        "file": "013_MSL_id_12_Sensor_tr_554_1st_1200.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.010804421163587721,
+                "AUC-ROC": 0.41234604321852647,
+                "VUS-PR": 0.030337377667510112,
+                "VUS-ROC": 0.6607622298428111,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9375,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        1980,
+                        106
+                    ],
+                    [
+                        26,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "014_MSL_id_13_Sensor_tr_1525_1st_4575.csv": {
+        "file": "014_MSL_id_13_Sensor_tr_1525_1st_4575.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.5999551145284792,
+                "AUC-ROC": 0.8926505263984239,
+                "VUS-PR": 0.7238216035083096,
+                "VUS-ROC": 0.9323487321938551,
+                "Standard-F1": 0.5636743215031316,
+                "PA-F1": 0.6895238095238095,
+                "Event-based-F1": 0.6235565819861427,
+                "R-based-F1": 0.05848109538802737,
+                "accuracy": 0.964885752688172,
+                "precision": 0.45302013422818793,
+                "recall": 0.7458563535911602,
+                "f1_score": 0.5636743215031316,
+                "confusion_matrix": [
+                    [
+                        5608,
+                        163
+                    ],
+                    [
+                        46,
+                        135
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "015_MSL_id_14_Sensor_tr_575_1st_1250.csv": {
+        "file": "015_MSL_id_14_Sensor_tr_575_1st_1250.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2203273853277922,
+                "AUC-ROC": 0.5597873754152825,
+                "VUS-PR": 0.278830190524804,
+                "VUS-ROC": 0.6201366776261363,
+                "Standard-F1": 0.14634146341463414,
+                "PA-F1": 0.8839941262848752,
+                "Event-based-F1": 0.4316546762589924,
+                "R-based-F1": 0.14790922704757517,
+                "accuracy": 0.8391544117647058,
+                "precision": 0.27522935779816515,
+                "recall": 0.09966777408637874,
+                "f1_score": 0.14634146341463414,
+                "confusion_matrix": [
+                    [
+                        1796,
+                        79
+                    ],
+                    [
+                        271,
+                        30
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "016_MSL_id_15_Sensor_tr_500_1st_780.csv": {
+        "file": "016_MSL_id_15_Sensor_tr_500_1st_780.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.14206530646243332,
+                "AUC-ROC": 0.31308435815363883,
+                "VUS-PR": 0.1950190206271368,
+                "VUS-ROC": 0.43107617887524713,
+                "Standard-F1": 0.1375,
+                "PA-F1": 0.34444444444444444,
+                "Event-based-F1": 0.31428571428571384,
+                "R-based-F1": 0.12593703148425786,
+                "accuracy": 0.85625,
+                "precision": 0.22916666666666666,
+                "recall": 0.09821428571428571,
+                "f1_score": 0.1375,
+                "confusion_matrix": [
+                    [
+                        811,
+                        37
+                    ],
+                    [
+                        101,
+                        11
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    },
+    "017_MSL_id_16_Sensor_tr_512_1st_1850.csv": {
+        "file": "017_MSL_id_16_Sensor_tr_512_1st_1850.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2121710283856219,
+                "AUC-ROC": 0.3504235294117647,
+                "VUS-PR": 0.35345711973348826,
+                "VUS-ROC": 0.45064964117538003,
+                "Standard-F1": 0.3157894736842105,
+                "PA-F1": 0.8629441624365483,
+                "Event-based-F1": 0.6086956521739125,
+                "R-based-F1": 0.08601082102890657,
+                "accuracy": 0.9052083333333333,
+                "precision": 0.4375,
+                "recall": 0.24705882352941178,
+                "f1_score": 0.3157894736842105,
+                "confusion_matrix": [
+                    [
+                        1696,
+                        54
+                    ],
+                    [
+                        128,
+                        42
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": false,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "colab": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "howToEvaluate_u": "sum_crps",
+        "percentile": 95.0
+    }
+}
