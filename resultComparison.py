@@ -66,7 +66,7 @@ def build_dataframe(all_stats: dict[str, dict[str, list[float]]]) -> pd.DataFram
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compare results from multiple result files.")
     parser.add_argument("--files",type=str,nargs="+",required=True,help="List of result files to compare.")
-    parser.add_argument("--restrictTo", type=str, nargs="*", default="False", help="If a name or more than one class is provided (comma-separated), restrict the comparison to those classes only.")
+    parser.add_argument("--restrictTo", type=str, nargs="*", default=False, help="If a name or more than one class is provided (comma-separated), restrict the comparison to those classes only.")
 
     args = parser.parse_args()
     display(build_dataframe({f: computeFileStats(f, restrictToClasses=args.restrictTo) for f in args.files}))
