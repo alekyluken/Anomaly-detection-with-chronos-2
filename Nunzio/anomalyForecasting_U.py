@@ -1,4 +1,4 @@
-import torch, os, sys, warnings
+import torch, os, sys
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -14,17 +14,17 @@ if str(PROJECT_ROOT) not in sys.path:
 
 try:
     from ..metrics.metricsEvaluation import get_metrics
+    from .KIMI_RAIKKONEN import ChronosAnomalyDetector
 except (ImportError, ModuleNotFoundError):
-    from metrics.metricsEvaluation import get_metrics
+    from metrics.metricsAnomalyForecast import get_metrics
+    from KIMI_RAIKKONEN import ChronosAnomalyDetector
 
 from tqdm import tqdm
 
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
-from sklearn.exceptions import UndefinedMetricWarning
 
 from json import dump as json_dump, load as json_load
 
-warnings.filterwarnings("ignore", category=UndefinedMetricWarning)
+
 
 if torch.cuda.is_available():
     torch.cuda.empty_cache()
@@ -42,169 +42,119 @@ def get_pipeline(model_name: str = "amazon/chronos-2", device: str = None) -> Ch
     return Chronos2Pipeline.from_pretrained(model_name, device_map= device if device else ("cuda" if torch.cuda.is_available() else "cpu"))
 
 
-def get_timestamp(start_date: str = "2026-01-01 00:00:00", periods: int = 100, freq: str = 'min'):
-    """Generate timestamps for time series
+def getModel(model_path: str, device: str = 'cpu', context_length: int =128) -> ChronosAnomalyDetector:
+    """Load GNN model from path
     
-    Args:
-        start_date(str): Starting date for timestamps
-        periods(int): Number of timestamps to generate
-        freq(str): Frequency of timestamps (e.g., 'min' for minutes)
-            
+    model_path (str): Path to saved model
+    device (str): Device to load the model on
+
     Returns:
-        dates (pd.DatetimeIndex): Generated timestamps
+        model (torch.nn.Module): Loaded GNN model
     """
-    return pd.date_range(start=start_date, periods=periods, freq=freq)
+    checkpoint = torch.load(model_path, map_location=device)
+    config = json_load(open(os.path.join(os.path.dirname(model_path), 'config.json'), 'r', encoding='utf-8'))
+    model = ChronosAnomalyDetector(
+        embed_dim=config['embed_dim'],
+        hidden_dim=config['hidden_dim'],
+        num_heads=config['num_heads'],
+        dropout=config['dropout'],
+        numPatches=config.get('numPatches', np.ceil(context_length/16)+2)  # Default to 9 if not specified
+    ).to(device)
+
+    model.load_state_dict(checkpoint['model_state_dict'])
+
+    threshold = json_load(open(os.path.join(os.path.dirname(model_path), 'training_log.json'), 'r', encoding='utf-8'))
+    return model.eval(), threshold[int(model_path.split("_")[-1].strip(".pth"))-1]['val_best_threshold']
 
 
-def prepare_data_for_chronos(dataset_path: str):
+def prepare_data_for_chronos(dataset_path: str, context_length: int = 100, prediction_length: int = 64):
     """
     Prepare data in Chronos-2 format (DataFrame with timestamp, item_id, target columns)
 
     Args:
         dataset_path(str): Path to CSV file with time series data and labels
+        context_length(int): Length of context window (item_id=0)
+        prediction_length(int): Length of each prediction segment (item_id=1, 2, 3, ...)
     
     Returns:
         - time_series_df: Formatted DataFrame for Chronos
         - ground_truth_labels: Anomaly labels
-        - actual_future_values: Values to compare against predictions
+        - target_col: Name of the target column
     """
     # Read CSV
     df = pd.read_csv(dataset_path, header=0, index_col=None)
-    
+
     # Remove label from data
     df_clean = df.drop(columns=[df.columns[-1]])
+    item_ids = np.zeros(len(df_clean), dtype=np.int32)
     
+    # Samples after context get sequential item_ids based on prediction_length segments
+    if context_length < len(df_clean):
+        for seg in range((len(df_clean) - context_length + prediction_length - 1) // prediction_length):
+            item_ids[context_length + seg * prediction_length:min(context_length + (seg + 1) * prediction_length, len(df_clean))] = seg + 1  # item_id starts from 1 for prediction segments
+
     # Create Chronos-compatible DataFrame
     df_chronos = pd.DataFrame()
-    df_chronos['timestamp'] = get_timestamp(periods=len(df_clean))
-    df_chronos['item_id'] = 0  # Single time series
-    df_chronos[df.columns[0]] = df_clean[df.columns[0]].values
+    df_chronos['timestamp'] = pd.date_range(start="2026-01-01 00:00:00", periods=len(df_clean), freq="min")
+    df_chronos['item_id'] = item_ids
+    df_chronos[df_clean.columns] = df_clean[df_clean.columns].values
     
-    return df_chronos, df[df.columns[-1]].values, df.columns[0]
+    return df_chronos, df[df.columns[-1]].values, df_clean.columns.tolist()
 
 
-def make_predictions_sliding_window(time_series_df: pd.DataFrame,pipeline: Chronos2Pipeline,target_col: str,context_length: int = 100,prediction_length: int = 1,step_size: int = 1,batch_size: int = 32,
-                                    quantile_levels: list[float] = [0.01, 0.05, 0.1, 0.2,  0.5, 0.8, 0.9, 0.95, 0.99]):
+def getUnivariateChronos2Enbeddings(time_series_df: pd.DataFrame, pipeline: Chronos2Pipeline, context_length: int = 100, batch_size: int = 32, device: torch.device = torch.device('cpu')) -> dict[str, pd.DataFrame]:
     """
-    Generate predictions using sliding window approach
-    
+    Get univariate embeddings from Chronos-2 for each segment (item_id >= 1) using the context_length values before it.
+    Each embedding is a vector of size embed_dim representing the context information for that segment.
+
     Args:
-        time_series_df: DataFrame with columns [timestamp, item_id, target]
+        time_series_df: DataFrame with columns [timestamp, item_id, col1, col2, ..., colD]
         pipeline: Chronos2Pipeline instance
-        target_col: Name of target column
         context_length: Number of historical points for context
-        prediction_length: Number of steps to forecast
-        step_size: Stride of sliding window
-        batch_size: Batch size for inference
-    
+        batch_size: Number of segments to process in parallel
+        device: Device to run the model on
+
     Returns:
-        predictions_df: DataFrame with predictions and quantiles
-        prediction_indices: Indices in original series corresponding to each prediction
+        embeddings_dict: Dict mapping each target_col to DataFrame with embeddings for each segment
     """
-    
-    predictions_list = []
-    
-    # Pre-calculate indices using numpy for efficiency
-    indices = np.arange(context_length, len(time_series_df) - prediction_length + 1, step_size)
-    
-    print(f"Total prediction windows: {len(indices)}")
-    
-    # Convert target column to numpy array for faster access
-    timestamps = time_series_df['timestamp'].values
-    
-    # Process in batches
-    for batch_start in tqdm(range(0, len(indices), batch_size), desc="Processing prediction batches", leave=False):
-        batch_indices = indices[batch_start:min(batch_start + batch_size, len(indices))]
-        
-        try:
-            # Build contexts and futures using slicing instead of appending
-            combined_contexts_list = []
-            combined_futures_list = []
-            
-            for i, start_idx in enumerate(batch_indices):
-                combined_contexts_list.append(pd.DataFrame(
-                    {
-                        'timestamp': timestamps[start_idx - context_length:start_idx],
-                        'item_id': np.full(context_length, i, dtype=np.int16),
-                        target_col: time_series_df[target_col].iloc[start_idx - context_length:start_idx].values,
-                    }
-                ))
+    # Ricordati, ti arriva un dataframe con colonna timestamp, item_id e valore della singola serie
+    pastData = time_series_df.copy().drop(columns=['timestamp'], inplace=False, errors='ignore')
 
-                combined_futures_list.append(pd.DataFrame(
-                    {
-                        'timestamp': timestamps[start_idx:start_idx + prediction_length],
-                        'item_id': np.full(prediction_length, i, dtype=np.int16),
-                    }
-                ))
-            
-            # Make predictions
-            predictions_list.append(pipeline.predict_df(
-                df=pd.concat(combined_contexts_list, ignore_index=True),
-                future_df=pd.concat(combined_futures_list, ignore_index=True),
-                target=target_col,
-                prediction_length=prediction_length,
-                quantile_levels=quantile_levels,  # Use multiple quantiles
-                cross_learning=False,
-                batch_size=len(batch_indices),
-            ))
-            
-        except Exception as e:
-            print(f"Error processing batch starting at index {batch_start}: {e}")
-
-    # Build prediction_indices efficiently using numpy
-    if predictions_list:
-        prediction_indices = np.repeat(indices, prediction_length)
-        for i in range(len(indices)):
-            for j in range(1, prediction_length):
-                prediction_indices[i * prediction_length + j] = indices[i] + j
-
-        return pd.concat(predictions_list, ignore_index=True), prediction_indices
-    
-    return pd.DataFrame(), np.array([], dtype=np.int32)
+    return np.array([
+        pipeline.embed(inputs=torch.tensor(np.expand_dims(pastData.loc[pastData['item_id'] < item, :].iloc[-context_length:, -1:].values.T, axis=0), dtype=torch.float32, requires_grad=False), batch_size=batch_size)[0][0]
+        for item in range(1, pastData['item_id'].max())]) # We cannot evaluate the last segment because we don't have the future labels to check for anomalies
 
 
-def anomalyForecasting(predictions_df: pd.DataFrame, prediction_indices: np.ndarray, prediction_length: int=1, 
-                        thresholds_percentile: list = [[0.05, 0.95]], step_size: int = 1, beta:float=1/2) -> np.ndarray:
-    """Perform anomaly forecasting based on predictions and configuration
+@torch.no_grad()
+def generateAnomalyForecast(embeddings: np.ndarray, transformer: ChronosAnomalyDetector, batch_size: int = 32, threshold: float = 0.5, device: torch.device = torch.device('cpu')) -> np.ndarray:
+    """
+    Generate next-segment anomaly scores using the GNN model
 
     Args:
-        predictions_df (pd.DataFrame): DataFrame with predictions and quantiles
-        prediction_indices (np.ndarray): Indices in original series corresponding to each prediction
-        configuration (dict): Configuration parameters for anomaly detection
+        embeddings: Array of shape [num_segments, embed_dim] with segment embeddings
+        transformer: ChronosAnomalyDetector instance
+        batch_size: Number of segments to process in parallel
+        threshold: Threshold for binary classification
+        device: Device to run the model on
 
     Returns:
-        forecastedAnomalies (pd.DataFrame): a dataframe containing columns:
-            - 'prediction_index': index in the original time series
-            - 'score': anomaly score
-            - 'probability': anomaly probability
-            - 'is_anomaly': binary flag indicating if the point is an anomaly
+        anomaly_scores: Array of shape [num_segments] with anomaly scores for each segment
     """
-    predictions_df = predictions_df.copy()
-    predictions_df['s'] = predictions_df[f"{thresholds_percentile[0][1]}"] - predictions_df[f"{thresholds_percentile[0][0]}"]
-    predictions_df['s'] = predictions_df['s'] / (predictions_df.groupby('item_id')['s'].transform('median')+1e-8)
-    # predictions_df['s'] = predictions_df['s'] / (predictions_df.groupby('item_id')['s'].transform('std')+1e-8)
-    
-    predictions_df['alpha'] = predictions_df[f"{thresholds_percentile[0][1]}"] - predictions_df["0.5"]
-    predictions_df['alpha'] = predictions_df['alpha'] / (predictions_df.groupby('item_id')['alpha'].transform('median')+1e-8)
-    # predictions_df['alpha'] = predictions_df['alpha'] / (predictions_df.groupby('item_id')['alpha'].transform('std')+1e-8)
+    indexes = []
+    if embeddings.shape[0] < batch_size:
+        indexes.append([0, embeddings.shape[0]])
+    else:
+        for i in range(0, embeddings.shape[0], batch_size):
+            indexes.append([i, min(i + batch_size, embeddings.shape[0])])
 
-    predictions_df['r'] = predictions_df['s'] + beta * predictions_df['alpha'] 
-    predictions_df['r'] = predictions_df['r'] - predictions_df.groupby('item_id')['r'].transform('median')+1e-8
-    predictions_df['r'] = predictions_df['r'] / (predictions_df.groupby('item_id')['r'].transform('std')+1e-8)
-
-    # Aggregate scores for each prediction index
-    probabilities = 1 / (1 + np.exp(-predictions_df.groupby('item_id')['r'].mean().values))
-    
-    print(probabilities)
-    
+    return np.array([
+        (torch.sigmoid(transformer(torch.tensor(embeddings, dtype=torch.float32, device=device)[start:end, 0, ...])).cpu().numpy() > threshold).astype(int)  # Binary anomaly scores
+        for start, end in indexes
+    ]).flatten()
 
 
-
-
-
-
-
-def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration: dict):
+def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline, transformer:ChronosAnomalyDetector, configuration: dict,
+                    device: torch.device = torch.device('cpu')) -> dict:
     """
     Complete evaluation pipeline for a single dataset
 
@@ -223,51 +173,52 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
     """
     print(f"Processing: {os.path.basename(dataset_path)}")
     
-    # Prepare data
-    time_series_df, ground_truth_labels, target_col = prepare_data_for_chronos(dataset_path)
-    
-    print(f"Ground truth anomaly rate: {np.mean(ground_truth_labels):.2%}")
-    
-    # Make predictions
-    predictions_df, prediction_indices = make_predictions_sliding_window(
-        time_series_df=time_series_df,
-        pipeline=pipeline,
-        target_col=target_col,
-        context_length=configuration.get('context_length', 100),
-        prediction_length=configuration.get('prediction_length', 1),
-        step_size=configuration.get('step_size', 1),
-        batch_size=configuration.get('batch_size', 256),
-        quantile_levels=sorted(set([t for v in configuration.get('thresholds_percentile', [[0.05, 0.95]]) for t in v] + [0.5]))
+    # Prepare data with proper item_id segmentation
+    context_length = configuration.get('context_length', 100)
+    prediction_length = configuration.get('prediction_length', 64)
+
+    time_series_df, ground_truth_labels, _ = prepare_data_for_chronos(
+        dataset_path, 
+        context_length=context_length, 
+        prediction_length=prediction_length
     )
     
-    if not len(predictions_df):
-        print("No predictions generated!")
-        return None
+    print(f"Ground truth anomaly rate: {np.mean(ground_truth_labels):.2%}")
+
+    embeddings = getUnivariateChronos2Enbeddings(
+        time_series_df=time_series_df,
+        pipeline=pipeline,
+        context_length=context_length,
+        batch_size=configuration.get('batch_size', 32),
+        device=device
+    )
+
+    # Compute next-segment anomaly scores using the model
+    anomalyForecast = generateAnomalyForecast(embeddings=embeddings,transformer=transformer, 
+                        batch_size=configuration.get('batch_size', 32), threshold=configuration['binary_threshold'], device=device)
     
-    # Anomaly Forecasting
-    forecasted_Anomalies = anomalyForecasting(predictions_df, prediction_indices, prediction_length=configuration.get('prediction_length', 1), 
-                thresholds_percentile=configuration.get('thresholds_percentile', [[0.05, 0.95]]), step_size=configuration.get('step_size', 1))
-
-    # Evaluate metrics
-    return {}
-
+    return get_metrics(anomalyForecast, ground_truth_labels, time_series_df, context_length, prediction_length)
 
 
 
 def main(configuration:dict, name:str)->None:
     """Main execution function"""
     # Configuration
-    # data_path = "./TSB-AD-U/" 
-    data_path = "./Nunzio/provaData/"
-    out_initial_path = f"./results/{name}/"
+    data_path = "./TSB-AD-U"
+    # data_path = './Nunzio/provaData/multivariate/'
+    out_initial_path = f"./results/{name}/Univariate_Anomaly_Forecast/"
 
     os.makedirs(out_initial_path, exist_ok=True)
 
     # Parameters
-    pipeline = get_pipeline(device='cuda')
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+    pipeline = get_pipeline(device=device)
     print(f"Using device: {next(pipeline.model.parameters()).device}")
+    # A good model: "Saved_Models_Temporal\v1_32_v2_4\checkpoint_epoch_25.pth"
+    model, configuration['binary_threshold'] = getModel(model_path=configuration['model_path'], device=device, context_length=configuration.get('context_length', 100))
     
-    save_path = f"results_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith('results_') and fname.endswith('.json')] + [-1])}.json"
+    save_path = f"results_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith('results_') and fname.endswith('.json')] + [1])}.json"
     
     if os.path.exists(os.path.join(out_initial_path, save_path)):
         with open(os.path.join(out_initial_path, save_path), 'r', encoding='utf-8') as f:
@@ -276,7 +227,7 @@ def main(configuration:dict, name:str)->None:
         existing_results = {}
 
     # Process datasets
-    dataset_files = sorted(pd.read_csv("test_files_U.csv")["name"].tolist()) if configuration.get('use_restricted_dataset', True) else sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
+    dataset_files = sorted(filter(lambda x: x.endswith('.csv'), os.listdir(data_path)))
 
     if all(fname in existing_results for fname in dataset_files):
         existing_results = {}
@@ -296,11 +247,14 @@ def main(configuration:dict, name:str)->None:
             result = evaluate_dataset(
                 os.path.join(data_path, filename),
                 pipeline=pipeline,
+                transformer=model,
                 configuration=configuration,
+                device=device
             )
         except Exception as e:
             tqdm.write(f"Error processing file {filename}: {e}")
-            continue
+            raise e
+            # continue
         
         if result is not None:
             with open(os.path.join(out_initial_path, save_path), 'w', encoding='utf-8') as f:
@@ -318,23 +272,16 @@ if __name__ == "__main__":
     args.add_argument('--prediction_length', type=int, default=-1, help='Prediction length for Chronos-2')
     args.add_argument('--step_size', type=int, default=-1, help='Step size for sliding window')
     args.add_argument('--batch_size', type=int, default=-1, help='Batch size for predictions')
-    args.add_argument('--square_distance', action='store_true', default=False, help='Use squared distance for anomaly scoring')
-    args.add_argument('--use_naive', action='store_true', default=False, help='Use naive anomaly scoring method')
-    args.add_argument('--thresholds', type=str, default='0.05-0.95', help='Comma-separated list of quantile thresholds (e.g., "0.05-0.95,0.1-0.9")')
-    args.add_argument('--use_restricted_dataset', action='store_true', default=False, help='Use restricted dataset from test_files_U.csv')
-    args.add_argument('--colab', action='store_true', default=False, help='Flag to indicate running in Google Colab environment')
+    args.add_argument('--model_path', type=str, default='./Nunzio/SAVED_MODELSV3', help='Path to the pretrained GNN model')
+    parsed_args = args.parse_args()
 
     configuration = {
-        'context_length': args.parse_args().context_length if args.parse_args().context_length > 0 else 100,
-        'prediction_length': args.parse_args().prediction_length if args.parse_args().prediction_length > 0 else 1,
-        'step_size': args.parse_args().step_size if args.parse_args().step_size > 0 else 1,
-        'batch_size': args.parse_args().batch_size if args.parse_args().batch_size > 0 else 256,
-        'square_distance': bool(args.parse_args().square_distance),
-        'use_naive': bool(args.parse_args().use_naive),
-        'thresholds_percentile': [[float(pair.split('-')[0]), float(pair.split('-')[1])] for pair in args.parse_args().thresholds.strip().split(',')] if args.parse_args().thresholds else [[0.05, 0.95]],
-        'use_restricted_dataset': bool(args.parse_args().use_restricted_dataset),
-        'colab': bool(args.parse_args().colab),
+        'context_length': parsed_args.context_length if parsed_args.context_length > 0 else 100,
+        'prediction_length': parsed_args.prediction_length if parsed_args.prediction_length > 0 else 1,
+        'step_size': parsed_args.step_size if parsed_args.step_size > 0 else 1,
+        'batch_size': parsed_args.batch_size if parsed_args.batch_size > 0 else 256,
+        'model_path': parsed_args.model_path,
     }
 
     
-    main(configuration, name=str(args.parse_args().user).strip().upper())
+    main(configuration, name=str(parsed_args.user).strip().upper())

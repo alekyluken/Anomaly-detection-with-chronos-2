@@ -532,7 +532,7 @@ def mainLoop(cfg: dict, device: torch.device) -> None:
     optimizer = torch.optim.AdamW(
         model.parameters(),
         lr=cfg.get('lr', 1e-3),
-        weight_decay=cfg.get('weight_decay', 1e-4)
+        weight_decay=cfg.get('weight_decay', 1e-2)
     )
 
     # ── Loss combinata ──
@@ -653,7 +653,7 @@ if __name__ == "__main__":
             'num_epochs': 60,
             'batch_size': 64,
             'lr': 1e-3,
-            'weight_decay': 1e-4,
+            'weight_decay': 1e-2,
             'warmup_fraction': 0.20,
             'num_workers': 0,
 

@@ -76,12 +76,12 @@ class EmbeddingDataset(torch.utils.data.Dataset):
         offset = 0
         n_pos = 0
 
-        for f, n_groups in tqdm(file_info, desc="  Loading", disable=not verbose):
+        for f, n_groups in tqdm(file_info, desc="  Loading", disable=not verbose, leave=False):
             try:
                 emb = np.load(os.path.join(data_dir, "embeddings", f), allow_pickle=True)
-                gt = pd.read_csv(os.path.join(data_dir, "ground_truth_labels", f.replace("embeddings.npy", "ground_truth_labels.csv")), header=None).iloc[:, 0].values.astype(int)
+                gt = pd.read_csv(os.path.join(data_dir, "ground_truth_labels", f.replace("embeddings.npy", "ground_truth_labels.csv")), header=None).iloc[:-1, 0].values.astype(int)
                 preds = pd.read_csv(os.path.join(data_dir, "predictions", f.replace("embeddings.npy", "predictions.csv")))
-                item_ids = preds.iloc[:-1, 0].values.astype(int)
+                item_ids = preds.iloc[:, 0].values.astype(int)
 
                 # Fill embeddings (squeeze the channel dim 1)
                 self.sequences[offset:offset + n_groups] = emb.squeeze(1).astype(np.float16)
@@ -139,7 +139,7 @@ class ChronosAnomalyDetector(nn.Module):
     Output: [N] logits (pre-sigmoid)
     """
 
-    def __init__(self, embed_dim=768, hidden_dim=128, num_heads=4, dropout=0.15):
+    def __init__(self, embed_dim=768, hidden_dim=128, num_heads=4, dropout=0.15, numPatches=9):
         super().__init__()
         self.hidden_dim = hidden_dim
 
@@ -154,15 +154,18 @@ class ChronosAnomalyDetector(nn.Module):
         self.type_embed = nn.Embedding(3, hidden_dim)
 
         # Register the type_ids as a buffer (not a parameter)
-        type_ids = torch.ones(9, dtype=torch.long)
-        type_ids[0] = 0   # summary
-        type_ids[-1] = 2  # forecast
+        try:
+            numPatches = int(numPatches)
+            if numPatches < 3:
+                raise ValueError("numPatches must be at least 3 to accommodate summary, forecast, and at least one patch.")
+        except Exception as e:
+            raise ValueError(f"Invalid numPatches value: {numPatches}. Must be an integer >= 3. Error: {e}")
+        type_ids = torch.ones(numPatches, dtype=torch.long)
+        type_ids[0], type_ids[-1]  = 0,2   # summary, forecast
         self.register_buffer('type_ids', type_ids)
 
         # Self-attention: all 9 tokens attend to each other
-        self.self_attn = nn.MultiheadAttention(
-            hidden_dim, num_heads, dropout=dropout, batch_first=True
-        )
+        self.self_attn = nn.MultiheadAttention(hidden_dim, num_heads, dropout=dropout, batch_first=True)
         self.attn_norm = nn.LayerNorm(hidden_dim)
 
         # Feed-forward after attention
@@ -177,7 +180,7 @@ class ChronosAnomalyDetector(nn.Module):
 
         # Classifier: summary(H) + forecast(H) + patch_pool(H) = 3H → 1
         self.classifier = nn.Sequential(
-            nn.Linear(3 * hidden_dim, hidden_dim),
+            nn.Linear(4 * hidden_dim, hidden_dim),
             nn.LayerNorm(hidden_dim),
             nn.GELU(),
             nn.Dropout(dropout),
@@ -206,10 +209,10 @@ class ChronosAnomalyDetector(nn.Module):
         Returns: [N] logits
         """
         # 1. Project
-        h = self.proj(x)  # [N, 9, H]
+        h = self.proj(x)  # [N, W, H]
 
         # 2. Add token type embeddings
-        h = h + self.type_embed(self.type_ids).unsqueeze(0)  # broadcast [1, 9, H]
+        h = h + self.type_embed(self.type_ids).unsqueeze(0)  # broadcast [1, W, H]
 
         # 3. Self-attention (pre-norm style)
         attn_out, _ = self.self_attn(h, h, h)
@@ -219,7 +222,7 @@ class ChronosAnomalyDetector(nn.Module):
         h = self.ffn_norm(h + self.ffn(h))
 
         # 5. Extract features and classify
-        combined = torch.cat([h[:, 0] , h[:, -1], h[:, 1:-1].mean(dim=1)], dim=-1)  # [N, 3H]
+        combined = torch.cat([h[:, 0] + h[:, -1] +h[:, 1:-1].mean(dim=1), h[:, 0] , h[:, -1], h[:, 1:-1].mean(dim=1)], dim=-1)  # [N, 4H]
         return self.classifier(combined).squeeze(-1)  # [N]
 
 
@@ -330,9 +333,7 @@ class Trainer:
         accum_steps = self.cfg.get('grad_accumulation', 1)
         self.optimizer.zero_grad()
 
-        for step, (data, labels) in enumerate(
-            tqdm(train_loader, desc="  Train", leave=False)
-        ):
+        for step, (data, labels) in enumerate(tqdm(train_loader, desc="  Train", leave=False)):
             data = data.to(self.device)                # [N, 9, 768]
             labels = labels.float().to(self.device)    # [N]
 
@@ -375,11 +376,11 @@ class Trainer:
         preds_05 = (all_probs > 0.5).astype(int)
 
         return {
-            'loss': total_loss / max(n_steps, 1),
-            'f1': f1_score(all_labels, preds_05, zero_division=0),
-            'precision': precision_score(all_labels, preds_05, zero_division=0),
-            'recall': recall_score(all_labels, preds_05, zero_division=0),
-            'lr': self.optimizer.param_groups[0]['lr'],
+            'loss': float(total_loss) / max(n_steps, 1),
+            'f1': float(f1_score(all_labels, preds_05, zero_division=0)),
+            'precision': float(precision_score(all_labels, preds_05, zero_division=0)),
+            'recall': float(recall_score(all_labels, preds_05, zero_division=0)),
+            'lr': float(self.optimizer.param_groups[0]['lr']),
         }
 
     @torch.no_grad()
@@ -413,7 +414,7 @@ class Trainer:
         # AUC-PR
         auc_pr = 0.0
         if all_labels.sum() > 0:
-            auc_pr = average_precision_score(all_labels, all_probs)
+            auc_pr = float(average_precision_score(all_labels, all_probs))
 
         # Optimal threshold via PR curve
         best_threshold, best_f1 = 0.5, 0.0
@@ -434,13 +435,13 @@ class Trainer:
         f1_05 = f1_score(all_labels, preds_05, zero_division=0)
 
         return {
-            'loss': total_loss / max(n_batches, 1),
-            'auc_pr': auc_pr,
-            'best_f1': best_f1,
-            'best_threshold': best_threshold,
-            'best_precision': best_precision,
-            'best_recall': best_recall,
-            'f1_at_05': f1_05,
+            'loss': float(total_loss) / max(n_batches, 1),
+            'auc_pr': float(auc_pr),
+            'best_f1': float(best_f1),
+            'best_threshold': float(best_threshold),
+            'best_precision': float(best_precision),
+            'best_recall': float(best_recall),
+            'f1_at_05': float(f1_05),
         }
 
 
@@ -449,181 +450,186 @@ class Trainer:
 # ═══════════════════════════════════════════════════════════════
 
 def main():
-    cfg = {
-        # ── Data ──
-        'train_data_path':   './TRAIN_SPLIT_UNIVARIATE/',
-        'val_data_path':     './TEST_SPLIT_UNIVARIATE/',
-        'processed_data_dir': './PROCESSED_TRAIN_DATAV3/',
-        'model_save_path':   './Saved_Models_Temporal/',
+    try:
+        cfg = {
+            # ── Data ──
+            'train_data_path':   './TRAIN_SPLIT_UNIVARIATE_WEB_FILES/',
+            'val_data_path':     './TEST_SPLIT_UNIVARIATE_WEB_FILES/',
+            'processed_data_dir': './PROCESSED_TRAIN_DATAV4/',
+            'model_save_path':   f'./Saved_Models_Temporal/AGGRESSIVE/',
 
-        # ── Model ──
-        'embed_dim':   768,
-        'hidden_dim':  64,
-        'num_heads':   4,
-        'dropout':     0.25,
+            # ── Model ──
+            'embed_dim':   768,
+            'hidden_dim':  32,
+            'num_heads':   4,
+            'dropout':     0.36,
 
-        # ── Training ──
-        'num_epochs':        30,
-        'batch_size':        128,
-        'lr':                3e-4,
-        'weight_decay':      0.01,
-        'warmup_fraction':   0.1,
-        'grad_accumulation': 1,
-        'focal_alpha':       0.7,   # mild positive bias (sampling handles main balance)
-        'focal_gamma':       2.0,   # focus on hard examples
-        'use_ema':           True,
-        'ema_decay':         0.999,
+            # ── Training ──
+            'num_epochs':        30,
+            'batch_size':        128,
+            'lr':                1e-4,
+            'weight_decay':      0.1,
+            'warmup_fraction':   0.1,
+            'grad_accumulation': 1,
+            'focal_alpha':       0.85,   # mild positive bias (sampling handles main balance)
+            'focal_gamma':       2.0,   # focus on hard examples
+            'use_ema':           True,
+            'ema_decay':         0.999,
 
-        # ── Misc ──
-        'num_workers': 0,
-        'patience':    7,
-    }
+            # ── Misc ──
+            'num_workers': 0,
+            'patience':    4,
+        }
 
-    os.makedirs(cfg['model_save_path'], exist_ok=True)
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Device: {device}")
+        os.makedirs(cfg['model_save_path'], exist_ok=True)
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        print(f"Device: {device}")
 
-    # ── File lists (same logic as embedding_Training.py) ──
-    train_files = sorted(os.listdir(cfg['train_data_path']))
-    val_files = sorted(os.listdir(cfg['val_data_path']))
-    print(f"\nTrain files: {len(train_files)}")
-    print(f"Val files:   {len(val_files)}")
+        # ── File lists (same logic as embedding_Training.py) ──
+        train_files = sorted(os.listdir(cfg['train_data_path']))
+        val_files = sorted(os.listdir(cfg['val_data_path']))
+        print(f"\nTrain files: {len(train_files)}")
+        print(f"Val files:   {len(val_files)}")
 
-    # ── Load datasets ──
-    print("\n═══ Loading training data ═══")
-    train_dataset = EmbeddingDataset(train_files, cfg['processed_data_dir'])
+        # ── Load datasets ──
+        print("\n═══ Loading training data ═══")
+        train_dataset = EmbeddingDataset(train_files, cfg['processed_data_dir'])
 
-    print("\n═══ Loading validation data ═══")
-    val_dataset = EmbeddingDataset(val_files, cfg['processed_data_dir'])
+        print("\n═══ Loading validation data ═══")
+        val_dataset = EmbeddingDataset(val_files, cfg['processed_data_dir'])
 
-    # ── Create DataLoaders ──
-    # WeightedRandomSampler: each batch has ~50% anomalies
-    sample_weights = train_dataset.get_sampler_weights()
-    sampler = torch.utils.data.WeightedRandomSampler(
-        sample_weights, num_samples=len(train_dataset), replacement=True
-    )
-
-    train_loader = torch.utils.data.DataLoader(
-        train_dataset,
-        batch_size=cfg['batch_size'],
-        sampler=sampler,
-        num_workers=cfg['num_workers'],
-        pin_memory=True,
-        drop_last=True,
-        persistent_workers=(cfg['num_workers'] > 0),
-    )
-
-    val_loader = torch.utils.data.DataLoader(
-        val_dataset,
-        batch_size=cfg['batch_size'] * 2,
-        shuffle=False,
-        num_workers=cfg['num_workers'],
-        pin_memory=True,
-        persistent_workers=(cfg['num_workers'] > 0),
-    )
-
-    cfg['steps_per_epoch'] = len(train_loader)
-
-    # ── Model ──
-    model = ChronosAnomalyDetector(
-        embed_dim=cfg['embed_dim'],
-        hidden_dim=cfg['hidden_dim'],
-        num_heads=cfg['num_heads'],
-        dropout=cfg['dropout'],
-    )
-    n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print(f"\nModel parameters: {n_params:,}")
-    print(f"Steps per epoch: {cfg['steps_per_epoch']}")
-
-    # ── Sanity check: forward pass ──
-    print("\nSanity check...")
-    model.to(device)
-    dummy = torch.randn(4, 9, 768, device=device)
-    with torch.no_grad():
-        out = model(dummy)
-    print(f"  Input: {dummy.shape} -> Output: {out.shape}")
-    print(f"  Initial logits: {out.cpu().numpy().round(4)}")
-    print(f"  Initial probs:  {torch.sigmoid(out).cpu().numpy().round(4)}")
-    print(f"  (Should be ~0.5 for all — model not biased at init)\n")
-
-    # ── Trainer ──
-    trainer = Trainer(model, device, cfg)
-
-    # ── Save config ──
-    config_to_save = {k: v for k, v in cfg.items() if isinstance(v, (int, float, str, bool))}
-    with open(os.path.join(cfg['model_save_path'], "config.json"), 'w') as f:
-        jsonDump(config_to_save, f, indent=2)
-
-    # ── Training loop ──
-    best_f1 = 0.0
-    patience_counter = 0
-    history = []
-
-    for epoch in range(cfg['num_epochs']):
-        print(f"\n{'='*60}")
-        print(f"Epoch {epoch + 1}/{cfg['num_epochs']}")
-        print(f"{'='*60}")
-
-        # Train
-        train_met = trainer.train_epoch(train_loader)
-        print(f"  Train | Loss: {train_met['loss']:.4f}  "
-              f"F1: {train_met['f1']:.4f}  "
-              f"P: {train_met['precision']:.3f}  "
-              f"R: {train_met['recall']:.3f}  "
-              f"LR: {train_met['lr']:.2e}")
-
-        # Validate
-        val_met = trainer.evaluate(val_loader)
-        print(f"  Valid | Loss: {val_met['loss']:.4f}  "
-              f"F1*: {val_met['best_f1']:.4f} (thr={val_met['best_threshold']:.3f})  "
-              f"P: {val_met['best_precision']:.3f}  "
-              f"R: {val_met['best_recall']:.3f}  "
-              f"AUC-PR: {val_met['auc_pr']:.4f}  "
-              f"F1@0.5: {val_met['f1_at_05']:.4f}")
-
-        # Save best model
-        if val_met['best_f1'] > best_f1:
-            best_f1 = val_met['best_f1']
-            patience_counter = 0
-
-            save_dict = {
-                'model_state_dict': model.state_dict(),
-                'config': config_to_save,
-                'threshold': val_met['best_threshold'],
-                'best_f1': best_f1,
-                'epoch': epoch + 1,
-            }
-            if trainer.ema_model is not None:
-                save_dict['ema_state_dict'] = trainer.ema_model.state_dict()
-
-            torch.save(save_dict, os.path.join(cfg['model_save_path'], "best_model.pth"))
-            print(f"  * New best F1: {best_f1:.4f}")
-        else:
-            patience_counter += 1
-            print(f"  No improvement ({patience_counter}/{cfg['patience']})")
-
-            if patience_counter >= cfg['patience']:
-                print(f"\n  Early stopping after {cfg['patience']} epochs without improvement.")
-                break
-
-        # Save checkpoint every epoch
-        torch.save(
-            {'model_state_dict': model.state_dict(), 'epoch': epoch + 1},
-            os.path.join(cfg['model_save_path'], f"checkpoint_epoch_{epoch + 1}.pth")
+        # ── Create DataLoaders ──
+        # WeightedRandomSampler: each batch has ~50% anomalies
+        sample_weights = train_dataset.get_sampler_weights()
+        sampler = torch.utils.data.WeightedRandomSampler(
+            sample_weights, num_samples=len(train_dataset), replacement=True
         )
 
-        # Append to history
-        history.append({
-            'epoch': epoch + 1,
-            **{f'train_{k}': v for k, v in train_met.items()},
-            **{f'val_{k}': v for k, v in val_met.items()},
-        })
-        with open(os.path.join(cfg['model_save_path'], "training_log.json"), 'w') as f:
-            jsonDump(history, f, indent=2)
+        train_loader = torch.utils.data.DataLoader(
+            train_dataset,
+            batch_size=cfg['batch_size'],
+            sampler=sampler,
+            num_workers=cfg['num_workers'],
+            pin_memory=True,
+            drop_last=True,
+            persistent_workers=(cfg['num_workers'] > 0),
+        )
 
-    print(f"\n{'='*60}")
-    print(f"Training complete! Best val F1: {best_f1:.4f}")
-    print(f"{'='*60}")
+        val_loader = torch.utils.data.DataLoader(
+            val_dataset,
+            batch_size=cfg['batch_size'] * 2,
+            shuffle=False,
+            num_workers=cfg['num_workers'],
+            pin_memory=True,
+            persistent_workers=(cfg['num_workers'] > 0),
+        )
+
+        cfg['steps_per_epoch'] = len(train_loader)
+
+        # ── Model ──
+        model = ChronosAnomalyDetector(
+            embed_dim=cfg['embed_dim'],
+            hidden_dim=cfg['hidden_dim'],
+            num_heads=cfg['num_heads'],
+            dropout=cfg['dropout'],
+        )
+        n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        print(f"\nModel parameters: {n_params:,}")
+        print(f"Steps per epoch: {cfg['steps_per_epoch']}")
+
+        # ── Sanity check: forward pass ──
+        print("\nSanity check...")
+        model.to(device)
+        dummy = torch.randn(4, 9, 768, device=device)
+        with torch.no_grad():
+            out = model(dummy)
+        print(f"  Input: {dummy.shape} -> Output: {out.shape}")
+        print(f"  Initial logits: {out.cpu().numpy().round(4)}")
+        print(f"  Initial probs:  {torch.sigmoid(out).cpu().numpy().round(4)}")
+        print(f"  (Should be ~0.5 for all — model not biased at init)\n")
+
+        # ── Trainer ──
+        trainer = Trainer(model, device, cfg)
+
+        # ── Save config ──
+        config_to_save = {k: v for k, v in cfg.items() if isinstance(v, (int, float, str, bool))}
+        with open(os.path.join(cfg['model_save_path'], "config.json"), 'w') as f:
+            jsonDump(config_to_save, f, indent=2)
+
+        # ── Training loop ──
+        best_f1 = 0.0
+        patience_counter = 0
+        history = []
+
+        for epoch in range(cfg['num_epochs']):
+            print(f"\n{'='*60}")
+            print(f"Epoch {epoch + 1}/{cfg['num_epochs']}")
+            print(f"{'='*60}")
+
+            # Train
+            train_met = trainer.train_epoch(train_loader)
+            print(f"  Train | Loss: {train_met['loss']:.4f}  "
+                f"F1: {train_met['f1']:.4f}  "
+                f"P: {train_met['precision']:.3f}  "
+                f"R: {train_met['recall']:.3f}  "
+                f"LR: {train_met['lr']:.2e}")
+
+            # Validate
+            val_met = trainer.evaluate(val_loader)
+            print(f"  Valid | Loss: {val_met['loss']:.4f}  "
+                f"F1*: {val_met['best_f1']:.4f} (thr={val_met['best_threshold']:.3f})  "
+                f"P: {val_met['best_precision']:.3f}  "
+                f"R: {val_met['best_recall']:.3f}  "
+                f"AUC-PR: {val_met['auc_pr']:.4f}  "
+                f"F1@0.5: {val_met['f1_at_05']:.4f}")
+
+            # Save best model
+            if val_met['best_f1'] > best_f1:
+                best_f1 = val_met['best_f1']
+                patience_counter = 0
+
+                save_dict = {
+                    'model_state_dict': model.state_dict(),
+                    'config': config_to_save,
+                    'threshold': float(val_met['best_threshold']),
+                    'best_f1': float(best_f1),
+                    'epoch': epoch + 1,
+                }
+                if trainer.ema_model is not None:
+                    save_dict['ema_state_dict'] = trainer.ema_model.state_dict()
+
+                torch.save(save_dict, os.path.join(cfg['model_save_path'], "best_model.pth"))
+                print(f"  * New best F1: {best_f1:.4f}")
+            else:
+                patience_counter += 1
+                print(f"  No improvement ({patience_counter}/{cfg['patience']})")
+
+                if patience_counter >= cfg['patience']:
+                    print(f"\n  Early stopping after {cfg['patience']} epochs without improvement.")
+                    break
+
+            # Save checkpoint every epoch
+            torch.save(
+                {'model_state_dict': model.state_dict(), 'epoch': epoch + 1},
+                os.path.join(cfg['model_save_path'], f"checkpoint_epoch_{epoch + 1}.pth")
+            )
+
+            # Append to history
+            history.append({
+                'epoch': epoch + 1,
+                **{f'train_{k}': v for k, v in train_met.items()},
+                **{f'val_{k}': v for k, v in val_met.items()},
+            })
+            with open(os.path.join(cfg['model_save_path'], "training_log.json"), 'w') as f:
+                jsonDump(history, f, indent=2)
+
+        print(f"\n{'='*60}")
+        print(f"Training complete! Best val F1: {best_f1:.4f}")
+        print(f"{'='*60}")
+    except Exception as e:
+        print(f"\nAn error occurred: {e}")
+        import traceback
+        traceback.print_exc()
 
 
 if __name__ == "__main__":
