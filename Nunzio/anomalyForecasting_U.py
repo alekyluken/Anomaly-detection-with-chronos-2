@@ -140,17 +140,18 @@ def generateAnomalyForecast(embeddings: np.ndarray, transformer: ChronosAnomalyD
     Returns:
         anomaly_scores: Array of shape [num_segments] with anomaly scores for each segment
     """
-    indexes = []
+    indexes, predictions = [], []
+
     if embeddings.shape[0] < batch_size:
         indexes.append([0, embeddings.shape[0]])
     else:
         for i in range(0, embeddings.shape[0], batch_size):
             indexes.append([i, min(i + batch_size, embeddings.shape[0])])
 
-    return np.array([
-        (torch.sigmoid(transformer(torch.tensor(embeddings, dtype=torch.float32, device=device)[start:end, 0, ...])).cpu().numpy() > threshold).astype(int)  # Binary anomaly scores
-        for start, end in indexes
-    ]).flatten()
+    for start, end in indexes:
+        predictions.extend((torch.sigmoid(transformer(torch.tensor(embeddings[start:end, 0, ...], dtype=torch.float32, device=device))).cpu().numpy() > threshold).astype(int).tolist())
+    return np.array(predictions)
+
 
 
 def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline, transformer:ChronosAnomalyDetector, configuration: dict,

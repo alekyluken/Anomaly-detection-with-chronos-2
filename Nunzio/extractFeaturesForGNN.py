@@ -255,7 +255,7 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
 def main(configuration:dict, name:str)->None:
     """Main execution function"""
     # Configuration
-    data_path = "./TRAIN_V3_CLEAN/" 
+    data_path = "./TRAIN_V4_CLEAN/" 
     embedding_path = "./PROCESSED_TRAIN_DATAV4/embeddings/"
     predictions_path = "./PROCESSED_TRAIN_DATAV4/predictions/"
     ground_truth_path = "./PROCESSED_TRAIN_DATAV4/ground_truth_labels/"

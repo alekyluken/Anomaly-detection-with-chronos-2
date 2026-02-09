@@ -456,25 +456,25 @@ def main():
             'train_data_path':   './TRAIN_SPLIT_UNIVARIATE_WEB_FILES/',
             'val_data_path':     './TEST_SPLIT_UNIVARIATE_WEB_FILES/',
             'processed_data_dir': './PROCESSED_TRAIN_DATAV4/',
-            'model_save_path':   f'./Saved_Models_Temporal/AGGRESSIVE/',
+            'model_save_path':   f'./Saved_Models_Temporal/HIGHLY_AGGRESSIVE/',
 
             # ── Model ──
             'embed_dim':   768,
             'hidden_dim':  32,
             'num_heads':   4,
-            'dropout':     0.36,
+            'dropout':     0.40,
 
             # ── Training ──
             'num_epochs':        30,
             'batch_size':        128,
-            'lr':                1e-4,
+            'lr':                3e-4,
             'weight_decay':      0.1,
-            'warmup_fraction':   0.1,
+            'warmup_fraction':   0.15,
             'grad_accumulation': 1,
             'focal_alpha':       0.85,   # mild positive bias (sampling handles main balance)
             'focal_gamma':       2.0,   # focus on hard examples
             'use_ema':           True,
-            'ema_decay':         0.999,
+            'ema_decay':         0.9999,
 
             # ── Misc ──
             'num_workers': 0,
