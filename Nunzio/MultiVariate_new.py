@@ -203,15 +203,53 @@ def computeMultiHorizonAnomalyScore(predictions_df: pd.DataFrame, actual_values:
         
     return np.max(all_horizon_scores, axis=0)  # [cite: 829]
 
+def get_top_k_jump(scores: np.ndarray, k: int) -> np.ndarray:
+    """
+    Select top-k anomalies based on anomaly scores, it selects dynamically the top-k, cutting where there is the bigegst jump
+    in the sorted scores, to adapt to different anomaly rates across datasets.
+    
+    Args:
+        scores: Array of anomaly scores
+
+    Returns:
+        a mask of the same shape as scores, where True indicates selcetd and False indicates normal
+    """    
+    if len(scores) == 0:
+        return np.array([], dtype=bool)
+    
+    sorted_indices = np.argsort(scores)[::-1]  # Sort in descending order
+    sorted_scores = scores[sorted_indices]
+    
+    # Compute the differences between consecutive sorted scores
+    score_diffs = np.diff(sorted_scores)
+    
+    if len(score_diffs) == 0:
+        return np.zeros_like(scores, dtype=bool)
+    
+    # Find the index of the largest jump in scores
+    jump_index = np.argmax(score_diffs)
+    
+    # Select all indices up to and including the jump index
+    selected_indices = sorted_indices[:jump_index + 1]
+    
+    # Create a boolean mask for selected anomalies
+    anomaly_mask = np.zeros_like(scores, dtype=bool)
+    anomaly_mask[selected_indices] = True
+    
+    return anomaly_mask
+         
 
 def aggregateAnomalyScores(continuousScores: dict[str, np.ndarray], aggregation_method: str = 'mean', 
-                        percentile: float = 95.0):
+                        percentile: float = 95.0, normalization_method: str = 'none',top_k_method: str = 'none') :
     """
     Aggregate anomaly scores across multiple horizons and determine thresholds
     
     Args:
         continuousScores: Dictionary of anomaly scores for each target column
-    
+        aggregation_method: How to combine scores ('mean', 'max', 'sum')
+        percentile: Percentile threshold for anomaly detection
+        normalization_method: How to normalize scores before aggregation ('minmax', 'zscore', 'robust', None)
+        top_k_method: Method to select top-k anomalies based on score distribution (none, jump)
     Returns:
         - continuosAnomalyScores: List of aggregated anomaly scores
         - discreteAnomalyScores: List of binary anomaly predictions based on thresholds
@@ -219,10 +257,37 @@ def aggregateAnomalyScores(continuousScores: dict[str, np.ndarray], aggregation_
     if not continuousScores:
         return np.array([]), []
     
+    # Normalize scores per column before aggregation
+    normalized_scores = {}
+    for col, scores in continuousScores.items():
+        if normalization_method == 'minmax':
+            # Min-max scaling to [0, 1]
+            score_min, score_max = np.min(scores), np.max(scores)
+            normalized_scores[col] = (scores - score_min) / (score_max - score_min + 1e-8)
+        elif normalization_method == 'zscore':
+            # Z-score normalization
+            score_mean, score_std = np.mean(scores), np.std(scores)
+            normalized_scores[col] = (scores - score_mean) / (score_std + 1e-8)
+        elif normalization_method == 'robust':
+            # Robust scaling using median and IQR
+            score_median = np.median(scores)
+            score_iqr = np.percentile(scores, 75) - np.percentile(scores, 25)
+            normalized_scores[col] = (scores - score_median) / (score_iqr + 1e-8)
+        else:
+            # No normalization
+            normalized_scores[col] = scores
+            
+    if top_k_method == 'jump':
+        mask = get_top_k_jump(np.concatenate(list(normalized_scores.values())), k=None)
+        normalized_scores = {col: scores[mask] for col, scores in normalized_scores.items()}
+        
+    
+    # Stack normalized scores and aggregate
+    stacked_scores = np.column_stack(list(normalized_scores.values()))
     match aggregation_method.lower():
-        case 'max': aggregated_scores = np.max(np.column_stack(list(continuousScores.values())), axis=1)
-        case 'sum': aggregated_scores = np.sum(np.column_stack(list(continuousScores.values())), axis=1)
-        case _:     aggregated_scores = np.mean(np.column_stack(list(continuousScores.values())), axis=1)
+        case 'max': aggregated_scores = np.max(stacked_scores, axis=1)
+        case 'sum': aggregated_scores = np.sum(stacked_scores, axis=1)
+        case _:     aggregated_scores = np.mean(stacked_scores, axis=1)
     
     return aggregated_scores, (aggregated_scores > np.percentile(aggregated_scores, percentile)).astype(np.int8)
 
@@ -285,6 +350,7 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
         continuousScores=continuousScores, 
         aggregation_method=configuration.get('aggregation_method', 'mean'),
         percentile=configuration.get('percentile', 95),
+        normalization_method=configuration.get('normalization_method', 'none'),
     )
 
     # Calculate metrics
@@ -374,7 +440,9 @@ if __name__ == "__main__":
     args.add_argument('--use_restricted_dataset', action='store_true', default=False, help='Use restricted dataset from test_files_M.csv')
     args.add_argument('--horizons', type=str, help='Comma-separated list of horizons for multi-horizon scoring')
     args.add_argument('--aggregation_method', type=str, default='max', help='Method to aggregate anomaly scores across horizons (mean, max, sum)')
+    args.add_argument('--normalization_method', type=str, default='none', help='Method to normalize scores before aggregation (minmax, zscore, robust, none)')
     args.add_argument('--howToEvaluate_u', type=str, default='sum_CRPS', help='Method to evaluate utility for PageRank aggregation (e.g., sum_CRPS, mean_CRPS)')
+    args.add_argument('--top_k_method', type=str, default='none', help='Method to select top-k anomalies based on score distribution (none, jump)')
     parsed_args = args.parse_args()
 
     configuration = {
@@ -388,8 +456,10 @@ if __name__ == "__main__":
         'use_restricted_dataset': bool(parsed_args.use_restricted_dataset),
         'horizons': list(map(int, parsed_args.horizons.split(','))) if parsed_args.horizons else [1, 8, 32, 64],
         'aggregation_method': parsed_args.aggregation_method,
+        'normalization_method': parsed_args.normalization_method,
         'howToEvaluate_u': parsed_args.howToEvaluate_u,
         'percentile': 95.0,
+        'top_k_method': parsed_args.top_k_method,
     }
 
     
