@@ -255,22 +255,22 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
 def main(configuration:dict, name:str)->None:
     """Main execution function"""
     # Configuration
-    data_path = "./TSB-AD-U/" 
-    embedding_path = "./PROCESSED_TRAIN_DATAV3/embeddings/"
-    predictions_path = "./PROCESSED_TRAIN_DATAV3/predictions/"
-    ground_truth_path = "./PROCESSED_TRAIN_DATAV3/ground_truth_labels/"
+    data_path = "./TRAIN_V4_CLEAN/" 
+    embedding_path = "./PROCESSED_TRAIN_DATAV4/embeddings/"
+    predictions_path = "./PROCESSED_TRAIN_DATAV4/predictions/"
+    ground_truth_path = "./PROCESSED_TRAIN_DATAV4/ground_truth_labels/"
 
     for path in [embedding_path, predictions_path, ground_truth_path]:
         os.makedirs(path, exist_ok=True)
 
-    done = set('_'.join(f.split("_")[:-1]) for f in os.listdir(predictions_path) if f.endswith(".csv"))
-    for filename in tqdm(sorted(os.listdir(data_path), key=lambda x:int(x.split("_")[0].strip())), desc="Processing datasets"):
+    # done = set('_'.join(f.split("_")[:-1]) for f in os.listdir(predictions_path) if f.endswith(".csv"))
+    for filename in tqdm(sorted(os.listdir(data_path)), desc="Processing datasets"):
         tqdm.write(f"Evaluating file: {filename}")
 
         try:
-            if filename.split(".")[0].strip() in done:
-                raise ValueError("Dataset already processed, skipping as per configuration.")
-            done.add(filename.split(".")[0].strip())
+            # if filename.split(".")[0].strip() in done:
+                # raise ValueError("Dataset already processed, skipping as per configuration.")
+            # done.add(filename.split(".")[0].strip())
             emb, pred, ground_truth_labels = evaluate_dataset(
                 os.path.join(data_path, filename),
                 pipeline=get_pipeline(device="cuda" if torch.cuda.is_available() else "cpu"),
