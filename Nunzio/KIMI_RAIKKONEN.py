@@ -47,7 +47,7 @@ class EmbeddingDataset(torch.utils.data.Dataset):
     Each sample: (embedding [9, 768], label {0,1}).
     """
 
-    def __init__(self, file_list, data_dir, verbose=True):
+    def __init__(self, file_list, data_dir, verbose=True, dataset:str="First dataset"):
         self.data_dir = data_dir
 
         # ── Phase 1: count total samples ──
@@ -55,7 +55,7 @@ class EmbeddingDataset(torch.utils.data.Dataset):
         file_info = []  # (filename, n_groups)
         skipped = []
 
-        for f in tqdm(file_list, desc="  Scanning", disable=not verbose, leave=False):
+        for f in tqdm(file_list, desc=f"  Scanning {dataset}", disable=not verbose, leave=False):
             try:
                 emb = np.load(os.path.join(data_dir, "embeddings", f), allow_pickle=True)
                 file_info.append((f, emb.shape[0]))
@@ -76,7 +76,7 @@ class EmbeddingDataset(torch.utils.data.Dataset):
         offset = 0
         n_pos = 0
 
-        for f, n_groups in tqdm(file_info, desc="  Loading", disable=not verbose, leave=False):
+        for f, n_groups in tqdm(file_info, desc=f"  Loading {dataset}", disable=not verbose, leave=False):
             try:
                 emb = np.load(os.path.join(data_dir, "embeddings", f), allow_pickle=True)
                 gt = pd.read_csv(os.path.join(data_dir, "ground_truth_labels", f.replace("embeddings.npy", "ground_truth_labels.csv")), header=None).iloc[:-1, 0].values.astype(int)
@@ -116,8 +116,7 @@ class EmbeddingDataset(torch.utils.data.Dataset):
     def get_sampler_weights(self):
         """Per-sample weights for WeightedRandomSampler (inverse frequency)."""
         n_pos = self.labels.sum()
-        weights = np.where(self.labels == 1, len(self.labels) / (2.0 * max(n_pos, 1)), len(self.labels) / (2.0 * max(len(self.labels) - n_pos, 1)))
-        return torch.from_numpy(weights).double()
+        return torch.from_numpy(np.where(self.labels == 1, len(self.labels) / (2.0 * max(n_pos, 1)), len(self.labels) / (2.0 * max(len(self.labels) - n_pos, 1)))).double()
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -179,11 +178,13 @@ class ChronosAnomalyDetector(nn.Module):
         self.ffn_norm = nn.LayerNorm(hidden_dim)
 
         # Classifier: summary(H) + forecast(H) + patch_pool(H) = 3H → 1
-        self.classifier = nn.Sequential(
+        self.classifierPT1 = nn.Sequential(
             nn.Linear(4 * hidden_dim, hidden_dim),
             nn.LayerNorm(hidden_dim),
             nn.GELU(),
             nn.Dropout(dropout),
+        )
+        self.classifierPT2 = nn.Sequential(
             nn.Linear(hidden_dim, hidden_dim // 2),
             nn.LayerNorm(hidden_dim // 2),
             nn.GELU(),
@@ -200,10 +201,10 @@ class ChronosAnomalyDetector(nn.Module):
                 if m.bias is not None:
                     nn.init.zeros_(m.bias)
         # Small init on final layer for stable start (logits ≈ 0 → prob ≈ 0.5)
-        nn.init.xavier_uniform_(self.classifier[-1].weight, gain=0.01)
-        nn.init.zeros_(self.classifier[-1].bias)
+        nn.init.xavier_uniform_(self.classifierPT2[-1].weight, gain=0.01)
+        nn.init.zeros_(self.classifierPT2[-1].bias)
 
-    def forward(self, x):
+    def forward(self, x, returnLogits:bool=True):
         """
         x: [N, 9, 768]
         Returns: [N] logits
@@ -223,8 +224,12 @@ class ChronosAnomalyDetector(nn.Module):
 
         # 5. Extract features and classify
         combined = torch.cat([h[:, 0] + h[:, -1] +h[:, 1:-1].mean(dim=1), h[:, 0] , h[:, -1], h[:, 1:-1].mean(dim=1)], dim=-1)  # [N, 4H]
-        return self.classifier(combined).squeeze(-1)  # [N]
+        
+        h = self.classifierPT1(combined)
 
+        if returnLogits:
+            return self.classifierPT2(h).squeeze(-1)  # [N]
+        return h  # [N, hidden_dim] features for potential downstream use
 
 # ═══════════════════════════════════════════════════════════════
 # LOSS — Clean sigmoid focal loss
@@ -260,10 +265,8 @@ class SigmoidFocalLoss(nn.Module):
         bce = F.binary_cross_entropy_with_logits(logits, targets, reduction='none')
 
         # p_t = probability assigned to the TRUE class
-        p_t = torch.exp(-bce)
-
         # Focal modulating factor: down-weight easy examples
-        focal_weight = (1.0 - p_t) ** self.gamma
+        focal_weight = (1.0 - torch.exp(-bce)) ** self.gamma
 
         # Alpha weighting: favor positive class
         alpha_t = self.alpha * targets + (1.0 - self.alpha) * (1.0 - targets)
@@ -363,7 +366,7 @@ class Trainer:
         # Handle leftover gradient accumulation
         if (step + 1) % accum_steps != 0:
             self.scaler.unscale_(self.optimizer)
-            torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=4.0)
+            torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=3.0)
             self.scaler.step(self.optimizer)
             self.scaler.update()
             self.optimizer.zero_grad()
@@ -430,10 +433,6 @@ class Trainer:
             best_precision = precisions[best_idx]
             best_recall = recalls[best_idx]
 
-        # F1 at fixed threshold 0.5 for reference
-        preds_05 = (all_probs > 0.5).astype(int)
-        f1_05 = f1_score(all_labels, preds_05, zero_division=0)
-
         return {
             'loss': float(total_loss) / max(n_batches, 1),
             'auc_pr': float(auc_pr),
@@ -441,7 +440,7 @@ class Trainer:
             'best_threshold': float(best_threshold),
             'best_precision': float(best_precision),
             'best_recall': float(best_recall),
-            'f1_at_05': float(f1_05),
+            'f1_at_05': float(f1_score(all_labels, (all_probs > 0.5).astype(int), zero_division=0)),
         }
 
 
@@ -453,32 +452,35 @@ def main():
     try:
         cfg = {
             # ── Data ──
-            'train_data_path':   './TRAIN_SPLIT_UNIVARIATE_WEB_FILES/',
-            'val_data_path':     './TEST_SPLIT_UNIVARIATE_WEB_FILES/',
-            'processed_data_dir': './PROCESSED_TRAIN_DATAV4/',
-            'model_save_path':   f'./Saved_Models_Temporal/HIGHLY_AGGRESSIVE/',
+            'train_data_path':   './TRAIN_SPLIT_UNIVARIATE/',
+            "train_data_path2":  './TRAIN_SPLIT_UNIVARIATE_WEB_FILES/',  # optional second training dataset
+            'val_data_path':     './TEST_SPLIT_UNIVARIATE/',
+            "val_data_path2":    './TEST_SPLIT_UNIVARIATE_WEB_FILES/',    # optional second validation dataset
+            'processed_data_dir': './PROCESSED_TRAIN_DATAV3/',
+            "processed_data_dir2": './PROCESSED_TRAIN_DATAV4/',  # directory for second dataset (if used)
+            'model_save_path':   f'./Saved_Models_Temporal/TRAINED_TSB_AD/',
 
             # ── Model ──
             'embed_dim':   768,
-            'hidden_dim':  32,
-            'num_heads':   4,
-            'dropout':     0.40,
+            'hidden_dim':  32, # Da vedere se 64 è meglio
+            'num_heads':   4, # Da vedere se 2 è meglio
+            'dropout':     0.35,
 
             # ── Training ──
-            'num_epochs':        30,
+            'num_epochs':        40,
             'batch_size':        128,
             'lr':                3e-4,
-            'weight_decay':      0.1,
-            'warmup_fraction':   0.15,
+            'weight_decay':      0.08,
+            'warmup_fraction':   0.2,
             'grad_accumulation': 1,
-            'focal_alpha':       0.85,   # mild positive bias (sampling handles main balance)
+            'focal_alpha':       0.58,   # mild positive bias (sampling handles main balance)
             'focal_gamma':       2.0,   # focus on hard examples
             'use_ema':           True,
-            'ema_decay':         0.9999,
+            'ema_decay':         0.999,
 
             # ── Misc ──
             'num_workers': 0,
-            'patience':    4,
+            'patience':    5,
         }
 
         os.makedirs(cfg['model_save_path'], exist_ok=True)
@@ -487,26 +489,36 @@ def main():
 
         # ── File lists (same logic as embedding_Training.py) ──
         train_files = sorted(os.listdir(cfg['train_data_path']))
-        val_files = sorted(os.listdir(cfg['val_data_path']))
-        print(f"\nTrain files: {len(train_files)}")
-        print(f"Val files:   {len(val_files)}")
+
+        np.random.shuffle(train_files)  # shuffle train files for better randomness
+        print(f"\nTrain files: {len(train_files) + (len(os.listdir(cfg['train_data_path2'])) if cfg['train_data_path2'] else 0)}")
+        print(f"Val files:   {len(sorted(os.listdir(cfg['val_data_path']))) + (len(os.listdir(cfg['val_data_path2'])) if cfg['val_data_path2'] else 0)}")
 
         # ── Load datasets ──
         print("\n═══ Loading training data ═══")
-        train_dataset = EmbeddingDataset(train_files, cfg['processed_data_dir'])
+        train_dataset = EmbeddingDataset(train_files, cfg['processed_data_dir'], dataset="First training dataset")
+        del train_files
 
+        if cfg['train_data_path2'] is not None:
+            train_files2 = sorted(os.listdir(cfg['train_data_path2']))
+            np.random.shuffle(train_files2)
+            train_dataset2 = EmbeddingDataset(train_files2, cfg['processed_data_dir2'], dataset="Second training dataset")
+            del train_files2
+            
         print("\n═══ Loading validation data ═══")
-        val_dataset = EmbeddingDataset(val_files, cfg['processed_data_dir'])
+        val_dataset = EmbeddingDataset(sorted(os.listdir(cfg['val_data_path'])), cfg['processed_data_dir'], dataset="First validation dataset")
+
+        if cfg['val_data_path2'] is not None:
+            val_dataset2 = EmbeddingDataset(sorted(os.listdir(cfg['val_data_path2'])), cfg['processed_data_dir2'], dataset="Second validation dataset")
+            val_dataset = torch.utils.data.ConcatDataset([val_dataset, val_dataset2])
 
         # ── Create DataLoaders ──
         # WeightedRandomSampler: each batch has ~50% anomalies
-        sample_weights = train_dataset.get_sampler_weights()
-        sampler = torch.utils.data.WeightedRandomSampler(
-            sample_weights, num_samples=len(train_dataset), replacement=True
-        )
+        sampler = torch.utils.data.WeightedRandomSampler(train_dataset.get_sampler_weights() if cfg['train_data_path2'] is None else torch.concat([train_dataset.get_sampler_weights(), train_dataset2.get_sampler_weights()]), 
+                                                        num_samples=len(train_dataset) + (len(train_dataset2) if cfg['train_data_path2'] else 0), replacement=True)
 
         train_loader = torch.utils.data.DataLoader(
-            train_dataset,
+            torch.utils.data.ConcatDataset([train_dataset, train_dataset2]) if cfg['train_data_path2'] else train_dataset,
             batch_size=cfg['batch_size'],
             sampler=sampler,
             num_workers=cfg['num_workers'],
@@ -552,9 +564,8 @@ def main():
         trainer = Trainer(model, device, cfg)
 
         # ── Save config ──
-        config_to_save = {k: v for k, v in cfg.items() if isinstance(v, (int, float, str, bool))}
         with open(os.path.join(cfg['model_save_path'], "config.json"), 'w') as f:
-            jsonDump(config_to_save, f, indent=2)
+            jsonDump({k: v for k, v in cfg.items() if isinstance(v, (int, float, str, bool))}, f, indent=2)
 
         # ── Training loop ──
         best_f1 = 0.0
@@ -562,35 +573,25 @@ def main():
         history = []
 
         for epoch in range(cfg['num_epochs']):
-            print(f"\n{'='*60}")
-            print(f"Epoch {epoch + 1}/{cfg['num_epochs']}")
-            print(f"{'='*60}")
+            print(f"\n{'='*60}  \n Epoch {epoch + 1}/{cfg['num_epochs']} \n {'='*60}")
 
             # Train
             train_met = trainer.train_epoch(train_loader)
             print(f"  Train | Loss: {train_met['loss']:.4f}  "
-                f"F1: {train_met['f1']:.4f}  "
-                f"P: {train_met['precision']:.3f}  "
-                f"R: {train_met['recall']:.3f}  "
-                f"LR: {train_met['lr']:.2e}")
+                f"F1: {train_met['f1']:.4f}  P: {train_met['precision']:.3f}  R: {train_met['recall']:.3f}  LR: {train_met['lr']:.2e}")
 
             # Validate
             val_met = trainer.evaluate(val_loader)
             print(f"  Valid | Loss: {val_met['loss']:.4f}  "
-                f"F1*: {val_met['best_f1']:.4f} (thr={val_met['best_threshold']:.3f})  "
-                f"P: {val_met['best_precision']:.3f}  "
-                f"R: {val_met['best_recall']:.3f}  "
-                f"AUC-PR: {val_met['auc_pr']:.4f}  "
-                f"F1@0.5: {val_met['f1_at_05']:.4f}")
+                f"F1*: {val_met['best_f1']:.4f} (thr={val_met['best_threshold']:.3f}) P: {val_met['best_precision']:.3f} R: {val_met['best_recall']:.3f} AUC-PR: {val_met['auc_pr']:.4f} F1@0.5: {val_met['f1_at_05']:.4f}")
 
             # Save best model
             if val_met['best_f1'] > best_f1:
-                best_f1 = val_met['best_f1']
-                patience_counter = 0
+                best_f1, patience_counter = val_met['best_f1'], 0
 
                 save_dict = {
                     'model_state_dict': model.state_dict(),
-                    'config': config_to_save,
+                    'config':   {k: v for k, v in cfg.items() if isinstance(v, (int, float, str, bool))},
                     'threshold': float(val_met['best_threshold']),
                     'best_f1': float(best_f1),
                     'epoch': epoch + 1,
@@ -602,7 +603,7 @@ def main():
                 print(f"  * New best F1: {best_f1:.4f}")
             else:
                 patience_counter += 1
-                print(f"  No improvement ({patience_counter}/{cfg['patience']})")
+                print(f"  No improvement ({patience_counter}/{cfg['patience']}) -> Best F1: {best_f1:.4f}")
 
                 if patience_counter >= cfg['patience']:
                     print(f"\n  Early stopping after {cfg['patience']} epochs without improvement.")
