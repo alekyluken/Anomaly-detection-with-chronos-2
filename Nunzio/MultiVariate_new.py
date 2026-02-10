@@ -439,7 +439,7 @@ if __name__ == "__main__":
     args.add_argument('--thresholds', type=str, default='0.05-0.95', help='Comma-separated list of quantile thresholds (e.g., "0.05-0.95,0.1-0.9")')
     args.add_argument('--use_restricted_dataset', action='store_true', default=False, help='Use restricted dataset from test_files_M.csv')
     args.add_argument('--horizons', type=str, help='Comma-separated list of horizons for multi-horizon scoring')
-    args.add_argument('--aggregation_method', type=str, default='max', help='Method to aggregate anomaly scores across horizons (mean, max, sum)')
+    args.add_argument('--aggregation_method', type=str, default='max', help='Method to aggregate anomaly scores across multivariates (mean, max, sum)')
     args.add_argument('--normalization_method', type=str, default='none', help='Method to normalize scores before aggregation (minmax, zscore, robust, none)')
     args.add_argument('--howToEvaluate_u', type=str, default='sum_CRPS', help='Method to evaluate utility for PageRank aggregation (e.g., sum_CRPS, mean_CRPS)')
     args.add_argument('--top_k_method', type=str, default='none', help='Method to select top-k anomalies based on score distribution (none, jump)')
