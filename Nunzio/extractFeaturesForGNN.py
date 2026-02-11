@@ -168,7 +168,7 @@ def make_predictions_multivariate( time_series_df: pd.DataFrame, pipeline: Chron
 
 
 
-def evaluateMatrixViaChronos2Encodings(df: pd.DataFrame, chronos2: Chronos2Pipeline, aggregation: str = "topk_mean") -> np.ndarray:
+def evaluateMatrixViaChronos2Encodings(df: pd.DataFrame, chronos2: Chronos2Pipeline) -> np.ndarray:
     """
     Evaluate pairwise relationships between variables using Chronos-2 encodings.
     
@@ -184,17 +184,13 @@ def evaluateMatrixViaChronos2Encodings(df: pd.DataFrame, chronos2: Chronos2Pipel
     return emb[0]
 
     
-def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], pastData: pd.DataFrame, chronos2:Chronos2Pipeline=None, aggregation_method: str = "topk_mean")-> tuple[np.ndarray, np.ndarray]:
+def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], pastData: pd.DataFrame, chronos2:Chronos2Pipeline=None)-> tuple[np.ndarray, np.ndarray]:
     """
     Aggregate anomaly scores across multiple horizons and determine thresholds
     
     Args:
         continuousScores(dict[str, np.ndarray]): Dictionary with keys as target columns and values as arrays of anomaly scores for each prediction
         pastData (pd.DataFrame): DataFrame with historical data (used for Granger causality)
-        grouping (pd.Series): Series indicating group/item for each prediction (e.g., item_id)
-        howToEvaluate_u (str): Method to evaluate utility for PageRank aggregation (e.g., 'sum_CRPS', )
-        percentile (float): Percentile to determine threshold for binary classification
-        beta (float): Damping factor for PageRank algorithm (default 0.15)
     
     Returns:
         - continuosAnomalyScores: List of aggregated anomaly scores
@@ -204,7 +200,7 @@ def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], p
     colsToKeep = list(continuousScores)
     
     context_length = pastData[pastData['item_id'] == 0].shape[0]
-    return np.array([evaluateMatrixViaChronos2Encodings(pastData.loc[pastData['item_id'] < item, colsToKeep].iloc[-context_length:, :], chronos2=chronos2, aggregation=aggregation_method) for item in range(1, pastData['item_id'].max())])
+    return np.array([evaluateMatrixViaChronos2Encodings(pastData.loc[pastData['item_id'] < item, colsToKeep].iloc[-context_length:, :], chronos2=chronos2) for item in range(1, pastData['item_id'].max())])
         
 
 def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration: dict):
@@ -244,10 +240,10 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
         batch_size=configuration.get('batch_size', 32),
     )
     
-    emb = aggregateAnomalyScoresViaPageRank(continuousScores={col for col in target_cols}, pastData=time_series_df, chronos2=pipeline, aggregation_method=configuration.get('aggregation_method', 'topk_mean'))
+    emb = aggregateAnomalyScoresViaPageRank(continuousScores={col for col in target_cols}, pastData=time_series_df, chronos2=pipeline)
 
     for key, val in predictions_dict.items():
-        val.columns = list(map(lambda x: f"{key}_{x}", val.columns))
+        val.columns = list(map(lambda x: f"{key}-{x}", val.columns))
 
     return emb, pd.concat(predictions_dict.values(), axis=1), pd.DataFrame(ground_truth_labels).iloc[prediction_indices, :]
 
@@ -255,10 +251,10 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
 def main(configuration:dict, name:str)->None:
     """Main execution function"""
     # Configuration
-    data_path = "./TRAIN_V4_CLEAN/" 
-    embedding_path = "./PROCESSED_TRAIN_DATAV4/embeddings/"
-    predictions_path = "./PROCESSED_TRAIN_DATAV4/predictions/"
-    ground_truth_path = "./PROCESSED_TRAIN_DATAV4/ground_truth_labels/"
+    data_path = "./TRAIN_MULTI_CLEAN/" 
+    embedding_path = "./PROCESSED_TRAIN_DATAV5/embeddings/"
+    predictions_path = "./PROCESSED_TRAIN_DATAV5/predictions/"
+    ground_truth_path = "./PROCESSED_TRAIN_DATAV5/ground_truth_labels/"
 
     for path in [embedding_path, predictions_path, ground_truth_path]:
         os.makedirs(path, exist_ok=True)
