@@ -71,11 +71,20 @@ def prepare_data_for_chronos(dataset_path: str, context_length: int = 100, predi
             item_ids[context_length + seg * prediction_length:min(context_length + (seg + 1) * prediction_length, len(df_clean))] = seg + 1  # item_id starts from 1 for prediction segments
 
     # Create Chronos-compatible DataFrame
-    df_chronos = pd.DataFrame()
-    df_chronos['timestamp'] = pd.date_range(start="2026-01-01 00:00:00", periods=len(df_clean), freq="min")
-    df_chronos['item_id'] = item_ids
-    df_chronos[df_clean.columns] = df_clean[df_clean.columns].values
+    # df_chronos = pd.DataFrame()
+    # df_chronos['timestamp'] = pd.date_range(start="2026-01-01 00:00:00", periods=len(df_clean), freq="min")
+    # df_chronos['item_id'] = item_ids
+    # df_chronos[df_clean.columns] = df_clean[df_clean.columns].values
     
+    # faster way to create the same DataFrame without copying data multiple times
+    df_chronos = pd.concat([
+        pd.DataFrame({
+            'timestamp': pd.date_range(start="2026-01-01 00:00:00", periods=len(df_clean), freq="min"),
+            'item_id': item_ids,
+        }),
+        df_clean.reset_index(drop=True),
+    ], axis=1)
+
     return df_chronos, df[df.columns[-1]].values, df_clean.columns.tolist()
 
 
@@ -280,6 +289,11 @@ def aggregateAnomalyScores(continuousScores: dict[str, np.ndarray], aggregation_
     if top_k_method == 'jump':
         mask = get_top_k_jump(np.concatenate(list(normalized_scores.values())), k=None)
         normalized_scores = {col: scores[mask] for col, scores in normalized_scores.items()}
+    if top_k_method == 'percentile':
+        k_percentile = 75
+        threshold = np.percentile(np.concatenate(list(normalized_scores.values())), k_percentile)
+        mask = np.concatenate(list(normalized_scores.values())) > threshold
+        normalized_scores = {col: scores[mask] for col, scores in normalized_scores.items()}
         
     
     # Stack normalized scores and aggregate
@@ -439,10 +453,10 @@ if __name__ == "__main__":
     args.add_argument('--thresholds', type=str, default='0.05-0.95', help='Comma-separated list of quantile thresholds (e.g., "0.05-0.95,0.1-0.9")')
     args.add_argument('--use_restricted_dataset', action='store_true', default=False, help='Use restricted dataset from test_files_M.csv')
     args.add_argument('--horizons', type=str, help='Comma-separated list of horizons for multi-horizon scoring')
-    args.add_argument('--aggregation_method', type=str, default='max', help='Method to aggregate anomaly scores across horizons (mean, max, sum)')
+    args.add_argument('--aggregation_method', type=str, default='mean', help='Method to aggregate anomaly scores across multivariates (mean, max, sum)')
     args.add_argument('--normalization_method', type=str, default='none', help='Method to normalize scores before aggregation (minmax, zscore, robust, none)')
     args.add_argument('--howToEvaluate_u', type=str, default='sum_CRPS', help='Method to evaluate utility for PageRank aggregation (e.g., sum_CRPS, mean_CRPS)')
-    args.add_argument('--top_k_method', type=str, default='none', help='Method to select top-k anomalies based on score distribution (none, jump)')
+    args.add_argument('--top_k_method', type=str, default='none', help='Method to select top-k anomalies based on score distribution (none, jump, percentile)')
     parsed_args = args.parse_args()
 
     configuration = {

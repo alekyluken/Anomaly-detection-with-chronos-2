@@ -35,7 +35,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -55,7 +55,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "002_MSL_id_1_Sensor_tr_500_1st_900.csv": {
         "file": "002_MSL_id_1_Sensor_tr_500_1st_900.csv",
@@ -93,7 +94,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -113,7 +114,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "003_MSL_id_2_Sensor_tr_883_1st_1238.csv": {
         "file": "003_MSL_id_2_Sensor_tr_883_1st_1238.csv",
@@ -151,7 +153,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -171,7 +173,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "004_MSL_id_3_Sensor_tr_530_1st_630.csv": {
         "file": "004_MSL_id_3_Sensor_tr_530_1st_630.csv",
@@ -209,7 +212,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -229,7 +232,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "005_MSL_id_4_Sensor_tr_855_1st_2700.csv": {
         "file": "005_MSL_id_4_Sensor_tr_855_1st_2700.csv",
@@ -267,7 +271,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -287,7 +291,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "006_MSL_id_5_Sensor_tr_1150_1st_1250.csv": {
         "file": "006_MSL_id_5_Sensor_tr_1150_1st_1250.csv",
@@ -325,7 +330,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -345,7 +350,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "007_MSL_id_6_Sensor_tr_980_1st_3550.csv": {
         "file": "007_MSL_id_6_Sensor_tr_980_1st_3550.csv",
@@ -383,7 +389,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -403,7 +409,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "008_MSL_id_7_Sensor_tr_656_1st_1630.csv": {
         "file": "008_MSL_id_7_Sensor_tr_656_1st_1630.csv",
@@ -441,7 +448,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -461,7 +468,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "009_MSL_id_8_Sensor_tr_714_1st_1390.csv": {
         "file": "009_MSL_id_8_Sensor_tr_714_1st_1390.csv",
@@ -499,7 +507,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -519,7 +527,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "010_MSL_id_9_Sensor_tr_554_1st_1172.csv": {
         "file": "010_MSL_id_9_Sensor_tr_554_1st_1172.csv",
@@ -557,7 +566,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -577,7 +586,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "011_MSL_id_10_Sensor_tr_1525_1st_4590.csv": {
         "file": "011_MSL_id_10_Sensor_tr_1525_1st_4590.csv",
@@ -615,7 +625,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -635,7 +645,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "012_MSL_id_11_Sensor_tr_539_1st_940.csv": {
         "file": "012_MSL_id_11_Sensor_tr_539_1st_940.csv",
@@ -673,7 +684,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -693,7 +704,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "013_MSL_id_12_Sensor_tr_554_1st_1200.csv": {
         "file": "013_MSL_id_12_Sensor_tr_554_1st_1200.csv",
@@ -731,7 +743,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -751,7 +763,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "014_MSL_id_13_Sensor_tr_1525_1st_4575.csv": {
         "file": "014_MSL_id_13_Sensor_tr_1525_1st_4575.csv",
@@ -789,7 +802,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -809,7 +822,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "015_MSL_id_14_Sensor_tr_575_1st_1250.csv": {
         "file": "015_MSL_id_14_Sensor_tr_575_1st_1250.csv",
@@ -847,7 +861,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -867,7 +881,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "016_MSL_id_15_Sensor_tr_500_1st_780.csv": {
         "file": "016_MSL_id_15_Sensor_tr_500_1st_780.csv",
@@ -905,7 +920,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -925,7 +940,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "017_MSL_id_16_Sensor_tr_512_1st_1850.csv": {
         "file": "017_MSL_id_16_Sensor_tr_512_1st_1850.csv",
@@ -963,7 +979,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -983,7 +999,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "018_Daphnet_id_1_HumanActivity_tr_9693_1st_20732.csv": {
         "file": "018_Daphnet_id_1_HumanActivity_tr_9693_1st_20732.csv",
@@ -1021,7 +1038,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1041,7 +1058,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "019_MITDB_id_1_Medical_tr_37500_1st_103211.csv": {
         "file": "019_MITDB_id_1_Medical_tr_37500_1st_103211.csv",
@@ -1079,7 +1097,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1099,7 +1117,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "020_MITDB_id_2_Medical_tr_50000_1st_52315.csv": {
         "file": "020_MITDB_id_2_Medical_tr_50000_1st_52315.csv",
@@ -1137,7 +1156,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1157,7 +1176,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "021_MITDB_id_3_Medical_tr_50000_1st_57595.csv": {
         "file": "021_MITDB_id_3_Medical_tr_50000_1st_57595.csv",
@@ -1195,7 +1215,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1215,7 +1235,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "022_MITDB_id_4_Medical_tr_50000_1st_54253.csv": {
         "file": "022_MITDB_id_4_Medical_tr_50000_1st_54253.csv",
@@ -1253,7 +1274,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1273,7 +1294,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "023_MITDB_id_5_Medical_tr_25000_1st_36913.csv": {
         "file": "023_MITDB_id_5_Medical_tr_25000_1st_36913.csv",
@@ -1311,7 +1333,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1331,7 +1353,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "024_MITDB_id_6_Medical_tr_50000_1st_58118.csv": {
         "file": "024_MITDB_id_6_Medical_tr_50000_1st_58118.csv",
@@ -1369,7 +1392,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1389,7 +1412,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "025_MITDB_id_7_Medical_tr_37500_1st_88864.csv": {
         "file": "025_MITDB_id_7_Medical_tr_37500_1st_88864.csv",
@@ -1427,7 +1451,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1447,7 +1471,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "026_MITDB_id_8_Medical_tr_30495_1st_30595.csv": {
         "file": "026_MITDB_id_8_Medical_tr_30495_1st_30595.csv",
@@ -1485,7 +1510,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1505,7 +1530,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "027_MITDB_id_9_Medical_tr_25000_1st_52255.csv": {
         "file": "027_MITDB_id_9_Medical_tr_25000_1st_52255.csv",
@@ -1543,7 +1569,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1563,7 +1589,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "028_MITDB_id_10_Medical_tr_37500_1st_39948.csv": {
         "file": "028_MITDB_id_10_Medical_tr_37500_1st_39948.csv",
@@ -1601,7 +1628,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1621,7 +1648,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "029_MITDB_id_11_Medical_tr_50000_1st_518037.csv": {
         "file": "029_MITDB_id_11_Medical_tr_50000_1st_518037.csv",
@@ -1659,7 +1687,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1679,7 +1707,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "030_MITDB_id_12_Medical_tr_50000_1st_84572.csv": {
         "file": "030_MITDB_id_12_Medical_tr_50000_1st_84572.csv",
@@ -1717,7 +1746,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1737,7 +1766,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "031_MITDB_id_13_Medical_tr_50000_1st_79433.csv": {
         "file": "031_MITDB_id_13_Medical_tr_50000_1st_79433.csv",
@@ -1775,7 +1805,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1795,7 +1825,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "032_GHL_id_1_Sensor_tr_50000_1st_65001.csv": {
         "file": "032_GHL_id_1_Sensor_tr_50000_1st_65001.csv",
@@ -1833,7 +1864,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1853,7 +1884,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "033_GHL_id_2_Sensor_tr_50000_1st_51001.csv": {
         "file": "033_GHL_id_2_Sensor_tr_50000_1st_51001.csv",
@@ -1891,7 +1923,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1911,7 +1943,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "034_GHL_id_3_Sensor_tr_50000_1st_122001.csv": {
         "file": "034_GHL_id_3_Sensor_tr_50000_1st_122001.csv",
@@ -1949,7 +1982,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -1969,7 +2002,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "035_GHL_id_4_Sensor_tr_50000_1st_90001.csv": {
         "file": "035_GHL_id_4_Sensor_tr_50000_1st_90001.csv",
@@ -2007,7 +2041,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2027,7 +2061,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "036_GHL_id_5_Sensor_tr_50000_1st_67147.csv": {
         "file": "036_GHL_id_5_Sensor_tr_50000_1st_67147.csv",
@@ -2065,7 +2100,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2085,7 +2120,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "037_GHL_id_6_Sensor_tr_50000_1st_80001.csv": {
         "file": "037_GHL_id_6_Sensor_tr_50000_1st_80001.csv",
@@ -2123,7 +2159,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2143,7 +2179,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "038_GHL_id_7_Sensor_tr_50000_1st_100001.csv": {
         "file": "038_GHL_id_7_Sensor_tr_50000_1st_100001.csv",
@@ -2181,7 +2218,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2201,7 +2238,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "039_GHL_id_8_Sensor_tr_50000_1st_63030.csv": {
         "file": "039_GHL_id_8_Sensor_tr_50000_1st_63030.csv",
@@ -2239,7 +2277,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2259,7 +2297,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "040_GHL_id_9_Sensor_tr_50000_1st_92001.csv": {
         "file": "040_GHL_id_9_Sensor_tr_50000_1st_92001.csv",
@@ -2297,7 +2336,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2317,7 +2356,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "041_GHL_id_10_Sensor_tr_50000_1st_57001.csv": {
         "file": "041_GHL_id_10_Sensor_tr_50000_1st_57001.csv",
@@ -2355,7 +2395,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2375,7 +2415,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "042_GHL_id_11_Sensor_tr_50000_1st_150001.csv": {
         "file": "042_GHL_id_11_Sensor_tr_50000_1st_150001.csv",
@@ -2413,7 +2454,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2433,7 +2474,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "043_GHL_id_12_Sensor_tr_39938_1st_40038.csv": {
         "file": "043_GHL_id_12_Sensor_tr_39938_1st_40038.csv",
@@ -2471,7 +2513,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2491,7 +2533,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "044_GHL_id_13_Sensor_tr_50000_1st_145001.csv": {
         "file": "044_GHL_id_13_Sensor_tr_50000_1st_145001.csv",
@@ -2529,7 +2572,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2549,7 +2592,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "045_GHL_id_14_Sensor_tr_50000_1st_85076.csv": {
         "file": "045_GHL_id_14_Sensor_tr_50000_1st_85076.csv",
@@ -2587,7 +2631,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2607,7 +2651,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "046_GHL_id_15_Sensor_tr_50000_1st_156462.csv": {
         "file": "046_GHL_id_15_Sensor_tr_50000_1st_156462.csv",
@@ -2645,7 +2690,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2665,7 +2710,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "047_GHL_id_16_Sensor_tr_50000_1st_77001.csv": {
         "file": "047_GHL_id_16_Sensor_tr_50000_1st_77001.csv",
@@ -2703,7 +2749,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2723,7 +2769,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "048_GHL_id_17_Sensor_tr_50000_1st_154001.csv": {
         "file": "048_GHL_id_17_Sensor_tr_50000_1st_154001.csv",
@@ -2761,7 +2808,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2781,7 +2828,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "049_GHL_id_18_Sensor_tr_50000_1st_109001.csv": {
         "file": "049_GHL_id_18_Sensor_tr_50000_1st_109001.csv",
@@ -2819,7 +2867,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2839,7 +2887,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "050_GHL_id_19_Sensor_tr_43750_1st_55001.csv": {
         "file": "050_GHL_id_19_Sensor_tr_43750_1st_55001.csv",
@@ -2877,7 +2926,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2897,7 +2946,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "051_GHL_id_20_Sensor_tr_50000_1st_75110.csv": {
         "file": "051_GHL_id_20_Sensor_tr_50000_1st_75110.csv",
@@ -2935,7 +2985,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -2955,7 +3005,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "052_GHL_id_21_Sensor_tr_50000_1st_98001.csv": {
         "file": "052_GHL_id_21_Sensor_tr_50000_1st_98001.csv",
@@ -2993,7 +3044,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3013,7 +3064,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "053_GHL_id_22_Sensor_tr_50000_1st_126448.csv": {
         "file": "053_GHL_id_22_Sensor_tr_50000_1st_126448.csv",
@@ -3051,7 +3103,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3071,7 +3123,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "054_GHL_id_23_Sensor_tr_50000_1st_135001.csv": {
         "file": "054_GHL_id_23_Sensor_tr_50000_1st_135001.csv",
@@ -3109,7 +3162,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3129,7 +3182,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "055_GHL_id_24_Sensor_tr_50000_1st_118124.csv": {
         "file": "055_GHL_id_24_Sensor_tr_50000_1st_118124.csv",
@@ -3167,7 +3221,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3187,7 +3241,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "056_GHL_id_25_Sensor_tr_50000_1st_105568.csv": {
         "file": "056_GHL_id_25_Sensor_tr_50000_1st_105568.csv",
@@ -3225,7 +3280,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3245,7 +3300,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "057_SMD_id_1_Facility_tr_4529_1st_4629.csv": {
         "file": "057_SMD_id_1_Facility_tr_4529_1st_4629.csv",
@@ -3283,7 +3339,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3303,7 +3359,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "058_SMD_id_2_Facility_tr_1087_1st_1187.csv": {
         "file": "058_SMD_id_2_Facility_tr_1087_1st_1187.csv",
@@ -3341,7 +3398,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3361,7 +3418,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "059_SMD_id_3_Facility_tr_757_1st_857.csv": {
         "file": "059_SMD_id_3_Facility_tr_757_1st_857.csv",
@@ -3399,7 +3457,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3419,7 +3477,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "060_SMD_id_4_Facility_tr_7176_1st_10609.csv": {
         "file": "060_SMD_id_4_Facility_tr_7176_1st_10609.csv",
@@ -3457,7 +3516,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3477,7 +3536,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "061_SMD_id_5_Facility_tr_7176_1st_15144.csv": {
         "file": "061_SMD_id_5_Facility_tr_7176_1st_15144.csv",
@@ -3515,7 +3575,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3535,7 +3595,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "062_SMD_id_6_Facility_tr_7180_1st_15131.csv": {
         "file": "062_SMD_id_6_Facility_tr_7180_1st_15131.csv",
@@ -3573,7 +3634,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3593,7 +3654,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "063_SMD_id_7_Facility_tr_5923_1st_6506.csv": {
         "file": "063_SMD_id_7_Facility_tr_5923_1st_6506.csv",
@@ -3631,7 +3693,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3651,7 +3713,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "064_SMD_id_8_Facility_tr_2272_1st_2372.csv": {
         "file": "064_SMD_id_8_Facility_tr_2272_1st_2372.csv",
@@ -3689,7 +3752,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3709,7 +3772,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "065_SMD_id_9_Facility_tr_737_1st_837.csv": {
         "file": "065_SMD_id_9_Facility_tr_737_1st_837.csv",
@@ -3747,7 +3811,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3767,7 +3831,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "066_SMD_id_10_Facility_tr_2634_1st_2734.csv": {
         "file": "066_SMD_id_10_Facility_tr_2634_1st_2734.csv",
@@ -3805,7 +3870,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3825,7 +3890,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "067_SMD_id_11_Facility_tr_1980_1st_2080.csv": {
         "file": "067_SMD_id_11_Facility_tr_1980_1st_2080.csv",
@@ -3863,7 +3929,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3883,7 +3949,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "068_SMD_id_12_Facility_tr_1099_1st_1199.csv": {
         "file": "068_SMD_id_12_Facility_tr_1099_1st_1199.csv",
@@ -3921,7 +3988,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3941,7 +4008,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "069_SMD_id_13_Facility_tr_5925_1st_12760.csv": {
         "file": "069_SMD_id_13_Facility_tr_5925_1st_12760.csv",
@@ -3979,7 +4047,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -3999,7 +4067,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "070_SMD_id_14_Facility_tr_1070_1st_1170.csv": {
         "file": "070_SMD_id_14_Facility_tr_1070_1st_1170.csv",
@@ -4037,7 +4106,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4057,7 +4126,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "071_SMD_id_15_Facility_tr_1109_1st_1209.csv": {
         "file": "071_SMD_id_15_Facility_tr_1109_1st_1209.csv",
@@ -4095,7 +4165,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4115,7 +4185,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "072_SMD_id_16_Facility_tr_7119_1st_15849.csv": {
         "file": "072_SMD_id_16_Facility_tr_7119_1st_15849.csv",
@@ -4153,7 +4224,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4173,7 +4244,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "073_SMD_id_17_Facility_tr_5926_1st_10620.csv": {
         "file": "073_SMD_id_17_Facility_tr_5926_1st_10620.csv",
@@ -4211,7 +4283,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4231,7 +4303,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "074_SMD_id_18_Facility_tr_7174_1st_21230.csv": {
         "file": "074_SMD_id_18_Facility_tr_7174_1st_21230.csv",
@@ -4269,7 +4342,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4289,7 +4362,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "075_SMD_id_19_Facility_tr_564_1st_664.csv": {
         "file": "075_SMD_id_19_Facility_tr_564_1st_664.csv",
@@ -4327,7 +4401,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4347,7 +4421,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "076_SMD_id_20_Facility_tr_5925_1st_17580.csv": {
         "file": "076_SMD_id_20_Facility_tr_5925_1st_17580.csv",
@@ -4385,7 +4460,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4405,7 +4480,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "077_SMD_id_21_Facility_tr_3026_1st_3126.csv": {
         "file": "077_SMD_id_21_Facility_tr_3026_1st_3126.csv",
@@ -4443,7 +4519,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4463,7 +4539,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "078_SMD_id_22_Facility_tr_500_1st_326.csv": {
         "file": "078_SMD_id_22_Facility_tr_500_1st_326.csv",
@@ -4501,7 +4578,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4521,7 +4598,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "079_LTDB_id_1_Medical_tr_3618_1st_3718.csv": {
         "file": "079_LTDB_id_1_Medical_tr_3618_1st_3718.csv",
@@ -4559,7 +4637,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4579,7 +4657,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "080_LTDB_id_2_Medical_tr_500_1st_266.csv": {
         "file": "080_LTDB_id_2_Medical_tr_500_1st_266.csv",
@@ -4617,7 +4696,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4637,7 +4716,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "081_LTDB_id_3_Medical_tr_500_1st_26.csv": {
         "file": "081_LTDB_id_3_Medical_tr_500_1st_26.csv",
@@ -4675,7 +4755,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4695,7 +4775,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "082_LTDB_id_4_Medical_tr_4456_1st_4556.csv": {
         "file": "082_LTDB_id_4_Medical_tr_4456_1st_4556.csv",
@@ -4733,7 +4814,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4753,7 +4834,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "083_LTDB_id_5_Medical_tr_15502_1st_15602.csv": {
         "file": "083_LTDB_id_5_Medical_tr_15502_1st_15602.csv",
@@ -4791,7 +4873,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4811,7 +4893,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "084_SVDB_id_1_Medical_tr_12973_1st_13073.csv": {
         "file": "084_SVDB_id_1_Medical_tr_12973_1st_13073.csv",
@@ -4849,7 +4932,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4869,7 +4952,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "085_SVDB_id_2_Medical_tr_50000_1st_54982.csv": {
         "file": "085_SVDB_id_2_Medical_tr_50000_1st_54982.csv",
@@ -4907,7 +4991,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4927,7 +5011,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "086_SVDB_id_3_Medical_tr_533_1st_633.csv": {
         "file": "086_SVDB_id_3_Medical_tr_533_1st_633.csv",
@@ -4965,7 +5050,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -4985,7 +5070,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "087_SVDB_id_4_Medical_tr_5421_1st_5521.csv": {
         "file": "087_SVDB_id_4_Medical_tr_5421_1st_5521.csv",
@@ -5023,7 +5109,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5043,7 +5129,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "088_SVDB_id_5_Medical_tr_500_1st_168.csv": {
         "file": "088_SVDB_id_5_Medical_tr_500_1st_168.csv",
@@ -5081,7 +5168,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5101,7 +5188,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "089_SVDB_id_6_Medical_tr_50000_1st_83083.csv": {
         "file": "089_SVDB_id_6_Medical_tr_50000_1st_83083.csv",
@@ -5139,7 +5227,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5159,7 +5247,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "090_SVDB_id_7_Medical_tr_12157_1st_12257.csv": {
         "file": "090_SVDB_id_7_Medical_tr_12157_1st_12257.csv",
@@ -5197,7 +5286,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5217,7 +5306,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "091_SVDB_id_8_Medical_tr_500_1st_126.csv": {
         "file": "091_SVDB_id_8_Medical_tr_500_1st_126.csv",
@@ -5255,7 +5345,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5275,7 +5365,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "092_SVDB_id_9_Medical_tr_2674_1st_2774.csv": {
         "file": "092_SVDB_id_9_Medical_tr_2674_1st_2774.csv",
@@ -5313,7 +5404,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5333,7 +5424,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "093_SVDB_id_10_Medical_tr_500_1st_37.csv": {
         "file": "093_SVDB_id_10_Medical_tr_500_1st_37.csv",
@@ -5371,7 +5463,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5391,7 +5483,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "094_SVDB_id_11_Medical_tr_20100_1st_23611.csv": {
         "file": "094_SVDB_id_11_Medical_tr_20100_1st_23611.csv",
@@ -5429,7 +5522,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5449,7 +5542,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "095_SVDB_id_12_Medical_tr_6264_1st_6364.csv": {
         "file": "095_SVDB_id_12_Medical_tr_6264_1st_6364.csv",
@@ -5487,7 +5581,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5507,7 +5601,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "096_SVDB_id_13_Medical_tr_500_1st_444.csv": {
         "file": "096_SVDB_id_13_Medical_tr_500_1st_444.csv",
@@ -5545,7 +5640,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5565,7 +5660,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "097_SVDB_id_14_Medical_tr_1031_1st_1131.csv": {
         "file": "097_SVDB_id_14_Medical_tr_1031_1st_1131.csv",
@@ -5603,7 +5699,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5623,7 +5719,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "098_SVDB_id_15_Medical_tr_500_1st_303.csv": {
         "file": "098_SVDB_id_15_Medical_tr_500_1st_303.csv",
@@ -5661,7 +5758,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5681,7 +5778,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "099_SVDB_id_16_Medical_tr_1115_1st_1215.csv": {
         "file": "099_SVDB_id_16_Medical_tr_1115_1st_1215.csv",
@@ -5719,7 +5817,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5739,7 +5837,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "100_SVDB_id_17_Medical_tr_17803_1st_17903.csv": {
         "file": "100_SVDB_id_17_Medical_tr_17803_1st_17903.csv",
@@ -5777,7 +5876,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5797,7 +5896,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "101_SVDB_id_18_Medical_tr_1851_1st_1951.csv": {
         "file": "101_SVDB_id_18_Medical_tr_1851_1st_1951.csv",
@@ -5835,7 +5935,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5855,7 +5955,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "102_SVDB_id_19_Medical_tr_50000_1st_107354.csv": {
         "file": "102_SVDB_id_19_Medical_tr_50000_1st_107354.csv",
@@ -5893,7 +5994,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5913,7 +6014,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "103_SVDB_id_20_Medical_tr_12167_1st_12267.csv": {
         "file": "103_SVDB_id_20_Medical_tr_12167_1st_12267.csv",
@@ -5951,7 +6053,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -5971,7 +6073,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "104_SVDB_id_21_Medical_tr_50000_1st_106634.csv": {
         "file": "104_SVDB_id_21_Medical_tr_50000_1st_106634.csv",
@@ -6009,7 +6112,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6029,7 +6132,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "105_SVDB_id_22_Medical_tr_500_1st_417.csv": {
         "file": "105_SVDB_id_22_Medical_tr_500_1st_417.csv",
@@ -6067,7 +6171,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6087,7 +6191,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "106_SVDB_id_23_Medical_tr_37500_1st_121963.csv": {
         "file": "106_SVDB_id_23_Medical_tr_37500_1st_121963.csv",
@@ -6125,7 +6230,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6145,7 +6250,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "107_SVDB_id_24_Medical_tr_32805_1st_32905.csv": {
         "file": "107_SVDB_id_24_Medical_tr_32805_1st_32905.csv",
@@ -6183,7 +6289,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6203,7 +6309,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "108_SVDB_id_25_Medical_tr_1238_1st_1338.csv": {
         "file": "108_SVDB_id_25_Medical_tr_1238_1st_1338.csv",
@@ -6241,7 +6348,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6261,7 +6368,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "109_SVDB_id_26_Medical_tr_1038_1st_1138.csv": {
         "file": "109_SVDB_id_26_Medical_tr_1038_1st_1138.csv",
@@ -6299,7 +6407,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6319,7 +6427,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "110_SVDB_id_27_Medical_tr_30824_1st_30924.csv": {
         "file": "110_SVDB_id_27_Medical_tr_30824_1st_30924.csv",
@@ -6357,7 +6466,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6377,7 +6486,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "111_SVDB_id_28_Medical_tr_1791_1st_1891.csv": {
         "file": "111_SVDB_id_28_Medical_tr_1791_1st_1891.csv",
@@ -6415,7 +6525,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6435,7 +6545,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "112_SVDB_id_29_Medical_tr_8226_1st_8326.csv": {
         "file": "112_SVDB_id_29_Medical_tr_8226_1st_8326.csv",
@@ -6473,7 +6584,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6493,7 +6604,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "113_SVDB_id_30_Medical_tr_4552_1st_4652.csv": {
         "file": "113_SVDB_id_30_Medical_tr_4552_1st_4652.csv",
@@ -6531,7 +6643,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6551,7 +6663,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "114_SVDB_id_31_Medical_tr_25000_1st_63090.csv": {
         "file": "114_SVDB_id_31_Medical_tr_25000_1st_63090.csv",
@@ -6589,7 +6702,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6609,7 +6722,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "115_PSM_id_1_Facility_tr_50000_1st_129872.csv": {
         "file": "115_PSM_id_1_Facility_tr_50000_1st_129872.csv",
@@ -6647,7 +6761,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6667,7 +6781,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "116_TAO_id_1_Environment_tr_500_1st_3.csv": {
         "file": "116_TAO_id_1_Environment_tr_500_1st_3.csv",
@@ -6705,7 +6820,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6725,7 +6840,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "117_TAO_id_2_Environment_tr_500_1st_1.csv": {
         "file": "117_TAO_id_2_Environment_tr_500_1st_1.csv",
@@ -6763,7 +6879,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6783,7 +6899,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "118_TAO_id_3_Environment_tr_500_1st_7.csv": {
         "file": "118_TAO_id_3_Environment_tr_500_1st_7.csv",
@@ -6821,7 +6938,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6841,7 +6958,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "119_TAO_id_4_Environment_tr_500_1st_1.csv": {
         "file": "119_TAO_id_4_Environment_tr_500_1st_1.csv",
@@ -6879,7 +6997,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6899,7 +7017,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "120_TAO_id_5_Environment_tr_500_1st_3.csv": {
         "file": "120_TAO_id_5_Environment_tr_500_1st_3.csv",
@@ -6937,7 +7056,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -6957,7 +7076,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "121_TAO_id_6_Environment_tr_500_1st_7.csv": {
         "file": "121_TAO_id_6_Environment_tr_500_1st_7.csv",
@@ -6995,7 +7115,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7015,7 +7135,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "122_TAO_id_7_Environment_tr_500_1st_19.csv": {
         "file": "122_TAO_id_7_Environment_tr_500_1st_19.csv",
@@ -7053,7 +7174,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7073,7 +7194,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "123_TAO_id_8_Environment_tr_500_1st_62.csv": {
         "file": "123_TAO_id_8_Environment_tr_500_1st_62.csv",
@@ -7111,7 +7233,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7131,7 +7253,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "124_TAO_id_9_Environment_tr_500_1st_1.csv": {
         "file": "124_TAO_id_9_Environment_tr_500_1st_1.csv",
@@ -7169,7 +7292,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7189,7 +7312,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "125_TAO_id_10_Environment_tr_500_1st_9.csv": {
         "file": "125_TAO_id_10_Environment_tr_500_1st_9.csv",
@@ -7227,7 +7351,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7247,7 +7371,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "126_TAO_id_11_Environment_tr_500_1st_7.csv": {
         "file": "126_TAO_id_11_Environment_tr_500_1st_7.csv",
@@ -7285,7 +7410,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7305,7 +7430,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "127_TAO_id_12_Environment_tr_500_1st_24.csv": {
         "file": "127_TAO_id_12_Environment_tr_500_1st_24.csv",
@@ -7343,7 +7469,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7363,7 +7489,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "128_TAO_id_13_Environment_tr_500_1st_7.csv": {
         "file": "128_TAO_id_13_Environment_tr_500_1st_7.csv",
@@ -7401,7 +7528,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7421,7 +7548,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "129_OPPORTUNITY_id_1_HumanActivity_tr_1801_1st_1901.csv": {
         "file": "129_OPPORTUNITY_id_1_HumanActivity_tr_1801_1st_1901.csv",
@@ -7459,7 +7587,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7479,7 +7607,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "130_OPPORTUNITY_id_2_HumanActivity_tr_1045_1st_1145.csv": {
         "file": "130_OPPORTUNITY_id_2_HumanActivity_tr_1045_1st_1145.csv",
@@ -7517,7 +7646,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7537,7 +7666,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "131_OPPORTUNITY_id_3_HumanActivity_tr_7016_1st_26691.csv": {
         "file": "131_OPPORTUNITY_id_3_HumanActivity_tr_7016_1st_26691.csv",
@@ -7575,7 +7705,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7595,7 +7725,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "132_OPPORTUNITY_id_4_HumanActivity_tr_895_1st_995.csv": {
         "file": "132_OPPORTUNITY_id_4_HumanActivity_tr_895_1st_995.csv",
@@ -7633,7 +7764,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7653,7 +7784,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "133_OPPORTUNITY_id_5_HumanActivity_tr_1745_1st_6500.csv": {
         "file": "133_OPPORTUNITY_id_5_HumanActivity_tr_1745_1st_6500.csv",
@@ -7691,7 +7823,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7711,7 +7843,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "134_OPPORTUNITY_id_6_HumanActivity_tr_1477_1st_1577.csv": {
         "file": "134_OPPORTUNITY_id_6_HumanActivity_tr_1477_1st_1577.csv",
@@ -7749,7 +7882,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7769,7 +7902,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "135_OPPORTUNITY_id_7_HumanActivity_tr_2085_1st_2185.csv": {
         "file": "135_OPPORTUNITY_id_7_HumanActivity_tr_2085_1st_2185.csv",
@@ -7807,7 +7941,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7827,7 +7961,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "136_OPPORTUNITY_id_8_HumanActivity_tr_1495_1st_1595.csv": {
         "file": "136_OPPORTUNITY_id_8_HumanActivity_tr_1495_1st_1595.csv",
@@ -7865,7 +8000,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7885,7 +8020,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "137_CreditCard_id_1_Finance_tr_500_1st_541.csv": {
         "file": "137_CreditCard_id_1_Finance_tr_500_1st_541.csv",
@@ -7923,7 +8059,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -7943,7 +8079,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "138_CATSv2_id_1_Sensor_tr_16568_1st_16668.csv": {
         "file": "138_CATSv2_id_1_Sensor_tr_16568_1st_16668.csv",
@@ -7981,7 +8118,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8001,7 +8138,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "139_CATSv2_id_2_Sensor_tr_5592_1st_5692.csv": {
         "file": "139_CATSv2_id_2_Sensor_tr_5592_1st_5692.csv",
@@ -8039,7 +8177,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8059,7 +8197,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "140_CATSv2_id_3_Sensor_tr_28307_1st_28407.csv": {
         "file": "140_CATSv2_id_3_Sensor_tr_28307_1st_28407.csv",
@@ -8097,7 +8236,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8117,7 +8256,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "141_CATSv2_id_4_Sensor_tr_41727_1st_41827.csv": {
         "file": "141_CATSv2_id_4_Sensor_tr_41727_1st_41827.csv",
@@ -8155,7 +8295,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8175,7 +8315,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "142_CATSv2_id_5_Sensor_tr_30704_1st_30804.csv": {
         "file": "142_CATSv2_id_5_Sensor_tr_30704_1st_30804.csv",
@@ -8213,7 +8354,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8233,7 +8374,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "143_CATSv2_id_6_Sensor_tr_50000_1st_60232.csv": {
         "file": "143_CATSv2_id_6_Sensor_tr_50000_1st_60232.csv",
@@ -8271,7 +8413,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8291,7 +8433,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "144_SMAP_id_1_Sensor_tr_2052_1st_5300.csv": {
         "file": "144_SMAP_id_1_Sensor_tr_2052_1st_5300.csv",
@@ -8329,7 +8472,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8349,7 +8492,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "145_SMAP_id_2_Sensor_tr_2133_1st_5400.csv": {
         "file": "145_SMAP_id_2_Sensor_tr_2133_1st_5400.csv",
@@ -8387,7 +8531,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8407,7 +8551,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "146_SMAP_id_3_Sensor_tr_2128_1st_5000.csv": {
         "file": "146_SMAP_id_3_Sensor_tr_2128_1st_5000.csv",
@@ -8445,7 +8590,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8465,7 +8610,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "147_SMAP_id_4_Sensor_tr_2160_1st_6449.csv": {
         "file": "147_SMAP_id_4_Sensor_tr_2160_1st_6449.csv",
@@ -8503,7 +8649,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8523,7 +8669,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "148_SMAP_id_5_Sensor_tr_2011_1st_5060.csv": {
         "file": "148_SMAP_id_5_Sensor_tr_2011_1st_5060.csv",
@@ -8561,7 +8708,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8581,7 +8728,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "149_SMAP_id_6_Sensor_tr_2128_1st_5000.csv": {
         "file": "149_SMAP_id_6_Sensor_tr_2128_1st_5000.csv",
@@ -8619,7 +8767,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8639,7 +8787,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "150_SMAP_id_7_Sensor_tr_2077_1st_5394.csv": {
         "file": "150_SMAP_id_7_Sensor_tr_2077_1st_5394.csv",
@@ -8677,7 +8826,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8697,7 +8846,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "151_SMAP_id_8_Sensor_tr_1971_1st_4870.csv": {
         "file": "151_SMAP_id_8_Sensor_tr_1971_1st_4870.csv",
@@ -8735,7 +8885,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8755,7 +8905,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "152_SMAP_id_9_Sensor_tr_2073_1st_5600.csv": {
         "file": "152_SMAP_id_9_Sensor_tr_2073_1st_5600.csv",
@@ -8793,7 +8944,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8813,7 +8964,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "153_SMAP_id_10_Sensor_tr_1840_1st_4030.csv": {
         "file": "153_SMAP_id_10_Sensor_tr_1840_1st_4030.csv",
@@ -8851,7 +9003,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8871,7 +9023,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "154_SMAP_id_11_Sensor_tr_2117_1st_4770.csv": {
         "file": "154_SMAP_id_11_Sensor_tr_2117_1st_4770.csv",
@@ -8909,7 +9062,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8929,7 +9082,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "155_SMAP_id_12_Sensor_tr_1907_1st_4800.csv": {
         "file": "155_SMAP_id_12_Sensor_tr_1907_1st_4800.csv",
@@ -8967,7 +9121,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -8987,7 +9141,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "156_SMAP_id_13_Sensor_tr_1173_1st_2750.csv": {
         "file": "156_SMAP_id_13_Sensor_tr_1173_1st_2750.csv",
@@ -9025,7 +9180,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9045,7 +9200,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "157_SMAP_id_14_Sensor_tr_2126_1st_5000.csv": {
         "file": "157_SMAP_id_14_Sensor_tr_2126_1st_5000.csv",
@@ -9083,7 +9239,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9103,7 +9259,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "158_SMAP_id_15_Sensor_tr_2075_1st_5610.csv": {
         "file": "158_SMAP_id_15_Sensor_tr_2075_1st_5610.csv",
@@ -9141,7 +9298,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9161,7 +9318,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "159_SMAP_id_16_Sensor_tr_1757_1st_2650.csv": {
         "file": "159_SMAP_id_16_Sensor_tr_1757_1st_2650.csv",
@@ -9199,7 +9357,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9219,7 +9377,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "160_SMAP_id_17_Sensor_tr_1832_1st_5300.csv": {
         "file": "160_SMAP_id_17_Sensor_tr_1832_1st_5300.csv",
@@ -9257,7 +9416,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9277,7 +9436,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "161_SMAP_id_18_Sensor_tr_2075_1st_5550.csv": {
         "file": "161_SMAP_id_18_Sensor_tr_2075_1st_5550.csv",
@@ -9315,7 +9475,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9335,7 +9495,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "162_SMAP_id_19_Sensor_tr_1908_1st_4690.csv": {
         "file": "162_SMAP_id_19_Sensor_tr_1908_1st_4690.csv",
@@ -9373,7 +9534,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9393,7 +9554,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "163_SMAP_id_20_Sensor_tr_2051_1st_4575.csv": {
         "file": "163_SMAP_id_20_Sensor_tr_2051_1st_4575.csv",
@@ -9431,7 +9593,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9451,7 +9613,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "164_SMAP_id_21_Sensor_tr_1976_1st_4200.csv": {
         "file": "164_SMAP_id_21_Sensor_tr_1976_1st_4200.csv",
@@ -9489,7 +9652,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9509,7 +9672,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "165_SMAP_id_22_Sensor_tr_2129_1st_5000.csv": {
         "file": "165_SMAP_id_22_Sensor_tr_2129_1st_5000.csv",
@@ -9547,7 +9711,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9567,7 +9731,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "166_SMAP_id_23_Sensor_tr_1113_1st_1890.csv": {
         "file": "166_SMAP_id_23_Sensor_tr_1113_1st_1890.csv",
@@ -9605,7 +9770,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9625,7 +9790,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "167_SMAP_id_24_Sensor_tr_2094_1st_5600.csv": {
         "file": "167_SMAP_id_24_Sensor_tr_2094_1st_5600.csv",
@@ -9663,7 +9829,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9683,7 +9849,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "168_SMAP_id_25_Sensor_tr_1998_1st_2098.csv": {
         "file": "168_SMAP_id_25_Sensor_tr_1998_1st_2098.csv",
@@ -9721,7 +9888,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9741,7 +9908,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "169_SMAP_id_26_Sensor_tr_1811_1st_4510.csv": {
         "file": "169_SMAP_id_26_Sensor_tr_1811_1st_4510.csv",
@@ -9779,7 +9947,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9799,7 +9967,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "170_SMAP_id_27_Sensor_tr_2160_1st_4690.csv": {
         "file": "170_SMAP_id_27_Sensor_tr_2160_1st_4690.csv",
@@ -9837,7 +10006,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9857,7 +10026,8 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
     },
     "171_SWaT_id_1_Sensor_tr_3749_1st_9522.csv": {
         "file": "171_SWaT_id_1_Sensor_tr_3749_1st_9522.csv",
@@ -9895,7 +10065,7 @@
         ],
         "context_length": 100,
         "prediction_length": 64,
-        "step_size": 1,
+        "step_size": 64,
         "batch_size": 256,
         "square_distance": false,
         "use_naive": true,
@@ -9915,6 +10085,1718 @@
         "aggregation_method": "max",
         "normalization_method": "minmax",
         "howToEvaluate_u": "sum_CRPS",
-        "percentile": 95.0
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "172_SWaT_id_2_Sensor_tr_23700_1st_23800.csv": {
+        "file": "172_SWaT_id_2_Sensor_tr_23700_1st_23800.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.09128062859958601,
+                "AUC-ROC": 0.27177640798599806,
+                "VUS-PR": 0.09902034896564409,
+                "VUS-ROC": 0.28728477324857166,
+                "Standard-F1": 0.08261421500805888,
+                "PA-F1": 0.829327341763333,
+                "Event-based-F1": 0.24423949253317725,
+                "R-based-F1": 0.15983609545100408,
+                "accuracy": 0.8391302825356171,
+                "precision": 0.14486518933520084,
+                "recall": 0.05778363063170917,
+                "f1_score": 0.08261421500805888,
+                "confusion_matrix": [
+                    [
+                        332595,
+                        17095
+                    ],
+                    [
+                        47222,
+                        2896
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "173_GECCO_id_1_Sensor_tr_16165_1st_16265.csv": {
+        "file": "173_GECCO_id_1_Sensor_tr_16165_1st_16265.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.20800580738913277,
+                "AUC-ROC": 0.83848288639768,
+                "VUS-PR": 0.16610323452392362,
+                "VUS-ROC": 0.8699977044176248,
+                "Standard-F1": 0.18461538461538463,
+                "PA-F1": 0.22103831330763998,
+                "Event-based-F1": 0.17385620915032643,
+                "R-based-F1": 0.031081140135423513,
+                "accuracy": 0.9490561401480111,
+                "precision": 0.11533458592282121,
+                "recall": 0.4623406720741599,
+                "f1_score": 0.18461538461538463,
+                "confusion_matrix": [
+                    [
+                        130521,
+                        6121
+                    ],
+                    [
+                        928,
+                        798
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "174_Exathlon_id_1_Facility_tr_10766_1st_12590.csv": {
+        "file": "174_Exathlon_id_1_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8354450123819377,
+                "AUC-ROC": 0.9819253178588365,
+                "VUS-PR": 0.8581204267256456,
+                "VUS-ROC": 0.9852570245143738,
+                "Standard-F1": 0.4910749702499008,
+                "PA-F1": 0.9738332883733477,
+                "Event-based-F1": 0.9273408239700368,
+                "R-based-F1": 0.32639882779065366,
+                "accuracy": 0.9103716467958272,
+                "precision": 0.8645251396648045,
+                "recall": 0.3429362880886427,
+                "f1_score": 0.4910749702499008,
+                "confusion_matrix": [
+                    [
+                        37238,
+                        291
+                    ],
+                    [
+                        3558,
+                        1857
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "175_Exathlon_id_2_Facility_tr_10684_1st_10784.csv": {
+        "file": "175_Exathlon_id_2_Facility_tr_10684_1st_10784.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.15040084945481802,
+                "AUC-ROC": 0.3017906517371161,
+                "VUS-PR": 0.19464002376997905,
+                "VUS-ROC": 0.33574959796409104,
+                "Standard-F1": 0.20144594150509365,
+                "PA-F1": 0.8143414211438474,
+                "Event-based-F1": 0.4170068027210881,
+                "R-based-F1": 0.07984605754939926,
+                "accuracy": 0.8955467675378267,
+                "precision": 0.26342930812204557,
+                "recall": 0.1630752859803139,
+                "f1_score": 0.20144594150509365,
+                "confusion_matrix": [
+                    [
+                        41055,
+                        1714
+                    ],
+                    [
+                        3146,
+                        613
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "176_Exathlon_id_3_Facility_tr_10766_1st_12590.csv": {
+        "file": "176_Exathlon_id_3_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7278303643769406,
+                "AUC-ROC": 0.9701817372035616,
+                "VUS-PR": 0.7537420734860413,
+                "VUS-ROC": 0.9736265357526056,
+                "Standard-F1": 0.4373925690863414,
+                "PA-F1": 0.9563758389261745,
+                "Event-based-F1": 0.870068385060494,
+                "R-based-F1": 0.31699268930327446,
+                "accuracy": 0.9009174739195231,
+                "precision": 0.7700186219739292,
+                "recall": 0.30544783010156973,
+                "f1_score": 0.4373925690863414,
+                "confusion_matrix": [
+                    [
+                        37035,
+                        494
+                    ],
+                    [
+                        3761,
+                        1654
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "177_Exathlon_id_4_Facility_tr_11665_1st_13484.csv": {
+        "file": "177_Exathlon_id_4_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7693425180086637,
+                "AUC-ROC": 0.9897639055998395,
+                "VUS-PR": 0.801633188358218,
+                "VUS-ROC": 0.9919046843389611,
+                "Standard-F1": 0.7691722169362512,
+                "PA-F1": 0.9503407984420643,
+                "Event-based-F1": 0.929622815087396,
+                "R-based-F1": 0.31340161150851914,
+                "accuracy": 0.9739296767537826,
+                "precision": 0.8685002148689299,
+                "recall": 0.6902322404371585,
+                "f1_score": 0.7691722169362512,
+                "confusion_matrix": [
+                    [
+                        43294,
+                        306
+                    ],
+                    [
+                        907,
+                        2021
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "178_Exathlon_id_5_Facility_tr_12538_1st_12638.csv": {
+        "file": "178_Exathlon_id_5_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8528254761533933,
+                "AUC-ROC": 0.9872393668376773,
+                "VUS-PR": 0.8727465104601537,
+                "VUS-ROC": 0.9901462752141448,
+                "Standard-F1": 0.5071808510638298,
+                "PA-F1": 0.9777197668771248,
+                "Event-based-F1": 0.9397174770039416,
+                "R-based-F1": 0.325825755159143,
+                "accuracy": 0.9138727069905801,
+                "precision": 0.886289697908598,
+                "recall": 0.3552312946289972,
+                "f1_score": 0.5071808510638298,
+                "confusion_matrix": [
+                    [
+                        112249,
+                        734
+                    ],
+                    [
+                        10384,
+                        5721
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "179_Exathlon_id_6_Facility_tr_11665_1st_13484.csv": {
+        "file": "179_Exathlon_id_6_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.5152668595412212,
+                "AUC-ROC": 0.9622528097896927,
+                "VUS-PR": 0.5499002866477916,
+                "VUS-ROC": 0.9690229923904733,
+                "Standard-F1": 0.524452901998097,
+                "PA-F1": 0.8605437178545188,
+                "Event-based-F1": 0.7438596491228066,
+                "R-based-F1": 0.29764465576378607,
+                "accuracy": 0.9462904057771664,
+                "precision": 0.5921787709497207,
+                "recall": 0.47062841530054644,
+                "f1_score": 0.524452901998097,
+                "confusion_matrix": [
+                    [
+                        42651,
+                        949
+                    ],
+                    [
+                        1550,
+                        1378
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "180_Exathlon_id_7_Facility_tr_10766_1st_12590.csv": {
+        "file": "180_Exathlon_id_7_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7278303643769406,
+                "AUC-ROC": 0.9701817372035616,
+                "VUS-PR": 0.7537420734860413,
+                "VUS-ROC": 0.9736265357526056,
+                "Standard-F1": 0.4373925690863414,
+                "PA-F1": 0.9563758389261745,
+                "Event-based-F1": 0.870068385060494,
+                "R-based-F1": 0.31699268930327446,
+                "accuracy": 0.9009174739195231,
+                "precision": 0.7700186219739292,
+                "recall": 0.30544783010156973,
+                "f1_score": 0.4373925690863414,
+                "confusion_matrix": [
+                    [
+                        37035,
+                        494
+                    ],
+                    [
+                        3761,
+                        1654
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "181_Exathlon_id_8_Facility_tr_11663_1st_13482.csv": {
+        "file": "181_Exathlon_id_8_Facility_tr_11663_1st_13482.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.6568041165661945,
+                "AUC-ROC": 0.9787217849174586,
+                "VUS-PR": 0.7066222694539516,
+                "VUS-ROC": 0.9843204407608844,
+                "Standard-F1": 0.6316587677725118,
+                "PA-F1": 0.8991917035229525,
+                "Event-based-F1": 0.8344603055346852,
+                "R-based-F1": 0.31411754058458313,
+                "accuracy": 0.9582401994497937,
+                "precision": 0.7159432746024925,
+                "recall": 0.5651289009497965,
+                "f1_score": 0.6316587677725118,
+                "confusion_matrix": [
+                    [
+                        42919,
+                        661
+                    ],
+                    [
+                        1282,
+                        1666
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "182_Exathlon_id_9_Facility_tr_10766_1st_12590.csv": {
+        "file": "182_Exathlon_id_9_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7278303643769406,
+                "AUC-ROC": 0.9701817372035616,
+                "VUS-PR": 0.7537420734860413,
+                "VUS-ROC": 0.9736265357526056,
+                "Standard-F1": 0.4373925690863414,
+                "PA-F1": 0.9563758389261745,
+                "Event-based-F1": 0.870068385060494,
+                "R-based-F1": 0.31699268930327446,
+                "accuracy": 0.9009174739195231,
+                "precision": 0.7700186219739292,
+                "recall": 0.30544783010156973,
+                "f1_score": 0.4373925690863414,
+                "confusion_matrix": [
+                    [
+                        37035,
+                        494
+                    ],
+                    [
+                        3761,
+                        1654
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "183_Exathlon_id_10_Facility_tr_11665_1st_13484.csv": {
+        "file": "183_Exathlon_id_10_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7693425180086637,
+                "AUC-ROC": 0.9897639055998395,
+                "VUS-PR": 0.801633188358218,
+                "VUS-ROC": 0.9919046843389611,
+                "Standard-F1": 0.7691722169362512,
+                "PA-F1": 0.9503407984420643,
+                "Event-based-F1": 0.929622815087396,
+                "R-based-F1": 0.31340161150851914,
+                "accuracy": 0.9739296767537826,
+                "precision": 0.8685002148689299,
+                "recall": 0.6902322404371585,
+                "f1_score": 0.7691722169362512,
+                "confusion_matrix": [
+                    [
+                        43294,
+                        306
+                    ],
+                    [
+                        907,
+                        2021
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "184_Exathlon_id_11_Facility_tr_11665_1st_13484.csv": {
+        "file": "184_Exathlon_id_11_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7693425180086637,
+                "AUC-ROC": 0.9897639055998395,
+                "VUS-PR": 0.801633188358218,
+                "VUS-ROC": 0.9919046843389611,
+                "Standard-F1": 0.7691722169362512,
+                "PA-F1": 0.9503407984420643,
+                "Event-based-F1": 0.929622815087396,
+                "R-based-F1": 0.31340161150851914,
+                "accuracy": 0.9739296767537826,
+                "precision": 0.8685002148689299,
+                "recall": 0.6902322404371585,
+                "f1_score": 0.7691722169362512,
+                "confusion_matrix": [
+                    [
+                        43294,
+                        306
+                    ],
+                    [
+                        907,
+                        2021
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "185_Exathlon_id_12_Facility_tr_11665_1st_13484.csv": {
+        "file": "185_Exathlon_id_12_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7693425180086637,
+                "AUC-ROC": 0.9897639055998395,
+                "VUS-PR": 0.801633188358218,
+                "VUS-ROC": 0.9919046843389611,
+                "Standard-F1": 0.7691722169362512,
+                "PA-F1": 0.9503407984420643,
+                "Event-based-F1": 0.929622815087396,
+                "R-based-F1": 0.31340161150851914,
+                "accuracy": 0.9739296767537826,
+                "precision": 0.8685002148689299,
+                "recall": 0.6902322404371585,
+                "f1_score": 0.7691722169362512,
+                "confusion_matrix": [
+                    [
+                        43294,
+                        306
+                    ],
+                    [
+                        907,
+                        2021
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "186_Exathlon_id_13_Facility_tr_10766_1st_12590.csv": {
+        "file": "186_Exathlon_id_13_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7278303643769406,
+                "AUC-ROC": 0.9701817372035616,
+                "VUS-PR": 0.7537420734860413,
+                "VUS-ROC": 0.9736265357526056,
+                "Standard-F1": 0.4373925690863414,
+                "PA-F1": 0.9563758389261745,
+                "Event-based-F1": 0.870068385060494,
+                "R-based-F1": 0.31699268930327446,
+                "accuracy": 0.9009174739195231,
+                "precision": 0.7700186219739292,
+                "recall": 0.30544783010156973,
+                "f1_score": 0.4373925690863414,
+                "confusion_matrix": [
+                    [
+                        37035,
+                        494
+                    ],
+                    [
+                        3761,
+                        1654
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "187_Exathlon_id_14_Facility_tr_6193_1st_6293.csv": {
+        "file": "187_Exathlon_id_14_Facility_tr_6193_1st_6293.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.4882062281170831,
+                "AUC-ROC": 0.834957483236756,
+                "VUS-PR": 0.545239795497378,
+                "VUS-ROC": 0.8532526047426695,
+                "Standard-F1": 0.35952848722986247,
+                "PA-F1": 0.9309434264223414,
+                "Event-based-F1": 0.7723555790029011,
+                "R-based-F1": 0.3112085444904933,
+                "accuracy": 0.8878954607977991,
+                "precision": 0.62913622690159,
+                "recall": 0.2516761217122228,
+                "f1_score": 0.35952848722986247,
+                "confusion_matrix": [
+                    [
+                        39848,
+                        863
+                    ],
+                    [
+                        4353,
+                        1464
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "188_Exathlon_id_15_Facility_tr_12538_1st_12638.csv": {
+        "file": "188_Exathlon_id_15_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8528254761533933,
+                "AUC-ROC": 0.9872393668376773,
+                "VUS-PR": 0.8727465104601537,
+                "VUS-ROC": 0.9901462752141448,
+                "Standard-F1": 0.5071808510638298,
+                "PA-F1": 0.9777197668771248,
+                "Event-based-F1": 0.9397174770039416,
+                "R-based-F1": 0.325825755159143,
+                "accuracy": 0.9138727069905801,
+                "precision": 0.886289697908598,
+                "recall": 0.3552312946289972,
+                "f1_score": 0.5071808510638298,
+                "confusion_matrix": [
+                    [
+                        112249,
+                        734
+                    ],
+                    [
+                        10384,
+                        5721
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "189_Exathlon_id_16_Facility_tr_11663_1st_13482.csv": {
+        "file": "189_Exathlon_id_16_Facility_tr_11663_1st_13482.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.6568041165661945,
+                "AUC-ROC": 0.9787217849174586,
+                "VUS-PR": 0.7066222694539516,
+                "VUS-ROC": 0.9843204407608844,
+                "Standard-F1": 0.6316587677725118,
+                "PA-F1": 0.8991917035229525,
+                "Event-based-F1": 0.8344603055346852,
+                "R-based-F1": 0.31411754058458313,
+                "accuracy": 0.9582401994497937,
+                "precision": 0.7159432746024925,
+                "recall": 0.5651289009497965,
+                "f1_score": 0.6316587677725118,
+                "confusion_matrix": [
+                    [
+                        42919,
+                        661
+                    ],
+                    [
+                        1282,
+                        1666
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "190_Exathlon_id_17_Facility_tr_12538_1st_12638.csv": {
+        "file": "190_Exathlon_id_17_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8528254761533933,
+                "AUC-ROC": 0.9872393668376773,
+                "VUS-PR": 0.8727465104601537,
+                "VUS-ROC": 0.9901462752141448,
+                "Standard-F1": 0.5071808510638298,
+                "PA-F1": 0.9777197668771248,
+                "Event-based-F1": 0.9397174770039416,
+                "R-based-F1": 0.325825755159143,
+                "accuracy": 0.9138727069905801,
+                "precision": 0.886289697908598,
+                "recall": 0.3552312946289972,
+                "f1_score": 0.5071808510638298,
+                "confusion_matrix": [
+                    [
+                        112249,
+                        734
+                    ],
+                    [
+                        10384,
+                        5721
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "191_Exathlon_id_18_Facility_tr_11665_1st_13484.csv": {
+        "file": "191_Exathlon_id_18_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7693425180086637,
+                "AUC-ROC": 0.9897639055998395,
+                "VUS-PR": 0.801633188358218,
+                "VUS-ROC": 0.9919046843389611,
+                "Standard-F1": 0.7691722169362512,
+                "PA-F1": 0.9503407984420643,
+                "Event-based-F1": 0.929622815087396,
+                "R-based-F1": 0.31340161150851914,
+                "accuracy": 0.9739296767537826,
+                "precision": 0.8685002148689299,
+                "recall": 0.6902322404371585,
+                "f1_score": 0.7691722169362512,
+                "confusion_matrix": [
+                    [
+                        43294,
+                        306
+                    ],
+                    [
+                        907,
+                        2021
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "192_Exathlon_id_19_Facility_tr_11665_1st_13484.csv": {
+        "file": "192_Exathlon_id_19_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7693425180086637,
+                "AUC-ROC": 0.9897639055998395,
+                "VUS-PR": 0.801633188358218,
+                "VUS-ROC": 0.9919046843389611,
+                "Standard-F1": 0.7691722169362512,
+                "PA-F1": 0.9503407984420643,
+                "Event-based-F1": 0.929622815087396,
+                "R-based-F1": 0.31340161150851914,
+                "accuracy": 0.9739296767537826,
+                "precision": 0.8685002148689299,
+                "recall": 0.6902322404371585,
+                "f1_score": 0.7691722169362512,
+                "confusion_matrix": [
+                    [
+                        43294,
+                        306
+                    ],
+                    [
+                        907,
+                        2021
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "193_Exathlon_id_20_Facility_tr_8898_1st_8998.csv": {
+        "file": "193_Exathlon_id_20_Facility_tr_8898_1st_8998.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.16541636177420246,
+                "AUC-ROC": 0.2253752514299725,
+                "VUS-PR": 0.20773813554664614,
+                "VUS-ROC": 0.2639106223289515,
+                "Standard-F1": 0.23769700868446444,
+                "PA-F1": 0.8305229455709712,
+                "Event-based-F1": 0.48206131767775556,
+                "R-based-F1": 0.11353396643836107,
+                "accuracy": 0.8981258596973866,
+                "precision": 0.3175762784701332,
+                "recall": 0.18992546903109742,
+                "f1_score": 0.23769700868446444,
+                "confusion_matrix": [
+                    [
+                        41049,
+                        1588
+                    ],
+                    [
+                        3152,
+                        739
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "194_Exathlon_id_21_Facility_tr_6985_1st_7085.csv": {
+        "file": "194_Exathlon_id_21_Facility_tr_6985_1st_7085.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.4468186923802303,
+                "AUC-ROC": 0.8534343048900284,
+                "VUS-PR": 0.4984780622182638,
+                "VUS-ROC": 0.8714908332653246,
+                "Standard-F1": 0.3842405680077962,
+                "PA-F1": 0.9111548925790411,
+                "Event-based-F1": 0.7445373617480437,
+                "R-based-F1": 0.30655932241709266,
+                "accuracy": 0.9049389614855571,
+                "precision": 0.5930382466695315,
+                "recall": 0.2841845140032949,
+                "f1_score": 0.3842405680077962,
+                "confusion_matrix": [
+                    [
+                        40725,
+                        947
+                    ],
+                    [
+                        3476,
+                        1380
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "195_Exathlon_id_22_Facility_tr_10766_1st_12590.csv": {
+        "file": "195_Exathlon_id_22_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7278303643769406,
+                "AUC-ROC": 0.9701817372035616,
+                "VUS-PR": 0.7537420734860413,
+                "VUS-ROC": 0.9736265357526056,
+                "Standard-F1": 0.4373925690863414,
+                "PA-F1": 0.9563758389261745,
+                "Event-based-F1": 0.870068385060494,
+                "R-based-F1": 0.31699268930327446,
+                "accuracy": 0.9009174739195231,
+                "precision": 0.7700186219739292,
+                "recall": 0.30544783010156973,
+                "f1_score": 0.4373925690863414,
+                "confusion_matrix": [
+                    [
+                        37035,
+                        494
+                    ],
+                    [
+                        3761,
+                        1654
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "196_Exathlon_id_23_Facility_tr_11665_1st_13484.csv": {
+        "file": "196_Exathlon_id_23_Facility_tr_11665_1st_13484.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7693425180086637,
+                "AUC-ROC": 0.9897639055998395,
+                "VUS-PR": 0.801633188358218,
+                "VUS-ROC": 0.9919046843389611,
+                "Standard-F1": 0.7691722169362512,
+                "PA-F1": 0.9503407984420643,
+                "Event-based-F1": 0.929622815087396,
+                "R-based-F1": 0.31340161150851914,
+                "accuracy": 0.9739296767537826,
+                "precision": 0.8685002148689299,
+                "recall": 0.6902322404371585,
+                "f1_score": 0.7691722169362512,
+                "confusion_matrix": [
+                    [
+                        43294,
+                        306
+                    ],
+                    [
+                        907,
+                        2021
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "197_Exathlon_id_24_Facility_tr_10766_1st_12590.csv": {
+        "file": "197_Exathlon_id_24_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7278303643769406,
+                "AUC-ROC": 0.9701817372035616,
+                "VUS-PR": 0.7537420734860413,
+                "VUS-ROC": 0.9736265357526056,
+                "Standard-F1": 0.4373925690863414,
+                "PA-F1": 0.9563758389261745,
+                "Event-based-F1": 0.870068385060494,
+                "R-based-F1": 0.31699268930327446,
+                "accuracy": 0.9009174739195231,
+                "precision": 0.7700186219739292,
+                "recall": 0.30544783010156973,
+                "f1_score": 0.4373925690863414,
+                "confusion_matrix": [
+                    [
+                        37035,
+                        494
+                    ],
+                    [
+                        3761,
+                        1654
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "198_Exathlon_id_25_Facility_tr_12538_1st_12638.csv": {
+        "file": "198_Exathlon_id_25_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8528254761533933,
+                "AUC-ROC": 0.9872393668376773,
+                "VUS-PR": 0.8727465104601537,
+                "VUS-ROC": 0.9901462752141448,
+                "Standard-F1": 0.5071808510638298,
+                "PA-F1": 0.9777197668771248,
+                "Event-based-F1": 0.9397174770039416,
+                "R-based-F1": 0.325825755159143,
+                "accuracy": 0.9138727069905801,
+                "precision": 0.886289697908598,
+                "recall": 0.3552312946289972,
+                "f1_score": 0.5071808510638298,
+                "confusion_matrix": [
+                    [
+                        112249,
+                        734
+                    ],
+                    [
+                        10384,
+                        5721
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "199_Exathlon_id_26_Facility_tr_12538_1st_12638.csv": {
+        "file": "199_Exathlon_id_26_Facility_tr_12538_1st_12638.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8528254761533933,
+                "AUC-ROC": 0.9872393668376773,
+                "VUS-PR": 0.8727465104601537,
+                "VUS-ROC": 0.9901462752141448,
+                "Standard-F1": 0.5071808510638298,
+                "PA-F1": 0.9777197668771248,
+                "Event-based-F1": 0.9397174770039416,
+                "R-based-F1": 0.325825755159143,
+                "accuracy": 0.9138727069905801,
+                "precision": 0.886289697908598,
+                "recall": 0.3552312946289972,
+                "f1_score": 0.5071808510638298,
+                "confusion_matrix": [
+                    [
+                        112249,
+                        734
+                    ],
+                    [
+                        10384,
+                        5721
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
+    },
+    "200_Exathlon_id_27_Facility_tr_10766_1st_12590.csv": {
+        "file": "200_Exathlon_id_27_Facility_tr_10766_1st_12590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.7278303643769406,
+                "AUC-ROC": 0.9701817372035616,
+                "VUS-PR": 0.7537420734860413,
+                "VUS-ROC": 0.9736265357526056,
+                "Standard-F1": 0.4373925690863414,
+                "PA-F1": 0.9563758389261745,
+                "Event-based-F1": 0.870068385060494,
+                "R-based-F1": 0.31699268930327446,
+                "accuracy": 0.9009174739195231,
+                "precision": 0.7700186219739292,
+                "recall": 0.30544783010156973,
+                "f1_score": 0.4373925690863414,
+                "confusion_matrix": [
+                    [
+                        37035,
+                        494
+                    ],
+                    [
+                        3761,
+                        1654
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 64,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "max",
+        "normalization_method": "minmax",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "none"
     }
 }
