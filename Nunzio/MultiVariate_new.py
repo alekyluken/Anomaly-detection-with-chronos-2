@@ -71,11 +71,20 @@ def prepare_data_for_chronos(dataset_path: str, context_length: int = 100, predi
             item_ids[context_length + seg * prediction_length:min(context_length + (seg + 1) * prediction_length, len(df_clean))] = seg + 1  # item_id starts from 1 for prediction segments
 
     # Create Chronos-compatible DataFrame
-    df_chronos = pd.DataFrame()
-    df_chronos['timestamp'] = pd.date_range(start="2026-01-01 00:00:00", periods=len(df_clean), freq="min")
-    df_chronos['item_id'] = item_ids
-    df_chronos[df_clean.columns] = df_clean[df_clean.columns].values
+    # df_chronos = pd.DataFrame()
+    # df_chronos['timestamp'] = pd.date_range(start="2026-01-01 00:00:00", periods=len(df_clean), freq="min")
+    # df_chronos['item_id'] = item_ids
+    # df_chronos[df_clean.columns] = df_clean[df_clean.columns].values
     
+    # faster way to create the same DataFrame without copying data multiple times
+    df_chronos = pd.concat([
+        pd.DataFrame({
+            'timestamp': pd.date_range(start="2026-01-01 00:00:00", periods=len(df_clean), freq="min"),
+            'item_id': item_ids,
+        }),
+        df_clean.reset_index(drop=True),
+    ], axis=1)
+
     return df_chronos, df[df.columns[-1]].values, df_clean.columns.tolist()
 
 
