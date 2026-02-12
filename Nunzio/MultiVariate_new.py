@@ -290,7 +290,7 @@ def aggregateAnomalyScores(continuousScores: dict[str, np.ndarray], aggregation_
         mask = get_top_k_jump(np.concatenate(list(normalized_scores.values())), k=None)
         normalized_scores = {col: scores[mask] for col, scores in normalized_scores.items()}
     if top_k_method == 'percentile':
-        k_percentile = 75
+        k_percentile = 50  # This can be a parameter if you want to make it configurable
         threshold = np.percentile(np.concatenate(list(normalized_scores.values())), k_percentile)
         mask = np.concatenate(list(normalized_scores.values())) > threshold
         normalized_scores = {col: scores[mask] for col, scores in normalized_scores.items()}
