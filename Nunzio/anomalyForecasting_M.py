@@ -160,7 +160,7 @@ def prepare_data_for_chronos(dataset_path: str, context_length: int = 100, predi
 # ═══════════════════════════════════════════════════════════════
 # EMBEDDING EXTRACTION
 # ═══════════════════════════════════════════════════════════════
-
+@torch.no_grad()
 def getMultivariateChronos2Embeddings(
     time_series_df: pd.DataFrame,
     pipeline: Chronos2Pipeline,
@@ -191,22 +191,19 @@ def getMultivariateChronos2Embeddings(
     max_item = int(past_data["item_id"].max())
 
     # We cannot evaluate the last segment (no future labels to check)
-    num_segments = max_item - 1
-    if num_segments <= 0:
+    if  max_item  <= 1:
         return np.empty((0, len(target_cols), 9, 768), dtype=np.float32)
 
     all_embeddings = []  # will be [num_segments, D, 9, 768]
 
     for item in tqdm(range(1, max_item), desc="  Embedding segments", leave=False):
         # Context: all rows before this segment, last context_length rows
-        context_mask = past_data["item_id"] < item
-        context_data = past_data.loc[context_mask].iloc[-context_length:]
+        context_data = past_data.loc[past_data["item_id"] < item].iloc[-context_length:]
 
         segment_embeddings = []  # [D, 9, 768] for this segment
 
         for col in target_cols:
-            col_values = context_data[col].values.astype(np.float32)
-            inp = torch.tensor(col_values, dtype=torch.float32).unsqueeze(0).unsqueeze(0)  # [1, 1, T]
+            inp = torch.tensor(context_data[col].values.astype(np.float32), dtype=torch.float32).unsqueeze(0).unsqueeze(0)  # [1, 1, T]
             emb = pipeline.embed(inputs=inp, batch_size=batch_size)[0][0]  # [9, 768]
             segment_embeddings.append(emb.cpu().numpy() if isinstance(emb, torch.Tensor) else emb)
 
@@ -220,12 +217,7 @@ def getMultivariateChronos2Embeddings(
 # ═══════════════════════════════════════════════════════════════
 
 @torch.no_grad()
-def generateAnomalyForecast(
-    embeddings: np.ndarray,
-    model: TwoStageMultivariateDetector,
-    threshold: float = 0.5,
-    device: torch.device = torch.device("cpu"),
-) -> np.ndarray:
+def generateAnomalyForecast(embeddings: np.ndarray,model: TwoStageMultivariateDetector,threshold: float = 0.5,device: torch.device = torch.device("cpu")) -> np.ndarray:
     """
     Generate per-segment global anomaly predictions using the two-stage model.
 
@@ -304,13 +296,13 @@ def evaluate_dataset(
 
     # Run through two-stage model
     anomaly_forecast = generateAnomalyForecast(
-        embeddings=embeddings,
+        embeddings=embeddings[:, :, 0, :, :],
         model=model,
         threshold=configuration["binary_threshold"],
         device=device,
     )
 
-    return get_metrics(anomaly_forecast, ground_truth_labels, time_series_df, context_length, prediction_length)
+    return get_metrics(anomaly_forecast, ground_truth_labels, time_series_df)
 
 
 # ═══════════════════════════════════════════════════════════════
