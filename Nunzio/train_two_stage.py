@@ -611,11 +611,11 @@ def main():
         'train_split_dir2':   './TRAIN_MULTI_CLEAN',
         'test_split_dir':     './TEST_SPLIT',
         'test_split_dir2':     './TEST_MULTI_CLEAN',
-        'stage1_checkpoint':  './Saved_Models_Temporal/TRAINED_TSB_AD/best_model.pth', # add _64 for 64 model
+        'stage1_checkpoint':  './Saved_Models_Temporal/TRAINED_TSB_AD_64/best_model.pth', # add _64 for 64 model
 
 
         # ── Model ──
-        'stage1_hidden_dim':  32,   # must match Stage 1 checkpoint
+        'stage1_hidden_dim':  64,   # must match Stage 1 checkpoint
         'stage2_hidden_dim':  32,
         'num_isab_layers':    1,
         'num_inducing':      16,
@@ -631,17 +631,17 @@ def main():
         # ── Training ──
         'num_epochs':         40,
         'batch_size':         128,
-        'lr':                 5e-4,
-        'weight_decay':       0.04,
+        'lr':                 3e-4,
+        'weight_decay':       0.1,
         'patience':           5,
         "max_grad_norm":      2.0,
         "label_smoothing":    0.1,   # for global binary labels
 
         # ── Loss ──
-        'loss_alpha':         2.0,   # global loss weight
+        'loss_alpha':         3.0,   # global loss weight
         'loss_beta':          -1.0,   # series loss weight
-        'loss_gamma':         1,   # consistency loss weight
-        'focal_alpha':        0.55,   # focal loss alpha (pos class weight)
+        'loss_gamma':         -1,   # consistency loss weight
+        'focal_alpha':        0.7,   # focal loss alpha (pos class weight)
         'focal_gamma':        2.0,
 
         # ── Misc ──

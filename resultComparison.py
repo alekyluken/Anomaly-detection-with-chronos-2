@@ -1,9 +1,12 @@
 import os, argparse
 import numpy as np
 import pandas as pd
+import warnings
 
 from IPython.display import display
 from json import load as json_load
+
+warnings.filterwarnings("ignore", category=RuntimeWarning)
 
 # ANSI escape codes per evidenziare
 GREEN = "\033[92m"

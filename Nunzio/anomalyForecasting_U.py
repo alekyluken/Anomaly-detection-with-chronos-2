@@ -198,7 +198,7 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline, transformer:C
     anomalyForecast = generateAnomalyForecast(embeddings=embeddings,transformer=transformer, 
                         batch_size=configuration.get('batch_size', 32), threshold=configuration['binary_threshold'], device=device)
     
-    return get_metrics(anomalyForecast, ground_truth_labels, time_series_df, context_length, prediction_length)
+    return get_metrics(anomalyForecast, ground_truth_labels, time_series_df)
 
 
 

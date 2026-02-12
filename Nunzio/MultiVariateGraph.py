@@ -263,8 +263,8 @@ def evaluateMatrixViaChronos2Encodings(df: pd.DataFrame, chronos2: Chronos2Pipel
 
     match aggregation:
         case "max": emb_agg = emb[0].max(dim=1).values  # (D, d_model)
-        case "last": emb_agg = emb[0][:, -2, :]  # (D, d_model)
-        case "first": emb_agg = emb[0][:, 1, :]  # (D, d_model)
+        case "last": emb_agg = emb[0][:, -1, :]  # (D, d_model)
+        case "first": emb_agg = emb[0][:, 0, :]  # (D, d_model)
         case "topk_mean": emb_agg = emb[0].topk(k=int(np.log2(emb[0].shape[1])), dim=1).values.mean(dim=1)  # (D, d_model)
         case _ : emb_agg = emb[0].mean(dim=1)  # Default to mean
 
@@ -297,7 +297,7 @@ def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], p
 
     context_length = pastData[pastData['item_id'] == 0].shape[0]
 
-    maxIndex = pastData.index[pastData['item_id'] == 0].max() + 1
+    maxIndex = pastData.index[pastData['item_id'] == 0].max().item() + 1
 
     for item in range(1, pastData['item_id'].max()):
         # PT = evaluateGrangerCausality(pastData.loc[pastData['item_id'] < item, colsToKeep].iloc[-context_length:, :].values, max_lag=3)
@@ -310,10 +310,11 @@ def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], p
 
         match howToEvaluate_u.lower().strip():
             case 'sum_crps': u = np.array([np.sum(continuousScores[enumVal[i]][itemMaskIndex]) for i in range(PT.shape[0])])
-            case 'surprise' | 'likelihood': u = np.array([np.max((continuousScores[enumVal[i]][itemMaskIndex] - np.mean(continuousScores[enumVal[i]][pastData.index[pastData['item_id'] < item]])) / (np.std(continuousScores[enumVal[i]][pastData.index[pastData['item_id'] < item]]) + 1e-6) ) for i in range(PT.shape[0])])
+            case 'surprise' | 'likelihood': u = np.array([np.max((continuousScores[enumVal[i]][itemMaskIndex] - np.mean(continuousScores[enumVal[i]][pastData.index[pastData['item_id'] <= item] - maxIndex])) / (np.std(continuousScores[enumVal[i]][pastData.index[pastData['item_id'] <= item] - maxIndex]) + 1e-6) ) for i in range(PT.shape[0])])
             case _ : # energy-based or default
                 u = np.array([np.sum(continuousScores[enumVal[i]][itemMaskIndex]) for i in range(PT.shape[0])])
                 u = u + 0.5*PT.T @ u
+        u = np.abs(u)
         u, PT = beta*(u / np.sum(u) if np.sum(u) > 0 else np.ones_like(u) / len(u)), (1-beta) * PT
 
         # PageRank iteration
