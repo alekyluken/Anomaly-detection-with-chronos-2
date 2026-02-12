@@ -645,7 +645,7 @@ def main():
         'focal_gamma':        2.0,
 
         # ── Misc ──
-        'save_dir':           './saved_models/two_stage/',
+        'save_dir':           './saved_models/two_stage_v2/',
         'use_amp':            True,
         'seed':               42,
         'num_workers':        0,     # set >0 for faster data loading (may cause issues in some environments)
