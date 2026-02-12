@@ -9,8 +9,19 @@ from json import load as json_load
 GREEN = "\033[92m"
 RESET = "\033[0m"
 
+def printPerClassResults(results: dict[str, dict[str, list[float]]], file: str):
+    print(f"PER-CLASS RESULTS FOR {file}:")
+    classes = sorted(set(run.split("_")[1].upper() for run in results.keys()))
+    
+    for cls in classes:
+        print(f"\nClass: {cls} ({len([run for run in results.keys() if run.split('_')[1].upper() == cls])} runs)")
+        for metric in results[list(results.keys())[0]]['metrics'][0].keys():
+            values = [results[run]['metrics'][0][metric] for run in results.keys() if run.split("_")[1].upper() == cls and isinstance(results[run]['metrics'][0][metric], float)]
+            if values:
+                print(f"  {metric}: {np.mean(values):.4f} ± {np.std(values):.4f}")
 
-def computeFileStats(file: str, restrictToClasses:bool=False) -> dict[str, float]:
+
+def computeFileStats(file: str, restrictToClasses:bool=False, printAllResults:bool=False) -> dict[str, float]:
     if os.path.exists(file):
         with open(file, "r", encoding="utf-8") as f:
             results = json_load(f)
@@ -25,6 +36,9 @@ def computeFileStats(file: str, restrictToClasses:bool=False) -> dict[str, float
             print(f"Restricted to classes: {restrictToClasses}, found {len(results)} runs.")
         else:
             print(f"Processing all classes, found {len(results)} runs.")
+
+        if printAllResults:
+            printPerClassResults(results, file)
 
         return {
             key: [
@@ -67,6 +81,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compare results from multiple result files.")
     parser.add_argument("--files",type=str,nargs="+",required=True,help="List of result files to compare.")
     parser.add_argument("--restrictTo", type=str, nargs="*", default=False, help="If a name or more than one class is provided (comma-separated), restrict the comparison to those classes only.")
+    parser.add_argument("--printAllResults", action="store_true", help="Print all per-class results for each file.")
 
     args = parser.parse_args()
-    display(build_dataframe({f: computeFileStats(f, restrictToClasses=args.restrictTo) for f in args.files}))
+    display(build_dataframe({f: computeFileStats(f, restrictToClasses=args.restrictTo, printAllResults=args.printAllResults) for f in args.files}))
