@@ -1,0 +1,2008 @@
+{
+    "001_Genesis_id_1_Sensor_tr_4055_1st_15538.csv": {
+        "file": "001_Genesis_id_1_Sensor_tr_4055_1st_15538.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0026019757787350533,
+                "AUC-ROC": 0.41354814537279877,
+                "VUS-PR": 0.00413632471618694,
+                "VUS-ROC": 0.47495321214943736,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9468376494023905,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        15210,
+                        804
+                    ],
+                    [
+                        50,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "002_MSL_id_1_Sensor_tr_500_1st_900.csv": {
+        "file": "002_MSL_id_1_Sensor_tr_500_1st_900.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.27897041843941506,
+                "AUC-ROC": 0.5939063960842546,
+                "VUS-PR": 0.39983724233377443,
+                "VUS-ROC": 0.909598356439102,
+                "Standard-F1": 0.08421052631578947,
+                "PA-F1": 0.21568627450980393,
+                "Event-based-F1": 0.0909090909090908,
+                "R-based-F1": 0.033391915641476276,
+                "accuracy": 0.9477163461538461,
+                "precision": 0.047619047619047616,
+                "recall": 0.36363636363636365,
+                "f1_score": 0.08421052631578947,
+                "confusion_matrix": [
+                    [
+                        1573,
+                        80
+                    ],
+                    [
+                        7,
+                        4
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "003_MSL_id_2_Sensor_tr_883_1st_1238.csv": {
+        "file": "003_MSL_id_2_Sensor_tr_883_1st_1238.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.07228462857501791,
+                "AUC-ROC": 0.5706606117062568,
+                "VUS-PR": 0.09641747415545654,
+                "VUS-ROC": 0.6453285845877865,
+                "Standard-F1": 0.04020100502512563,
+                "PA-F1": 0.7378640776699029,
+                "Event-based-F1": 0.0898876404494381,
+                "R-based-F1": 0.08552879040905575,
+                "accuracy": 0.8873820754716981,
+                "precision": 0.047058823529411764,
+                "recall": 0.03508771929824561,
+                "f1_score": 0.04020100502512563,
+                "confusion_matrix": [
+                    [
+                        3002,
+                        162
+                    ],
+                    [
+                        220,
+                        8
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "004_MSL_id_3_Sensor_tr_530_1st_630.csv": {
+        "file": "004_MSL_id_3_Sensor_tr_530_1st_630.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.16144445538594632,
+                "AUC-ROC": 0.6897021689009362,
+                "VUS-PR": 0.19242002735805483,
+                "VUS-ROC": 0.764058520117209,
+                "Standard-F1": 0.23628691983122363,
+                "PA-F1": 0.7333333333333333,
+                "Event-based-F1": 0.38888888888888856,
+                "R-based-F1": 0.20951856513530526,
+                "accuracy": 0.9214409722222222,
+                "precision": 0.2413793103448276,
+                "recall": 0.23140495867768596,
+                "f1_score": 0.23628691983122363,
+                "confusion_matrix": [
+                    [
+                        2095,
+                        88
+                    ],
+                    [
+                        93,
+                        28
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "005_MSL_id_4_Sensor_tr_855_1st_2700.csv": {
+        "file": "005_MSL_id_4_Sensor_tr_855_1st_2700.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.04355790505143307,
+                "AUC-ROC": 0.7087555083082271,
+                "VUS-PR": 0.050601995897077215,
+                "VUS-ROC": 0.762937358674565,
+                "Standard-F1": 0.0425531914893617,
+                "PA-F1": 0.4717607973421927,
+                "Event-based-F1": 0.05917159763313603,
+                "R-based-F1": 0.054119061936259774,
+                "accuracy": 0.9310661764705882,
+                "precision": 0.03048780487804878,
+                "recall": 0.07042253521126761,
+                "f1_score": 0.0425531914893617,
+                "confusion_matrix": [
+                    [
+                        3034,
+                        159
+                    ],
+                    [
+                        66,
+                        5
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "006_MSL_id_5_Sensor_tr_1150_1st_1250.csv": {
+        "file": "006_MSL_id_5_Sensor_tr_1150_1st_1250.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.061921763346428293,
+                "AUC-ROC": 0.3520480264901357,
+                "VUS-PR": 0.08211349710024948,
+                "VUS-ROC": 0.4476413938473996,
+                "Standard-F1": 0.026865671641791045,
+                "PA-F1": 0.7804428044280443,
+                "Event-based-F1": 0.07031249999999992,
+                "R-based-F1": 0.05674628522053063,
+                "accuracy": 0.8676948051948052,
+                "precision": 0.03643724696356275,
+                "recall": 0.02127659574468085,
+                "f1_score": 0.026865671641791045,
+                "confusion_matrix": [
+                    [
+                        4267,
+                        238
+                    ],
+                    [
+                        414,
+                        9
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "007_MSL_id_6_Sensor_tr_980_1st_3550.csv": {
+        "file": "007_MSL_id_6_Sensor_tr_980_1st_3550.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.040985261176179774,
+                "AUC-ROC": 0.5046759534140215,
+                "VUS-PR": 0.05136043413006362,
+                "VUS-ROC": 0.5656219647018508,
+                "Standard-F1": 0.029411764705882353,
+                "PA-F1": 0.6213991769547325,
+                "Event-based-F1": 0.05154639175257726,
+                "R-based-F1": 0.05225893459204316,
+                "accuracy": 0.9126059322033898,
+                "precision": 0.026455026455026454,
+                "recall": 0.033112582781456956,
+                "f1_score": 0.029411764705882353,
+                "confusion_matrix": [
+                    [
+                        3441,
+                        184
+                    ],
+                    [
+                        146,
+                        5
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "008_MSL_id_7_Sensor_tr_656_1st_1630.csv": {
+        "file": "008_MSL_id_7_Sensor_tr_656_1st_1630.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.8445445804095467,
+                "AUC-ROC": 0.9787591021100256,
+                "VUS-PR": 0.9316240772719457,
+                "VUS-ROC": 0.9929872887533068,
+                "Standard-F1": 0.6628242074927954,
+                "PA-F1": 0.9779735682819384,
+                "Event-based-F1": 0.9583333333333328,
+                "R-based-F1": 0.36746896204817414,
+                "accuracy": 0.953125,
+                "precision": 0.92,
+                "recall": 0.5180180180180181,
+                "f1_score": 0.6628242074927954,
+                "confusion_matrix": [
+                    [
+                        2264,
+                        10
+                    ],
+                    [
+                        107,
+                        115
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "009_MSL_id_8_Sensor_tr_714_1st_1390.csv": {
+        "file": "009_MSL_id_8_Sensor_tr_714_1st_1390.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.0112436927777071,
+                "AUC-ROC": 0.6490209412216004,
+                "VUS-PR": 0.015139038557101173,
+                "VUS-ROC": 0.6556988678203651,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9422238372093024,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        2593,
+                        138
+                    ],
+                    [
+                        21,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "010_MSL_id_9_Sensor_tr_554_1st_1172.csv": {
+        "file": "010_MSL_id_9_Sensor_tr_554_1st_1172.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.03334369802785247,
+                "AUC-ROC": 0.5153333758964864,
+                "VUS-PR": 0.0504999295883052,
+                "VUS-ROC": 0.6106791893016678,
+                "Standard-F1": 0.05714285714285714,
+                "PA-F1": 0.5774058577405857,
+                "Event-based-F1": 0.09009009009008999,
+                "R-based-F1": 0.06469945355191259,
+                "accuracy": 0.921875,
+                "precision": 0.04716981132075472,
+                "recall": 0.07246376811594203,
+                "f1_score": 0.05714285714285714,
+                "confusion_matrix": [
+                    [
+                        1942,
+                        101
+                    ],
+                    [
+                        64,
+                        5
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "011_MSL_id_10_Sensor_tr_1525_1st_4590.csv": {
+        "file": "011_MSL_id_10_Sensor_tr_1525_1st_4590.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.1760422920500226,
+                "AUC-ROC": 0.8824485181974714,
+                "VUS-PR": 0.26484376461632225,
+                "VUS-ROC": 0.9240172220981563,
+                "Standard-F1": 0.27972027972027974,
+                "PA-F1": 0.524,
+                "Event-based-F1": 0.3351955307262567,
+                "R-based-F1": 0.15701784226296644,
+                "accuracy": 0.9480846774193549,
+                "precision": 0.20134228187919462,
+                "recall": 0.4580152671755725,
+                "f1_score": 0.27972027972027974,
+                "confusion_matrix": [
+                    [
+                        5583,
+                        238
+                    ],
+                    [
+                        71,
+                        60
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "012_MSL_id_11_Sensor_tr_539_1st_940.csv": {
+        "file": "012_MSL_id_11_Sensor_tr_539_1st_940.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.35676566612536603,
+                "AUC-ROC": 0.9461369865800139,
+                "VUS-PR": 0.4823275135894091,
+                "VUS-ROC": 0.9688535232863806,
+                "Standard-F1": 0.5294117647058824,
+                "PA-F1": 0.8047808764940239,
+                "Event-based-F1": 0.687898089171974,
+                "R-based-F1": 0.23031442108148323,
+                "accuracy": 0.953125,
+                "precision": 0.5242718446601942,
+                "recall": 0.5346534653465347,
+                "f1_score": 0.5294117647058824,
+                "confusion_matrix": [
+                    [
+                        1898,
+                        49
+                    ],
+                    [
+                        47,
+                        54
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "013_MSL_id_12_Sensor_tr_554_1st_1200.csv": {
+        "file": "013_MSL_id_12_Sensor_tr_554_1st_1200.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.23189528815668722,
+                "AUC-ROC": 0.7332214765100671,
+                "VUS-PR": 0.353907770224187,
+                "VUS-ROC": 0.8717485354259258,
+                "Standard-F1": 0.18181818181818182,
+                "PA-F1": 0.3561643835616438,
+                "Event-based-F1": 0.2033898305084744,
+                "R-based-F1": 0.07715736040609138,
+                "accuracy": 0.9488636363636364,
+                "precision": 0.11320754716981132,
+                "recall": 0.46153846153846156,
+                "f1_score": 0.18181818181818182,
+                "confusion_matrix": [
+                    [
+                        1992,
+                        94
+                    ],
+                    [
+                        14,
+                        12
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "014_MSL_id_13_Sensor_tr_1525_1st_4575.csv": {
+        "file": "014_MSL_id_13_Sensor_tr_1525_1st_4575.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.24441406483294903,
+                "AUC-ROC": 0.8927156261398438,
+                "VUS-PR": 0.30027857228350635,
+                "VUS-ROC": 0.9208934709255254,
+                "Standard-F1": 0.3173277661795407,
+                "PA-F1": 0.6198630136986302,
+                "Event-based-F1": 0.40641711229946487,
+                "R-based-F1": 0.1728058967721715,
+                "accuracy": 0.9450604838709677,
+                "precision": 0.2550335570469799,
+                "recall": 0.4198895027624309,
+                "f1_score": 0.3173277661795407,
+                "confusion_matrix": [
+                    [
+                        5549,
+                        222
+                    ],
+                    [
+                        105,
+                        76
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "015_MSL_id_14_Sensor_tr_575_1st_1250.csv": {
+        "file": "015_MSL_id_14_Sensor_tr_575_1st_1250.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.22295584889316822,
+                "AUC-ROC": 0.7182086378737542,
+                "VUS-PR": 0.25090015660183235,
+                "VUS-ROC": 0.7409736527845912,
+                "Standard-F1": 0.1024390243902439,
+                "PA-F1": 0.8724637681159421,
+                "Event-based-F1": 0.3230769230769228,
+                "R-based-F1": 0.178145379354223,
+                "accuracy": 0.8308823529411765,
+                "precision": 0.1926605504587156,
+                "recall": 0.06976744186046512,
+                "f1_score": 0.1024390243902439,
+                "confusion_matrix": [
+                    [
+                        1787,
+                        88
+                    ],
+                    [
+                        280,
+                        21
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "016_MSL_id_15_Sensor_tr_500_1st_780.csv": {
+        "file": "016_MSL_id_15_Sensor_tr_500_1st_780.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.21452197718792368,
+                "AUC-ROC": 0.7447565700808625,
+                "VUS-PR": 0.40805837399345307,
+                "VUS-ROC": 0.8514086472164007,
+                "Standard-F1": 0.15,
+                "PA-F1": 0.8615384615384616,
+                "Event-based-F1": 0.39999999999999963,
+                "R-based-F1": 0.2737388787624385,
+                "accuracy": 0.8583333333333333,
+                "precision": 0.25,
+                "recall": 0.10714285714285714,
+                "f1_score": 0.15,
+                "confusion_matrix": [
+                    [
+                        812,
+                        36
+                    ],
+                    [
+                        100,
+                        12
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "017_MSL_id_16_Sensor_tr_512_1st_1850.csv": {
+        "file": "017_MSL_id_16_Sensor_tr_512_1st_1850.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.18785165373445853,
+                "AUC-ROC": 0.7578957983193277,
+                "VUS-PR": 0.2071237695066371,
+                "VUS-ROC": 0.7732199180041405,
+                "Standard-F1": 0.12781954887218044,
+                "PA-F1": 0.8114558472553699,
+                "Event-based-F1": 0.30088495575221214,
+                "R-based-F1": 0.18286890436985434,
+                "accuracy": 0.8791666666666667,
+                "precision": 0.17708333333333334,
+                "recall": 0.1,
+                "f1_score": 0.12781954887218044,
+                "confusion_matrix": [
+                    [
+                        1671,
+                        79
+                    ],
+                    [
+                        153,
+                        17
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "018_Daphnet_id_1_HumanActivity_tr_9693_1st_20732.csv": {
+        "file": "018_Daphnet_id_1_HumanActivity_tr_9693_1st_20732.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.3181419479192047,
+                "AUC-ROC": 0.9231646527031331,
+                "VUS-PR": 0.3534689043848381,
+                "VUS-ROC": 0.9336172802593048,
+                "Standard-F1": 0.3599905638122199,
+                "PA-F1": 0.7976478727084054,
+                "Event-based-F1": 0.5660237388724031,
+                "R-based-F1": 0.2591737750176123,
+                "accuracy": 0.9298168460264901,
+                "precision": 0.3947232281427832,
+                "recall": 0.33087597571552474,
+                "f1_score": 0.3599905638122199,
+                "confusion_matrix": [
+                    [
+                        35180,
+                        1170
+                    ],
+                    [
+                        1543,
+                        763
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "019_MITDB_id_1_Medical_tr_37500_1st_103211.csv": {
+        "file": "019_MITDB_id_1_Medical_tr_37500_1st_103211.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.2285545124002999,
+                "AUC-ROC": 0.6136385264396071,
+                "VUS-PR": 0.22202858448689292,
+                "VUS-ROC": 0.6142278963561567,
+                "Standard-F1": 0.17782034093085616,
+                "PA-F1": 0.8779544275133273,
+                "Event-based-F1": 0.4729013854930722,
+                "R-based-F1": 0.1917127399517832,
+                "accuracy": 0.8568064154568744,
+                "precision": 0.30967311541027354,
+                "recall": 0.1247178936055884,
+                "f1_score": 0.17782034093085616,
+                "confusion_matrix": [
+                    [
+                        126104,
+                        5174
+                    ],
+                    [
+                        16289,
+                        2321
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "020_MITDB_id_2_Medical_tr_50000_1st_52315.csv": {
+        "file": "020_MITDB_id_2_Medical_tr_50000_1st_52315.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.121685316921515,
+                "AUC-ROC": 0.6605958030603376,
+                "VUS-PR": 0.010788719044243217,
+                "VUS-ROC": 0.6819094257237359,
+                "Standard-F1": 0.014430530709600478,
+                "PA-F1": 0.060969573445916435,
+                "Event-based-F1": 0.014785397892164332,
+                "R-based-F1": 0.003511402814381239,
+                "accuracy": 0.9491333464644475,
+                "precision": 0.007447757978641553,
+                "recall": 0.23113658070678128,
+                "f1_score": 0.014430530709600478,
+                "confusion_matrix": [
+                    [
+                        616558,
+                        32251
+                    ],
+                    [
+                        805,
+                        242
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "021_MITDB_id_3_Medical_tr_50000_1st_57595.csv": {
+        "file": "021_MITDB_id_3_Medical_tr_50000_1st_57595.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.014814741196606066,
+                "AUC-ROC": 0.4459217644912962,
+                "VUS-PR": 0.01562974716093624,
+                "VUS-ROC": 0.46290539958747334,
+                "Standard-F1": 0.012306964084965387,
+                "PA-F1": 0.3184923793077558,
+                "Event-based-F1": 0.016455696202531622,
+                "R-based-F1": 0.01914835533260314,
+                "accuracy": 0.9332066261203585,
+                "precision": 0.008322663252240717,
+                "recall": 0.023609534619750284,
+                "f1_score": 0.012306964084965387,
+                "confusion_matrix": [
+                    [
+                        466246,
+                        24784
+                    ],
+                    [
+                        8602,
+                        208
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "022_MITDB_id_4_Medical_tr_50000_1st_54253.csv": {
+        "file": "022_MITDB_id_4_Medical_tr_50000_1st_54253.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.046312104186975,
+                "AUC-ROC": 0.5059165008291077,
+                "VUS-PR": 0.04988467330762081,
+                "VUS-ROC": 0.5273973197138386,
+                "Standard-F1": 0.04581933887219374,
+                "PA-F1": 0.526458905387753,
+                "Event-based-F1": 0.08155046564309076,
+                "R-based-F1": 0.04307972328287529,
+                "accuracy": 0.9099886606189967,
+                "precision": 0.0432230522945571,
+                "recall": 0.04874746106973595,
+                "f1_score": 0.04581933887219374,
+                "confusion_matrix": [
+                    [
+                        272203,
+                        14344
+                    ],
+                    [
+                        12645,
+                        648
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "023_MITDB_id_5_Medical_tr_25000_1st_36913.csv": {
+        "file": "023_MITDB_id_5_Medical_tr_25000_1st_36913.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.009608742342648528,
+                "AUC-ROC": 0.6628109555690809,
+                "VUS-PR": 0.008692288000359878,
+                "VUS-ROC": 0.6914466241771023,
+                "Standard-F1": 0.010995052226498075,
+                "PA-F1": 0.15784114052953158,
+                "Event-based-F1": 0.011947431302269999,
+                "R-based-F1": 0.008930685700754372,
+                "accuracy": 0.9459435096153846,
+                "precision": 0.006009615384615385,
+                "recall": 0.06451612903225806,
+                "f1_score": 0.010995052226498075,
+                "confusion_matrix": [
+                    [
+                        94413,
+                        4962
+                    ],
+                    [
+                        435,
+                        30
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "024_MITDB_id_6_Medical_tr_50000_1st_58118.csv": {
+        "file": "024_MITDB_id_6_Medical_tr_50000_1st_58118.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.5167174080085408,
+                "AUC-ROC": 0.7656311729993921,
+                "VUS-PR": 0.14994638573598296,
+                "VUS-ROC": 0.7806428341475246,
+                "Standard-F1": 0.040011597564511454,
+                "PA-F1": 0.0672829505384542,
+                "Event-based-F1": 0.040584256445446484,
+                "R-based-F1": 0.0026184658038356985,
+                "accuracy": 0.9503031940441883,
+                "precision": 0.020712427456473885,
+                "recall": 0.5864022662889519,
+                "f1_score": 0.040011597564511454,
+                "confusion_matrix": [
+                    [
+                        189732,
+                        9787
+                    ],
+                    [
+                        146,
+                        207
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "025_MITDB_id_7_Medical_tr_37500_1st_88864.csv": {
+        "file": "025_MITDB_id_7_Medical_tr_37500_1st_88864.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.5127033794557475,
+                "AUC-ROC": 0.8837916095751681,
+                "VUS-PR": 0.5004265033399554,
+                "VUS-ROC": 0.9011790974694632,
+                "Standard-F1": 0.36725940487892056,
+                "PA-F1": 0.5760598503740648,
+                "Event-based-F1": 0.4303664921465965,
+                "R-based-F1": 0.048200045456009734,
+                "accuracy": 0.952758059350982,
+                "precision": 0.2741827885256838,
+                "recall": 0.5560064935064936,
+                "f1_score": 0.36725940487892056,
+                "confusion_matrix": [
+                    [
+                        140752,
+                        5440
+                    ],
+                    [
+                        1641,
+                        2055
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "026_MITDB_id_8_Medical_tr_30495_1st_30595.csv": {
+        "file": "026_MITDB_id_8_Medical_tr_30495_1st_30595.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.17053345360746813,
+                "AUC-ROC": 0.5927777270024831,
+                "VUS-PR": 0.15468934632896436,
+                "VUS-ROC": 0.6112019311790061,
+                "Standard-F1": 0.16695870378782962,
+                "PA-F1": 0.7647993469482952,
+                "Event-based-F1": 0.32356516999958046,
+                "R-based-F1": 0.1019499849109147,
+                "accuracy": 0.9036966829385403,
+                "precision": 0.19300790237071122,
+                "recall": 0.14710479167460833,
+                "f1_score": 0.16695870378782962,
+                "confusion_matrix": [
+                    [
+                        357504,
+                        16135
+                    ],
+                    [
+                        22374,
+                        3859
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "027_MITDB_id_9_Medical_tr_25000_1st_52255.csv": {
+        "file": "027_MITDB_id_9_Medical_tr_25000_1st_52255.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.008436443977213033,
+                "AUC-ROC": 0.7494213201606542,
+                "VUS-PR": 0.00945928526690419,
+                "VUS-ROC": 0.7714655344384698,
+                "Standard-F1": 0.007741935483870968,
+                "PA-F1": 0.14836388555764948,
+                "Event-based-F1": 0.008378216636744455,
+                "R-based-F1": 0.010120778827456696,
+                "accuracy": 0.946083733974359,
+                "precision": 0.004206730769230769,
+                "recall": 0.04849884526558892,
+                "f1_score": 0.007741935483870968,
+                "confusion_matrix": [
+                    [
+                        94436,
+                        4971
+                    ],
+                    [
+                        412,
+                        21
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "028_MITDB_id_10_Medical_tr_37500_1st_39948.csv": {
+        "file": "028_MITDB_id_10_Medical_tr_37500_1st_39948.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.015247002903620488,
+                "AUC-ROC": 0.6918327739885812,
+                "VUS-PR": 0.015627146880390966,
+                "VUS-ROC": 0.7254112637111594,
+                "Standard-F1": 0.04064939893419259,
+                "PA-F1": 0.13539332468451468,
+                "Event-based-F1": 0.04282543412978191,
+                "R-based-F1": 0.016866316785389107,
+                "accuracy": 0.9483547715627668,
+                "precision": 0.021881254169446297,
+                "recall": 0.2857142857142857,
+                "f1_score": 0.04064939893419259,
+                "confusion_matrix": [
+                    [
+                        141983,
+                        7331
+                    ],
+                    [
+                        410,
+                        164
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "029_MITDB_id_11_Medical_tr_50000_1st_518037.csv": {
+        "file": "029_MITDB_id_11_Medical_tr_50000_1st_518037.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.48868309975220137,
+                "AUC-ROC": 0.8455354535887806,
+                "VUS-PR": 0.3072542100648713,
+                "VUS-ROC": 0.8838214284133389,
+                "Standard-F1": 0.07258064516129033,
+                "PA-F1": 0.1082184156823944,
+                "Event-based-F1": 0.0739741860913118,
+                "R-based-F1": 0.005710307853899785,
+                "accuracy": 0.9509228635442227,
+                "precision": 0.03840768153630726,
+                "recall": 0.6582857142857143,
+                "f1_score": 0.07258064516129033,
+                "confusion_matrix": [
+                    [
+                        569280,
+                        28842
+                    ],
+                    [
+                        598,
+                        1152
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "030_MITDB_id_12_Medical_tr_50000_1st_84572.csv": {
+        "file": "030_MITDB_id_12_Medical_tr_50000_1st_84572.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.055189176051292935,
+                "AUC-ROC": 0.6043450982855961,
+                "VUS-PR": 0.05833996625313438,
+                "VUS-ROC": 0.6233263292076504,
+                "Standard-F1": 0.05567577861260668,
+                "PA-F1": 0.6456599860116248,
+                "Event-based-F1": 0.09865030674846614,
+                "R-based-F1": 0.0790738999730756,
+                "accuracy": 0.9119982576148683,
+                "precision": 0.05188435725348477,
+                "recall": 0.0600649957043069,
+                "f1_score": 0.05567577861260668,
+                "confusion_matrix": [
+                    [
+                        563685,
+                        29384
+                    ],
+                    [
+                        25163,
+                        1608
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "031_MITDB_id_13_Medical_tr_50000_1st_79433.csv": {
+        "file": "031_MITDB_id_13_Medical_tr_50000_1st_79433.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.03334006416178837,
+                "AUC-ROC": 0.48288836971137356,
+                "VUS-PR": 0.024556444934997257,
+                "VUS-ROC": 0.5126898145112663,
+                "Standard-F1": 0.03715170278637771,
+                "PA-F1": 0.4597818429171829,
+                "Event-based-F1": 0.051913842249215233,
+                "R-based-F1": 0.03392518166909097,
+                "accuracy": 0.9308667662540901,
+                "precision": 0.02667496554483617,
+                "recall": 0.06118078923218109,
+                "f1_score": 0.03715170278637771,
+                "confusion_matrix": [
+                    [
+                        418156,
+                        21893
+                    ],
+                    [
+                        9207,
+                        600
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "032_GHL_id_1_Sensor_tr_50000_1st_65001.csv": {
+        "file": "032_GHL_id_1_Sensor_tr_50000_1st_65001.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.005239669440648744,
+                "AUC-ROC": 0.20176893804046342,
+                "VUS-PR": 0.005770230650332147,
+                "VUS-ROC": 0.22855450045493977,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9407420749279539,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        188028,
+                        9994
+                    ],
+                    [
+                        1850,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "033_GHL_id_2_Sensor_tr_50000_1st_51001.csv": {
+        "file": "033_GHL_id_2_Sensor_tr_50000_1st_51001.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.005436650972198503,
+                "AUC-ROC": 0.23568685271659695,
+                "VUS-PR": 0.006022013651441373,
+                "VUS-ROC": 0.26425707029528,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9407570845341018,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        188031,
+                        9994
+                    ],
+                    [
+                        1847,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    },
+    "034_GHL_id_3_Sensor_tr_50000_1st_122001.csv": {
+        "file": "034_GHL_id_3_Sensor_tr_50000_1st_122001.csv",
+        "thresholds": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "metrics": [
+            {
+                "AUC-PR": 0.005257372892856022,
+                "AUC-ROC": 0.17088142579636084,
+                "VUS-PR": 0.005861947395989756,
+                "VUS-ROC": 0.19100938888968796,
+                "Standard-F1": 0.0,
+                "PA-F1": 0.0,
+                "Event-based-F1": 0.0,
+                "R-based-F1": 0,
+                "accuracy": 0.9403968539865514,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1_score": 0.0,
+                "confusion_matrix": [
+                    [
+                        187959,
+                        9994
+                    ],
+                    [
+                        1919,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "context_length": 100,
+        "prediction_length": 1,
+        "step_size": 64,
+        "batch_size": 256,
+        "square_distance": false,
+        "use_naive": true,
+        "thresholds_percentile": [
+            [
+                0.05,
+                0.95
+            ]
+        ],
+        "use_restricted_dataset": false,
+        "horizons": [
+            1,
+            8,
+            32,
+            64
+        ],
+        "aggregation_method": "mean",
+        "normalization_method": "robust",
+        "howToEvaluate_u": "sum_CRPS",
+        "percentile": 95.0,
+        "top_k_method": "sqrt"
+    }
+}
