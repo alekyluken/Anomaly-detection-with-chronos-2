@@ -334,7 +334,7 @@ def main(configuration:dict, name:str)->None:
     os.makedirs(out_initial_path, exist_ok=True)
 
     # Parameters
-    pipeline = get_pipeline(device='cuda')
+    pipeline = get_pipeline()
     print(f"Using device: {next(pipeline.model.parameters()).device}")
     
     save_path = f"results_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith('results_') and fname.endswith('.json')] + [-1])}.json"
