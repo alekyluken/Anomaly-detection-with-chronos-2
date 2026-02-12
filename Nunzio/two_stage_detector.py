@@ -394,15 +394,21 @@ class TwoStageLoss(nn.Module):
     - consistency_loss:  If global=1, at least one series should have high prob
     """
     def __init__(self, alpha: float = 1.0, beta: float = 1.0, 
-                 gamma: float = 0.5, focal_gamma: float = 2.0):
+                 gamma: float = 0.5, focal_gamma: float = 2.0, label_smoothing: float = 0.0):
         super().__init__()
         self.alpha = alpha
         self.beta = beta
         self.gamma = gamma
         self.focal_gamma = focal_gamma
-    
+        if label_smoothing < 0 or label_smoothing >= 1:
+            raise ValueError("label_smoothing must be in [0, 1)")
+
+        self.label_smoothing = label_smoothing
+
     def focal_bce(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         """Focal loss per singolo output."""
+        if self.label_smoothing > 0:
+            targets = targets * (1 - self.label_smoothing) + (1-targets) * self.label_smoothing
         bce = F.binary_cross_entropy_with_logits(logits, targets, reduction='none')
         p_t = torch.exp(-bce)
         focal = (1 - p_t) ** self.focal_gamma * bce
@@ -420,45 +426,44 @@ class TwoStageLoss(nn.Module):
             total_loss: scalar
             loss_dict: breakdown per component
         """
+        loss_dict = {}
         device = global_logits.device
         
         # Global loss
-        loss_global = self.focal_bce(global_logits, global_labels)
+        total_loss = self.focal_bce(global_logits, global_labels)
+        loss_dict['global'] = total_loss.item()
         
+
         # Series loss (aggregate across all series in batch)
-        series_losses = []
-        for s_logits, s_labels in zip(series_logits_list, series_labels_list):
-            s_logits_flat = s_logits.squeeze(-1)  # [D_i]
-            s_labels_tensor = s_labels.float().to(device)
-            series_losses.append(self.focal_bce(s_logits_flat, s_labels_tensor))
-        
-        loss_series = torch.stack(series_losses).mean() if series_losses else torch.tensor(0.0, device=device)
-        
+        if self.beta > 0:
+            series_losses = []
+            for s_logits, s_labels in zip(series_logits_list, series_labels_list):
+                s_logits_flat = s_logits.squeeze(-1)  # [D_i]
+                s_labels_tensor = s_labels.float().to(device)
+                series_losses.append(self.focal_bce(s_logits_flat, s_labels_tensor))
+            
+            loss_series = torch.stack(series_losses).mean() if series_losses else torch.tensor(0.0, device=device)
+            total_loss += self.beta * loss_series
+            loss_dict['series'] = loss_series.item()
+
+
         # Consistency loss: if global=1, max(series_probs) should be high
-        consistency_losses = []
-        for g_label, s_logits in zip(global_labels, series_logits_list):
-            if g_label.item() == 1:  # Global anomaly
-                s_probs = torch.sigmoid(s_logits.squeeze(-1))  # [D_i]
-                max_series_prob = s_probs.max()
-                # Penalize if no series detected as anomalous
-                consistency_losses.append(F.relu(0.5 - max_series_prob))
         
-        loss_consistency = torch.stack(consistency_losses).mean() if consistency_losses else torch.tensor(0.0, device=device)
-        
+        if self.gamma > 0:
+            consistency_losses = []
+            for g_label, s_logits in zip(global_labels, series_logits_list):
+                if g_label.item() == 1:  # Global anomaly
+                    s_probs = torch.sigmoid(s_logits.squeeze(-1))  # [D_i]
+                    max_series_prob = s_probs.max()
+                    # Penalize if no series detected as anomalous
+                    consistency_losses.append(F.relu(0.5 - max_series_prob))
+            
+            loss_consistency = torch.stack(consistency_losses).mean() if consistency_losses else torch.tensor(0.0, device=device)
+            total_loss += self.gamma * loss_consistency
+            loss_dict['consistency'] = loss_consistency.item()  
         # Total
-        total_loss = (
-            self.alpha * loss_global + 
-            self.beta * loss_series + 
-            self.gamma * loss_consistency
-        )
         
-        loss_dict = {
-            'total': total_loss.item(),
-            'global': loss_global.item(),
-            'series': loss_series.item(),
-            'consistency': loss_consistency.item(),
-        }
-        
+        loss_dict['total'] = total_loss.item()
         return total_loss, loss_dict
 
 

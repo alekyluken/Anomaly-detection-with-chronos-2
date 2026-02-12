@@ -260,7 +260,7 @@ def main(configuration:dict, name:str)->None:
         os.makedirs(path, exist_ok=True)
 
     # done = set('_'.join(f.split("_")[:-1]) for f in os.listdir(predictions_path) if f.endswith(".csv"))
-    for filename in tqdm(sorted(os.listdir(data_path)), desc="Processing datasets"):
+    for filename in tqdm(sorted(os.listdir(data_path))[41:], desc="Processing datasets"):
         tqdm.write(f"Evaluating file: {filename}")
 
         try:
