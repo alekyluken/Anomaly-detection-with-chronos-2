@@ -61,42 +61,32 @@ class MultivariateAnomalyDataset(torch.utils.data.Dataset):
         predictions: v1-item_id mappa timestep → segment
     """
     
-    def __init__(self, data_dir: str, file_filter: set = None,
-                 min_series: int = 2, verbose: bool = True):
+    def __init__(self, data_dir: str, file_filter: set = None, verbose: bool = True):
         """
         Args:
             data_dir: Path to PROCESSED_TRAIN_DATAV2 (shared embeddings/labels/preds)
             file_filter: Set of file stems to include, e.g. {'0_Kaggle_labeled', ...}.
                         Derived from TRAIN_SPLIT or TEST_SPLIT directory listing.
                         If None, loads all files.
-            min_series: Minimum number of series per dataset (skip if less)
             verbose: Print loading info
         """
         # 1. Discover and group files by dataset name, filtered by split
-        pattern = re.compile(r'^(\d+)_(.+)_embeddings\.npy$')
         dataset_files = defaultdict(list)
         pred_dir = os.path.join(data_dir, 'predictions')
         
-        for f in sorted(os.listdir(os.path.join(data_dir, 'embeddings'))):
-            m = pattern.match(f)
-            if m:
-                idx, ds_name = int(m.group(1)), m.group(2)
-
-                # Skip files not in this split
-                if file_filter is not None and f'{idx}_{ds_name}' not in file_filter:
-                    continue
-                
-                dataset_files[ds_name].append((idx, f))
+        for idx, f in enumerate(sorted(os.listdir(os.path.join(data_dir, 'embeddings')))):
+            if file_filter is None or f.replace("_embeddings.npy", "") in file_filter:
+                dataset_files[f"{idx}_{f}"].append((idx, f))
         
         if verbose:
-            print(f"Found {len(dataset_files)} datasets, {sum(len(v) for v in dataset_files.values())} files{f' (filtered from split)' if file_filter else ''}.")
+            print(f"Found {len(dataset_files)} files")
         
         # 2. Load metadata and labels for each dataset
         self.dataset_info = {}
         self.samples = []
         total_pos, total_neg = 0, 0
         
-        for ds_name, file_list in sorted(dataset_files.items()):
+        for ds_name, file_list in tqdm(sorted(dataset_files.items()), desc="Processing datasets"):
             series_info = []
             min_n_groups = float('inf')
             
@@ -132,12 +122,6 @@ class MultivariateAnomalyDataset(torch.utils.data.Dataset):
                     if verbose:
                         print(f"  Error loading {emb_file}: {e}")
                     continue
-            
-            # Skip datasets with too few series
-            if len(series_info) < min_series:
-                if verbose:
-                    print(f"  Skipping {ds_name}: {len(series_info)} series < {min_series}")
-                continue
 
             self.dataset_info[ds_name] = {
                 'series_info': series_info,
@@ -166,10 +150,27 @@ class MultivariateAnomalyDataset(torch.utils.data.Dataset):
             print(f"  {total} multivariate samples from {len(self.dataset_info):,} datasets")
             print(f"  Positive (anomalous): {total_pos} ({100*total_pos/max(total,1):.1f}%)")
             print(f"  Negative (normal):    {total_neg} ({100*total_neg/max(total,1):.1f}%)")
-            for ds, info in sorted(self.dataset_info.items()):
-                n_pos = sum(1 for s in info['series_info'] for l in s['labels'][:info['n_segments']] if l == 1)
-                print(f"    {ds}: D={info['D']}, {info['n_segments']} segments, pos_segments={n_pos}")
     
+    def get_sampler_weights(self):
+        """Per-sample weights for WeightedRandomSampler (inverse frequency)."""
+        labels = np.array([self._get_global_label(i) for i in range(len(self.samples))])
+        n_pos = labels.sum()
+        n = len(labels)
+        weights = np.where(
+            labels == 1,
+            n / (2.0 * max(n_pos, 1)),
+            n / (2.0 * max(n - n_pos, 1)),
+        )
+        return torch.from_numpy(weights).double()
+
+    def _get_global_label(self, idx):
+        """Compute global label for sample idx without loading embeddings."""
+        ds_name, seg_idx = self.samples[idx]
+        for sd in self.dataset_info[ds_name]['series_info']:
+            if sd['labels'][seg_idx] == 1:
+                return 1
+        return 0
+
     def __len__(self):
         return len(self.samples)
     
@@ -207,7 +208,7 @@ def train_epoch(model, dataloader, criterion, optimizer, device,
     
     total_loss = 0.0
     all_global_preds, all_global_labels = [], []
-    loss_breakdown = {'global': 0.0, 'series': 0.0, 'consistency': 0.0}
+    loss_breakdown = {}
     
     for embeddings_list, global_labels, series_labels_list in tqdm(dataloader, desc="Train", leave=False):
         # Move to device
@@ -234,8 +235,8 @@ def train_epoch(model, dataloader, criterion, optimizer, device,
         
         # Accumulate
         total_loss += loss.item()
-        for k in loss_breakdown:
-            loss_breakdown[k] += loss_dict[k]
+        for k in loss_dict:
+            loss_breakdown[k] = loss_dict[k] + loss_breakdown.get(k, 0.0)
         
         # Global predictions
         all_global_preds.extend((torch.sigmoid(global_logits.detach()).cpu().numpy() > 0.5).astype(int))
@@ -247,9 +248,9 @@ def train_epoch(model, dataloader, criterion, optimizer, device,
     
     return {
         'loss': float(total_loss / n_batches),
-        'loss_global': float(loss_breakdown['global'] / n_batches),
-        'loss_series': float(loss_breakdown['series'] / n_batches),
-        'loss_consistency': float(loss_breakdown['consistency'] / n_batches),
+        'loss_global': float(loss_breakdown.get('global', 0.0) / n_batches),
+        'loss_series': float(loss_breakdown.get('series', 0.0) / n_batches),
+        'loss_consistency': float(loss_breakdown.get('consistency', 0.0) / n_batches),
         'f1': float(f1_score(all_global_labels, all_global_preds, zero_division=0)),
         'precision': float(precision_score(all_global_labels, all_global_preds, zero_division=0)),
         'recall': float(recall_score(all_global_labels, all_global_preds, zero_division=0)),
@@ -365,33 +366,24 @@ class PrecomputedDataset(torch.utils.data.Dataset):
     Much faster and more memory-efficient.
     """
     
-    def __init__(self, features_dir, data_dir, file_filter=None,
-                 min_series=2, verbose=True):
+    def __init__(self, features_dir, data_dir, file_filter=None,  verbose=True):
         """
         Args:
             features_dir: Directory with pre-extracted features (*_features.npy)
             data_dir: PROCESSED_TRAIN_DATAV2 (for labels)
             file_filter: Set of file stems to include (from split dir), or None for all
-            min_series: Minimum series per dataset
         """
         gt_dir = os.path.join(data_dir, 'ground_truth_labels')
         pred_dir = os.path.join(data_dir, 'predictions')
         
         # Parse feature files, filtered by split
-        pattern = re.compile(r'^(\d+)_(.+)_features\.npy$')
         dataset_files = defaultdict(list)
         
-        for f in sorted(os.listdir(features_dir)):
-            m = pattern.match(f)
-            if m:
-                idx, ds_name = int(m.group(1)), m.group(2)
-                stem = f'{idx}_{ds_name}'
-                
-                if file_filter is not None and stem not in file_filter:
-                    continue
-                    
-                dataset_files[ds_name].append((idx, f))
         
+        for idx, f in enumerate(sorted(os.listdir(os.path.join(data_dir, 'embeddings')))):
+            if file_filter is None or f.replace("_embeddings.npy", "") in file_filter:
+                dataset_files[f"{idx}_{f}"].append((idx, f))
+
         self.dataset_info = {}
         self.samples = []
         
@@ -429,9 +421,6 @@ class PrecomputedDataset(torch.utils.data.Dataset):
                         print(f"  Error: {feat_file}: {e}")
                     continue
             
-            if len(series_info) < min_series:
-                continue
-            
             self.dataset_info[ds_name] = {
                 'series_info': series_info,
                 'n_segments': int(min_n_groups),
@@ -444,6 +433,26 @@ class PrecomputedDataset(torch.utils.data.Dataset):
         if verbose:
             print(f"PrecomputedDataset: {len(self.samples)} samples from {len(self.dataset_info)} datasets")
     
+    def get_sampler_weights(self):
+        """Per-sample weights for WeightedRandomSampler (inverse frequency)."""
+        labels = np.array([self._get_global_label(i) for i in range(len(self.samples))])
+        n_pos = labels.sum()
+        n = len(labels)
+        weights = np.where(
+            labels == 1,
+            n / (2.0 * max(n_pos, 1)),
+            n / (2.0 * max(n - n_pos, 1)),
+        )
+        return torch.from_numpy(weights).double()
+
+    def _get_global_label(self, idx):
+        """Compute global label for sample idx without loading features."""
+        ds_name, seg_idx = self.samples[idx]
+        for sd in self.dataset_info[ds_name]['series_info']:
+            if sd['labels'][seg_idx] == 1:
+                return 1
+        return 0
+
     def __len__(self):
         return len(self.samples)
     
@@ -597,41 +606,50 @@ def main():
     cfg = {
         # ── Data ──
         'data_dir':           './PROCESSED_TRAIN_DATAV2',
+        'data_dir2':          './PROCESSED_TRAIN_DATAV5',
         'train_split_dir':    './TRAIN_SPLIT',
+        'train_split_dir2':   './TRAIN_MULTI_CLEAN',
         'test_split_dir':     './TEST_SPLIT',
-        'stage1_checkpoint':  './Saved_Models_Temporal/HIGHLY_AGGRESSIVE/best_model.pth',
+        'test_split_dir2':     './TEST_MULTI_CLEAN',
+        'stage1_checkpoint':  './Saved_Models_Temporal/TRAINED_TSB_AD/best_model.pth', # add _64 for 64 model
+
 
         # ── Model ──
         'stage1_hidden_dim':  32,   # must match Stage 1 checkpoint
         'stage2_hidden_dim':  32,
         'num_isab_layers':    1,
+        'num_inducing':      16,
         'num_heads':          2,
-        'dropout':            0.3,
+        'dropout':            0.4,
 
         # ── Freeze / Finetune ──
-        'finetune_stage1':    False, # True = end-to-end con differential LR
-        'stage1_lr_factor':   0.1,   # LR multiplier per Stage 1 se finetune
+        'finetune_stage1':    True, # True = end-to-end con differential LR
+        'stage1_lr_factor':   0.25,   # LR multiplier per Stage 1 se finetune
         'precompute_features': False,
         'features_dir':       None,  # default: data_dir/stage1_features
 
         # ── Training ──
-        'num_epochs':         30,
-        'batch_size':         64,
-        'lr':                 1e-3,
-        'weight_decay':       0.1,
-        'patience':           7,
+        'num_epochs':         40,
+        'batch_size':         128,
+        'lr':                 5e-4,
+        'weight_decay':       0.04,
+        'patience':           5,
+        "max_grad_norm":      2.0,
+        "label_smoothing":    0.1,   # for global binary labels
 
         # ── Loss ──
-        'loss_alpha':         1.0,   # global loss weight
-        'loss_beta':          2.0,   # series loss weight
-        'loss_gamma':         1.5,   # consistency loss weight
-        'focal_alpha':        0.25,
+        'loss_alpha':         2.0,   # global loss weight
+        'loss_beta':          -1.0,   # series loss weight
+        'loss_gamma':         1,   # consistency loss weight
+        'focal_alpha':        0.55,   # focal loss alpha (pos class weight)
         'focal_gamma':        2.0,
 
         # ── Misc ──
         'save_dir':           './saved_models/two_stage/',
         'use_amp':            True,
         'seed':               42,
+        'num_workers':        0,     # set >0 for faster data loading (may cause issues in some environments)
+        "max_grad_norm":       3.0,
     }
 
     # Seed
@@ -639,7 +657,6 @@ def main():
     np.random.seed(cfg['seed'])
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    use_amp = cfg.get('use_amp', True)
     features_dir = cfg['features_dir'] or os.path.join(cfg['data_dir'], 'stage1_features')
 
     print(f"Device: {device}")
@@ -674,8 +691,8 @@ def main():
     print("\nLoading data...")
     
     # Build file-filter sets from split directories
-    train_stems = get_file_stems_from_split_dir(cfg['train_split_dir'])
-    test_stems = get_file_stems_from_split_dir(cfg['test_split_dir'])
+    train_stems = set(get_file_stems_from_split_dir(cfg['train_split_dir']))
+    test_stems =  set(get_file_stems_from_split_dir(cfg['test_split_dir']))
     print(f"  Train split: {len(train_stems)} files from {cfg['train_split_dir']}")
     print(f"  Test split:  {len(test_stems)} files from {cfg['test_split_dir']}")
     
@@ -684,20 +701,51 @@ def main():
     if use_precomputed:
         print("  Using pre-computed Stage 1 features")
         train_dataset = PrecomputedDataset(features_dir, cfg['data_dir'], file_filter=train_stems, verbose=True)
-        val_dataset = PrecomputedDataset(features_dir, cfg['data_dir'],file_filter=test_stems, verbose=False)
+        val_dataset = PrecomputedDataset(features_dir, cfg['data_dir'],file_filter=test_stems, verbose=True)
         collate_fn = collate_precomputed_batch
     else:
         print("  Using raw embeddings (full pipeline)")
         train_dataset = MultivariateAnomalyDataset(cfg['data_dir'], file_filter=train_stems, verbose=True)
-        val_dataset = MultivariateAnomalyDataset(cfg['data_dir'], file_filter=test_stems, verbose=False)
+        val_dataset = MultivariateAnomalyDataset(cfg['data_dir'], file_filter=test_stems, verbose=True)
         collate_fn = collate_multivariate_batch
     
     print(f"  Train: {len(train_dataset)} samples")
     print(f"  Val:   {len(val_dataset)} samples")
+
+    if cfg['train_split_dir2'] is not None and os.path.isdir(cfg['train_split_dir2']):
+        train_stems2 = get_file_stems_from_split_dir(cfg['train_split_dir2'])
+        print(f"  Additional Train split: {len(train_stems2)} files from {cfg['train_split_dir2']}")
+        
+        if use_precomputed:
+            extra_train_dataset = PrecomputedDataset(features_dir, cfg['data_dir2'], file_filter=train_stems2, verbose=True)
+        else:
+            extra_train_dataset = MultivariateAnomalyDataset(cfg['data_dir2'], file_filter=train_stems2, verbose=True)
+        
+        print(f"  Additional Train: {len(extra_train_dataset)} samples")
+        del train_stems2
+
+    if cfg['test_split_dir2'] is not None and os.path.isdir(cfg['test_split_dir2']):
+        test_stems2 = get_file_stems_from_split_dir(cfg['test_split_dir2'])
+        print(f"  Additional Test split: {len(test_stems2)} files from {cfg['test_split_dir2']}")
+        
+        if use_precomputed:
+            extra_val_dataset = PrecomputedDataset(features_dir, cfg['data_dir2'], file_filter=test_stems2, verbose=True)
+        else:
+            extra_val_dataset = MultivariateAnomalyDataset(cfg['data_dir2'], file_filter=test_stems2, verbose=True)
+        
+        print(f"  Additional Val: {len(extra_val_dataset)} samples")
+        val_dataset = torch.utils.data.ConcatDataset([val_dataset, extra_val_dataset])
+        del test_stems2, extra_val_dataset
+
+    del train_stems, test_stems
     
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=cfg['batch_size'], shuffle=True,collate_fn=collate_fn, num_workers=0, pin_memory=True)
-    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=cfg['batch_size'], shuffle=False,collate_fn=collate_fn, num_workers=0, pin_memory=True)
-    
+    train_loader = torch.utils.data.DataLoader(torch.utils.data.ConcatDataset([train_dataset, extra_train_dataset]) if 'extra_train_dataset' in locals() else train_dataset,
+                                            batch_size=cfg['batch_size'], collate_fn=collate_fn, num_workers=cfg['num_workers'], pin_memory=True,
+                sampler=torch.utils.data.WeightedRandomSampler(torch.cat([train_dataset.get_sampler_weights(), extra_train_dataset.get_sampler_weights()]) 
+                                                                if 'extra_train_dataset' in locals() else train_dataset.get_sampler_weights(), 
+                                                        num_samples=len(train_dataset) + (len(extra_train_dataset) if 'extra_train_dataset' in locals() else 0), replacement=True))
+    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=cfg['batch_size'], shuffle=False,collate_fn=collate_fn, num_workers=cfg['num_workers'], pin_memory=True)
+
     # ── Create model ────────────────────────────────────────────
     if use_precomputed:
         # Train only Stage 2 (directly on features)
@@ -705,6 +753,7 @@ def main():
         model = Stage2MultivariateDetector(
             feature_dim=cfg['stage1_hidden_dim'],
             hidden_dim=cfg['stage2_hidden_dim'],
+            num_inducing=cfg['num_inducing'],
             num_isab_layers=cfg['num_isab_layers'],
             num_heads=cfg['num_heads'],
             dropout=cfg['dropout'],
@@ -732,7 +781,7 @@ def main():
     print(f"  Trainable: {sum(p.numel() for p in model.parameters() if p.requires_grad):,} / {sum(p.numel() for p in model.parameters()):,} params")
     
     # ── Optimizer & Scheduler ───────────────────────────────────
-    criterion = TwoStageLoss(alpha=cfg['loss_alpha'],beta=cfg['loss_beta'],gamma=cfg['loss_gamma'],focal_gamma=cfg['focal_gamma'],)
+    criterion = TwoStageLoss(alpha=cfg['loss_alpha'],beta=cfg['loss_beta'], gamma=cfg['loss_gamma'],focal_gamma=cfg['focal_gamma'], label_smoothing=cfg['label_smoothing'])
     
     if use_precomputed or not cfg['finetune_stage1']:
         optimizer = torch.optim.AdamW(model.parameters(), lr=cfg['lr'], weight_decay=cfg['weight_decay'])
@@ -762,7 +811,7 @@ def main():
         print(f"\nEpoch {epoch+1}/{cfg['num_epochs']}\n", '-' * 40)
         
         # Train
-        train_metrics = train_fn(model, train_loader, criterion, optimizer, device, use_amp=use_amp)
+        train_metrics = train_fn(model, train_loader, criterion, optimizer, device, use_amp=cfg.get('use_amp', True), max_grad_norm=cfg.get('max_grad_norm', 1.0))
         
         print(f"  Train | Loss: {train_metrics['loss']:.4f} (G:{train_metrics['loss_global']:.3f} S:{train_metrics['loss_series']:.3f} C:{train_metrics['loss_consistency']:.3f})")
         print(f"       | F1: {train_metrics['f1']:.4f} P:{train_metrics['precision']:.3f} R:{train_metrics['recall']:.3f}")

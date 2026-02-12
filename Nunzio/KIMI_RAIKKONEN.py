@@ -458,11 +458,11 @@ def main():
             "val_data_path2":    './TEST_SPLIT_UNIVARIATE_WEB_FILES/',    # optional second validation dataset
             'processed_data_dir': './PROCESSED_TRAIN_DATAV3/',
             "processed_data_dir2": './PROCESSED_TRAIN_DATAV4/',  # directory for second dataset (if used)
-            'model_save_path':   f'./Saved_Models_Temporal/TRAINED_TSB_AD/',
+            'model_save_path':   f'./Saved_Models_Temporal/TRAINED_TSB_AD_64/',
 
             # ── Model ──
             'embed_dim':   768,
-            'hidden_dim':  32, # Da vedere se 64 è meglio
+            'hidden_dim':  64, # Da vedere se 64 è meglio
             'num_heads':   4, # Da vedere se 2 è meglio
             'dropout':     0.35,
 

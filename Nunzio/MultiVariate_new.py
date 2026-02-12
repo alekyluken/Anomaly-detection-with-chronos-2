@@ -246,7 +246,33 @@ def get_top_k_jump(scores: np.ndarray, k: int) -> np.ndarray:
     anomaly_mask[selected_indices] = True
     
     return anomaly_mask
-         
+
+def get_top_k(type, normalized_scores: dict[str, np.ndarray]):
+    """
+    Select top-k anomalies based on normalized scores, where k is determined by the specified method (logarithmic or square root of the number of series).
+    
+    Args:
+        type (str): Method to determine top-k ('log' or 'sqrt')
+        normalized_scores (dict[str, np.ndarray]): Dictionary of normalized scores for each target column
+
+    Returns:
+        dict[str, np.ndarray]: Dictionary of filtered scores for each target column
+    """
+    if type == 'log':
+        n = int(np.log2(len(normalized_scores)))  # Keep top-n series per timestep
+    elif type == 'sqrt':
+        n = int(np.sqrt(len(normalized_scores)))  # Keep top-n series per timestep
+        
+    col_names = list(normalized_scores.keys())
+    stacked = np.column_stack([normalized_scores[col] for col in col_names])
+    
+    # For each timestep, keep only the top-n series by score
+    filtered = np.zeros_like(stacked)
+    for i in range(stacked.shape[0]):
+        top_indices = np.argsort(stacked[i, :])[-n:]  # Indices of top-n series
+        filtered[i, top_indices] = stacked[i, top_indices]
+    return {col: filtered[:, idx] for idx, col in enumerate(col_names)}
+
 
 def aggregateAnomalyScores(continuousScores: dict[str, np.ndarray], aggregation_method: str = 'mean', 
                         percentile: float = 95.0, normalization_method: str = 'none',top_k_method: str = 'none') :
@@ -286,16 +312,18 @@ def aggregateAnomalyScores(continuousScores: dict[str, np.ndarray], aggregation_
             # No normalization
             normalized_scores[col] = scores
             
-    if top_k_method == 'jump':
-        mask = get_top_k_jump(np.concatenate(list(normalized_scores.values())), k=None)
-        normalized_scores = {col: scores[mask] for col, scores in normalized_scores.items()}
-    if top_k_method == 'percentile':
-        k_percentile = 75
-        threshold = np.percentile(np.concatenate(list(normalized_scores.values())), k_percentile)
-        mask = np.concatenate(list(normalized_scores.values())) > threshold
-        normalized_scores = {col: scores[mask] for col, scores in normalized_scores.items()}
-        
-    
+            
+    match top_k_method.lower():
+        case 'none': pass  # Keep all
+        case 'jump': normalized_scores = {col: scores[get_top_k_jump(scores, k=None)] for col, scores in normalized_scores.items()}
+        case 'percentile':
+            k_percentile = 75
+            threshold = np.percentile(np.concatenate(list(normalized_scores.values())), k_percentile)
+            mask = np.concatenate(list(normalized_scores.values())) > threshold
+            normalized_scores = {col: scores[mask] for col, scores in normalized_scores.items()}
+        case 'log' | 'sqrt': normalized_scores = get_top_k(top_k_method, normalized_scores)
+
+                   
     # Stack normalized scores and aggregate
     stacked_scores = np.column_stack(list(normalized_scores.values()))
     match aggregation_method.lower():
@@ -456,7 +484,7 @@ if __name__ == "__main__":
     args.add_argument('--aggregation_method', type=str, default='mean', help='Method to aggregate anomaly scores across multivariates (mean, max, sum)')
     args.add_argument('--normalization_method', type=str, default='none', help='Method to normalize scores before aggregation (minmax, zscore, robust, none)')
     args.add_argument('--howToEvaluate_u', type=str, default='sum_CRPS', help='Method to evaluate utility for PageRank aggregation (e.g., sum_CRPS, mean_CRPS)')
-    args.add_argument('--top_k_method', type=str, default='none', help='Method to select top-k anomalies based on score distribution (none, jump, percentile)')
+    args.add_argument('--top_k_method', type=str, default='none', help='Method to select top-k anomalies based on score distribution (none, jump, percentile, log, sqrt)')
     parsed_args = args.parse_args()
 
     configuration = {
