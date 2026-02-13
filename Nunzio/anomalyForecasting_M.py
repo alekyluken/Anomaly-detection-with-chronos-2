@@ -379,8 +379,8 @@ if __name__ == "__main__":
     parser.add_argument("--user", type=str, required=True,choices=["Nunzio", "Aldo", "Sara", "Valentino", "Simone"],help="Username of the person running the script",)
     parser.add_argument("--context_length", type=int, default=-1, help="Context length for Chronos-2")
     parser.add_argument("--prediction_length", type=int, default=-1, help="Prediction length for Chronos-2")
-    parser.add_argument("--batch_size", type=int, default=-1, help="Batch size for embedding extraction")
-    parser.add_argument("--model_path", type=str, default="./Saved_Models/two_stage/",help="Path to the two-stage model directory",)
+    parser.add_argument("--batch_size", type=int, default=512, help="Batch size for embedding extraction")
+    parser.add_argument("--model_path", type=str, default="./Saved_Models/two_stage_v2/",help="Path to the two-stage model directory",)
     parser.add_argument("--stage1_checkpoint", type=str, default=None, help="Override Stage 1 checkpoint path (uses config.json value if not set)",)
 
     args = parser.parse_args()
