@@ -251,6 +251,61 @@ def computeDiscreteAnomalyScores(predictions_df: pd.DataFrame, actual_values: np
                             for q_low, q_high in thresholds_percentile]
 
 
+def computeMultiHorizonAnomalyScore(predictions_df: pd.DataFrame, actual_values: np.ndarray, prediction_indices: np.ndarray,
+                                    horizons: list[int] = [1, 8, 32, 64], quantile_col: str = '0.5'):
+    """
+    Compute multi-horizon anomaly scores using prediction errors across multiple forecast horizons.
+    For univariate time series, this computes the maximum squared error across different horizons.
+    
+    Args:
+        predictions_df: DataFrame with predictions and quantiles
+        actual_values: Ground truth values (full time series)
+        prediction_indices: Indices in actual_values corresponding to predictions
+        horizons: List of forecast horizons to consider (default [1, 8, 32, 64])
+        quantile_col: Quantile column to use (default '0.5' for median)
+    
+    Returns:
+        Array of anomaly scores (max error across horizons for each prediction)
+    """
+    all_horizon_scores = []
+    cols = predictions_df.columns.tolist()
+    
+    for h in horizons:
+        # Shift prediction indices by horizon offset
+        idx_to_check = prediction_indices + (h - 1)
+        mask = idx_to_check < len(actual_values)
+        
+        if not np.any(mask):
+            continue
+        elif quantile_col in cols:
+            error_h = np.zeros(len(prediction_indices))
+            error_h[mask] = (actual_values[idx_to_check[mask]] - predictions_df[quantile_col].to_numpy()[mask])**2
+            all_horizon_scores.append(error_h)
+    
+    if not all_horizon_scores:
+        # Fallback to zeros if no horizons match
+        return np.zeros(len(prediction_indices))
+        
+    return np.max(all_horizon_scores, axis=0)
+
+
+def computeDiscreteFromContinuous(continuous_scores: np.ndarray, percentile: float = 95.0):
+    """
+    Convert continuous anomaly scores to binary predictions using percentile threshold.
+    
+    Args:
+        continuous_scores: Array of continuous anomaly scores
+        percentile: Percentile threshold for anomaly detection (default 95.0)
+    
+    Returns:
+        Binary predictions (0 = normal, 1 = anomaly)
+    """
+    if len(continuous_scores) == 0:
+        return np.array([], dtype=np.int8)
+    
+    return (continuous_scores >= np.percentile(continuous_scores, percentile)).astype(np.int8)
+
+
 def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration: dict):
     """
     Complete evaluation pipeline for a single dataset
@@ -275,13 +330,20 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
     
     print(f"Ground truth anomaly rate: {np.mean(ground_truth_labels):.2%}")
     
+    # Determine prediction length: for multi-horizon, need at least max(horizons)
+    if configuration.get('use_multihorizon', False):
+        horizons = configuration.get('horizons', [1, 8, 32, 64])
+        prediction_length = max(horizons)
+    else:
+        prediction_length = configuration.get('prediction_length', 1)
+    
     # Make predictions
     predictions_df, prediction_indices = make_predictions_sliding_window(
         time_series_df=time_series_df,
         pipeline=pipeline,
         target_col=target_col,
         context_length=configuration.get('context_length', 100),
-        prediction_length=configuration.get('prediction_length', 1),
+        prediction_length=prediction_length,
         step_size=configuration.get('step_size', 1),
         batch_size=configuration.get('batch_size', 256),
         quantile_levels=sorted(set([t for v in configuration.get('thresholds_percentile', [[0.05, 0.95]]) for t in v] + [0.5]))
@@ -291,7 +353,41 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
         print("No predictions generated!")
         return None
     
-    # Detect anomalies using reconstruction error
+    # Check if multi-horizon scoring is enabled
+    if configuration.get('use_multihorizon', False):
+        # Multi-horizon approach: compute scores using multiple forecast horizons
+        horizons = configuration.get('horizons', [1, 8, 32, 64])
+        percentile = configuration.get('percentile', 95.0)
+        
+        continuousAnomalyScore = computeMultiHorizonAnomalyScore(
+            predictions_df=predictions_df,
+            actual_values=time_series_df[target_col].values,  # Full series, not just prediction indices
+            prediction_indices=prediction_indices,
+            horizons=horizons,
+            quantile_col='0.5'
+        )
+        
+        discreteAnomalyScore = computeDiscreteFromContinuous(
+            continuous_scores=continuousAnomalyScore,
+            percentile=percentile
+        )
+        
+        # Calculate metrics for multi-horizon approach
+        return {
+            'file': os.path.basename(dataset_path),
+            'horizons': horizons,
+            'percentile': percentile,
+            'metrics': [{
+                **get_metrics(score=continuousAnomalyScore, labels=ground_truth_labels[prediction_indices], pred=discreteAnomalyScore),
+                'accuracy': float(accuracy_score(ground_truth_labels[prediction_indices], discreteAnomalyScore)),
+                'precision': float(precision_score(ground_truth_labels[prediction_indices], discreteAnomalyScore, zero_division=0)),
+                'recall': float(recall_score(ground_truth_labels[prediction_indices], discreteAnomalyScore, zero_division=0)),
+                'f1_score': float(f1_score(ground_truth_labels[prediction_indices], discreteAnomalyScore, zero_division=0)),
+                'confusion_matrix': confusion_matrix(ground_truth_labels[prediction_indices], discreteAnomalyScore).tolist(),
+            }]
+        }
+    
+    # Standard approach: use naive or quantile-based scoring
     continuosAnomalyScores, th  = computeContinuousAnomalyScoresNaive(
         predictions_df=predictions_df,
         actual_values=time_series_df[target_col].iloc[prediction_indices].values,
@@ -393,18 +489,28 @@ if __name__ == "__main__":
     args.add_argument('--thresholds', type=str, default='0.05-0.95', help='Comma-separated list of quantile thresholds (e.g., "0.05-0.95,0.1-0.9")')
     args.add_argument('--use_restricted_dataset', action='store_true', default=False, help='Use restricted dataset from test_files_U.csv')
     args.add_argument('--colab', action='store_true', default=False, help='Flag to indicate running in Google Colab environment')
+    
+    # Multi-horizon scoring arguments
+    args.add_argument('--use_multihorizon', action='store_true', default=False, help='Use multi-horizon anomaly scoring')
+    args.add_argument('--horizons', type=str, default='1,8,32,64', help='Comma-separated list of horizons for multi-horizon scoring (e.g., "1,8,32,64")')
+    args.add_argument('--percentile', type=float, default=95.0, help='Percentile threshold for converting continuous scores to binary predictions')
 
+    parsed_args = args.parse_args()
+    
     configuration = {
-        'context_length': args.parse_args().context_length if args.parse_args().context_length > 0 else 100,
-        'prediction_length': args.parse_args().prediction_length if args.parse_args().prediction_length > 0 else 1,
-        'step_size': args.parse_args().step_size if args.parse_args().step_size > 0 else 1,
-        'batch_size': args.parse_args().batch_size if args.parse_args().batch_size > 0 else 256,
-        'square_distance': bool(args.parse_args().square_distance),
-        'use_naive': bool(args.parse_args().use_naive),
-        'thresholds_percentile': [[float(pair.split('-')[0]), float(pair.split('-')[1])] for pair in args.parse_args().thresholds.strip().split(',')] if args.parse_args().thresholds else [[0.05, 0.95]],
-        'use_restricted_dataset': bool(args.parse_args().use_restricted_dataset),
-        'colab': bool(args.parse_args().colab),
+        'context_length': parsed_args.context_length if parsed_args.context_length > 0 else 100,
+        'prediction_length': parsed_args.prediction_length if parsed_args.prediction_length > 0 else 1,
+        'step_size': parsed_args.step_size if parsed_args.step_size > 0 else 1,
+        'batch_size': parsed_args.batch_size if parsed_args.batch_size > 0 else 256,
+        'square_distance': bool(parsed_args.square_distance),
+        'use_naive': bool(parsed_args.use_naive),
+        'thresholds_percentile': [[float(pair.split('-')[0]), float(pair.split('-')[1])] for pair in parsed_args.thresholds.strip().split(',')] if parsed_args.thresholds else [[0.05, 0.95]],
+        'use_restricted_dataset': bool(parsed_args.use_restricted_dataset),
+        'colab': bool(parsed_args.colab),
+        'use_multihorizon': bool(parsed_args.use_multihorizon),
+        'horizons': [int(h.strip()) for h in parsed_args.horizons.split(',')] if parsed_args.horizons else [1, 8, 32, 64],
+        'percentile': float(parsed_args.percentile),
     }
 
     
-    main(configuration, name=str(args.parse_args().user).strip().upper())
+    main(configuration, name=str(parsed_args.user).strip().upper())
