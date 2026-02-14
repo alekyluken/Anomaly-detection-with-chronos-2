@@ -1,0 +1,26 @@
+{
+    "train_data_path": "./TRAIN_SPLIT_UNIVARIATE/",
+    "val_data_path": "./TEST_SPLIT_UNIVARIATE/",
+    "processed_data_dir": "./PROCESSED_TRAIN_DATAV3/",
+    "model_save_path": "./Saved_Models_Simpler/",
+    "hidden_dim": 32,
+    "numLayersToken": 1,
+    "numLayerData": 1,
+    "dropout": 0.3,
+    "numInternalLayers": 2,
+    "simplerModel": true,
+    "num_epochs": 60,
+    "batch_size": 64,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "warmup_fraction": 0.2,
+    "num_workers": 0,
+    "RESUME_TRAINING": false,
+    "exclude_names": [],
+    "restrict_also_validation": true,
+    "enable_balancing": false,
+    "pos_weight": [
+        1,
+        21.0
+    ]
+}
