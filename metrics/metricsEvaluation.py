@@ -40,7 +40,6 @@ def get_metrics(score, labels, slidingWindow=100, pred=None, thre=250):
     }
 
 
-
 class basic_metricor():
     def __init__(self, a = 1, probability = True, bias = 'flat', ):
         self.a = a

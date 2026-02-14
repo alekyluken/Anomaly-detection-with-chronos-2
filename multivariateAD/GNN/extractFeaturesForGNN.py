@@ -13,7 +13,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
 try:
-    from ..metrics.metricsEvaluation import get_metrics
+    from metrics.metricsEvaluation import get_metrics
 except (ImportError, ModuleNotFoundError):
     from metrics.metricsEvaluation import get_metrics
 
