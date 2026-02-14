@@ -1,2 +1,0 @@
-autogluon.timeseries
-pandas[pyarrow]

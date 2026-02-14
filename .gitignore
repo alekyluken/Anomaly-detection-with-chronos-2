@@ -1,6 +1,4 @@
 .venv
-.ChronosVenv/
-.Chronos2_main/
 __pycache__/
 Nunzio/provaData/
 IMS
@@ -17,6 +15,5 @@ SKAB
 WADI
 PROCESSED_TRAIN_DATA*
 TEST_SPLIT*
-SAVED_MODEL*
 TRAIN_MULTI_CLEAN
 TEST_MULTI_CLEAN
