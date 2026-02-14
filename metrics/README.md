@@ -1,0 +1,1 @@
+This folder contains the scripts obtained from the benchmark library, with some optimizations, to speed up the evaluation process, this optimization do not alter the reproducibility nor the correctness of the metrics.
