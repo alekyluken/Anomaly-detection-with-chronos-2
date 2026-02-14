@@ -1,583 +1,673 @@
 """
 Training Loop per SimpleQuantileAnomalyDetector.
 
-Struttura allineata con trainGNN.py:
-- trainLoop / evalLoop separati
-- CombinedAnomalyLoss (Focal + Ranking + Dice + Consistency)
-- Warmup + Cosine Annealing scheduler
-- Resume training da ultimo checkpoint
-- Salvataggio per-epoch con training_log.json
+Redesign ispirato a KIMI_RAIKKONEN.py e train_two_stage.py:
+  - Dataset unificato: MergedQuantileDataset carica tutti i file da V2+V5
+  - WeightedRandomSampler per bilanciamento anomalie/normali
+  - SigmoidFocalLoss (singola, pulizia, .mean() reduction)
+  - OneCycleLR scheduler (warmup → peak → cosine decay)
+  - EMA model per valutazione più smooth
+  - Mixed precision (AMP) + gradient clipping + gradient accumulation
+  - Threshold optimization via PR curve su validation
+  - Early stopping su val best_f1
 """
-import os, sys
+import os, sys, copy, json
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
+import pandas as pd
 from tqdm import tqdm
+from functools import lru_cache
+from collections import OrderedDict
 
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import (
+    precision_recall_curve, average_precision_score,
+    f1_score, precision_score, recall_score
+)
 from sklearn.exceptions import UndefinedMetricWarning
 import warnings
 warnings.filterwarnings("ignore", category=UndefinedMetricWarning)
-
-from json import load as jsonLoad, dump as jsonDump
 
 # Ensure Nunzio/ is on sys.path for sibling imports
 _NUNZIO_DIR = os.path.dirname(os.path.abspath(__file__))
 if _NUNZIO_DIR not in sys.path:
     sys.path.insert(0, _NUNZIO_DIR)
 
-from SimplerNN import SimpleQuantileAnomalyDetector
+from SimplerNN import SimpleQuantileAnomalyDetector, SigmoidFocalLoss
 from customDataLoaderV2 import CustomDataset
-
 
 if torch.cuda.is_available():
     torch.cuda.empty_cache()
 
 
-def getScheduler(optimizer:torch.optim.Optimizer, total_epochs:int, fractionWarmUp:float=0.1)->torch.optim.lr_scheduler.SequentialLR:
-    """Create a learning rate scheduler with warm-up and cosine annealing.
-    
-    Args:
-        optimizer (torch.optim.Optimizer): The optimizer for which to schedule the learning rate.
-        total_epochs (int): Total number of training epochs.
-        fractionWarmUp (float): Fraction of total epochs to use for warm-up. Default is 0.1.
-        
-    Returns:
-        scheduler (torch.optim.lr_scheduler.SequentialLR): The learning rate scheduler.
-    """
-    warmup_epochs = int(total_epochs * fractionWarmUp)
-    
-    warmup_scheduler = torch.optim.lr_scheduler.LinearLR(
-    optimizer,
-    start_factor=0.01,  
-    total_iters=warmup_epochs
-    )
-
-    cosine_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
-        optimizer,
-        T_max=total_epochs - warmup_epochs,
-        eta_min=1e-6
-    )
-
-    return torch.optim.lr_scheduler.SequentialLR(
-        optimizer,
-        schedulers=[warmup_scheduler, cosine_scheduler],
-        milestones=[warmup_epochs]
-    )
-
-
-
 # ═══════════════════════════════════════════════════════════════
-# LOSS COMBINATA (Focal + Ranking + Dice + Consistency)
+# DATASET — Merged flat dataset from PROCESSED_TRAIN_DATAV2 + V5
 # ═══════════════════════════════════════════════════════════════
 
-class FocalLoss(nn.Module):
+class MergedQuantileDataset(torch.utils.data.Dataset):
     """
-    Focal Loss per gestire severe class imbalance (numericamente stabile).
-    
-    FL(p_t) = -α_t * (1 - p_t)^γ * log(p_t)
-    
-    Args:
-        alpha: peso per la classe positiva (anomalie). Default 0.9
-        gamma: focusing parameter. Default 2.0 (è stabile, >2.5 rischia NaN)
-        reduction: 'mean' (consigliato), 'sum', o 'none'
-    """
-    def __init__(self, alpha: float = 0.9, gamma: float = 2.0, reduction: str = 'sum'):
-        super().__init__()
-        self.alpha = alpha
-        self.gamma = gamma
-        self.reduction = reduction
-        self.eps = 1e-7
-        
-    def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
-        # Clamp logits per stabilità
-        # pred = pred.clamp(-20, 20)
-        
-        # Sigmoid con clamp per evitare log(0)
-        p = torch.sigmoid(pred).clamp(self.eps, 1 - self.eps)
-        
-        # Focal weight: clamp per evitare instabilità con gamma alto
-        focal_weight = ((1 - p * target - (1 - p) * (1 - target)) ** self.gamma).clamp(max=10)
-        
-        focal_loss = (self.alpha * target + (1 - self.alpha) * (1 - target)) * focal_weight * F.binary_cross_entropy_with_logits(pred, target, reduction='none')
-        
-        match self.reduction:
-            case 'mean': return focal_loss.mean()
-            case 'sum':  return focal_loss.sum()
-            case _:      return focal_loss
+    Flat dataset that merges all quantile prediction files from multiple
+    processed data directories (e.g. PROCESSED_TRAIN_DATAV2 + V5).
 
-class WeightedBCELoss(nn.Module):
-    """
-    BCE con peso esplicito per la classe positiva.
-    Semplice ed efficace per imbalance noti.
-    
-    Args:
-        pos_weight: peso per classe positiva. Se anomalie=1%, usa ~99 o calcola dinamicamente
-    """
-    def __init__(self, pos_weight: float = 70.0):
-        super().__init__()
-        self.pos_weight = pos_weight
-        
-    def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
-        if self.pos_weight is not None:
-            pos_weight = torch.tensor([self.pos_weight], device=pred.device)
-        else:
-            pos_weight = torch.clamp(((1 - target).sum() + 1e-6) / (target.sum() + 1e-6), min=5.0, max=200.0) 
+    Phase 1 (init): Scan all files, compute per-segment anomaly labels.
+    Phase 2 (__getitem__): Lazily load data via cached CustomDataset instances.
 
-        return F.binary_cross_entropy_with_logits(pred, target, pos_weight=pos_weight)
+    Each sample: (quantiles [D, T, Q], values [D, T], labels [T, 1])
+    where D = num variables, T = prediction_length, Q = num quantile levels.
 
+    Note: D may vary across files (different multivariate datasets).
+    Use batch_size=1 + gradient accumulation for correct batching.
+    """
 
-class RankingLoss(nn.Module):
-    """
-    Margin ranking loss: gli score delle anomalie devono essere > score normali + margin.
-    Ottimo per separare bene le distribuzioni degli score.
-    
-    Args:
-        margin: margine minimo tra anomalia e normale
-    """
-    def __init__(self, margin: float = 2.0):
-        super().__init__()
-        self.margin = margin
-        
-    def forward(self, scores: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
-        anomaly_mask = labels == 1
-        normal_mask = labels == 0
-        
-        # Se non ci sono entrambe le classi, return 0
-        if not anomaly_mask.any() or not normal_mask.any():
-            return torch.tensor(0.0, device=scores.device, requires_grad=True)
-        
-        return F.relu(self.margin - scores[anomaly_mask].unsqueeze(1) + scores[normal_mask].unsqueeze(0) ).mean()
-
-
-class DiceLoss(nn.Module):
-    """
-    Dice Loss - molto usata per segmentazione con imbalance.
-    Ottimizza direttamente il Dice coefficient (simile a F1).
-    
-    Args:
-        smooth: smoothing factor per evitare divisione per zero
-    """
-    def __init__(self, smooth: float = 1.0):
-        super().__init__()
-        self.smooth = smooth
-        
-    def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
-        # pred_prob = torch.sigmoid(pred.clamp(-20, 20))
-        pred_prob = torch.sigmoid(pred)
-
-        return (1 - (2. * (pred_prob * target).sum() + self.smooth) / (pred_prob.sum() + target.sum() + self.smooth))
-
-
-class ConsistencyLoss(nn.Module):
-    """
-    Consistency Loss: the two heads should agree on normal or abnormal points.
-    
-    Args:
-        weight: peso della consistency loss
-    """
-    def __init__(self, weight: float = 1.0):
-        super().__init__()
-        self.weight = weight
-        
-    def forward(self, head1: torch.Tensor, head2: torch.Tensor) -> torch.Tensor:        
-        return self.weight * F.mse_loss(torch.sigmoid(head1), torch.sigmoid(head2))
-
-class CombinedAnomalyLoss(nn.Module):
-    """
-    Loss combinata ottimizzata per anomaly detection con severe imbalance (~1-2% anomalie).
-    
-    Combina:
-    1. Focal Loss (α=0.96, γ=3): gestisce imbalance, focus su campioni difficili
-    2. Ranking Loss: garantisce separazione tra score anomalie/normali  
-    3. Dice Loss (opzionale): ottimizza direttamente F1-like metric
-    
-    Args:
-        focal_alpha: peso classe positiva in focal loss
-        focal_gamma: focusing parameter
-        ranking_margin: margine per ranking loss
-        ranking_weight: peso del ranking loss nel totale
-        dice_weight: peso del dice loss (0 per disabilitare)
-        only_ce: se True, usa solo CrossEntropyLoss con pesi specificati
-        ce_weight: pesi per le classi nella CrossEntropyLoss
-    """
     def __init__(
-        self, 
-        focal_alpha: float = 0.9,
-        focal_gamma: float = 3.0,
-        ranking_margin: float = 2.0,
-        ranking_weight: float = 1,
-        dice_weight: float = 2,
-        consistency_weight: float = 1.0,
-        only_ce: bool = False,
-        ce_weight: list[float] = [1, 99]
+        self,
+        sources: list[tuple[str, str]],
+        skip_names: set = None,
+        min_variables: int = 2,
+        verbose: bool = True,
+        dataset_label: str = "dataset",
     ):
+        """
+        Args:
+            sources: list of (processed_dir, original_csv_dir) pairs.
+                     e.g. [('./PROCESSED_TRAIN_DATAV2', './TRAIN_SPLIT'),
+                            ('./PROCESSED_TRAIN_DATAV5', './TRAIN_MULTI_CLEAN')]
+            skip_names: set of substrings to skip (e.g. {"WADI"})
+            min_variables: minimum D (skip univariate to avoid BatchNorm issues)
+            verbose: print loading info
+            dataset_label: label for tqdm progress bar
+        """
         super().__init__()
-        self.focal = FocalLoss(alpha=focal_alpha, gamma=focal_gamma)
-        self.ranking = RankingLoss(margin=ranking_margin) if ranking_weight > 0 else None
-        self.dice = DiceLoss() if dice_weight > 0 else None
-        self.consistency = ConsistencyLoss(weight=consistency_weight) if consistency_weight > 0 else None
-        self.ce = nn.BCEWithLogitsLoss(pos_weight=torch.tensor(ce_weight[1]/ce_weight[0])) if only_ce else None
+        self._sources = sources
+        self._skip_names = skip_names or set()
+        self._min_variables = min_variables
 
+        # Samples: (src_idx, filename, item_id)
+        self.samples = []
+        self.labels = []  # per-sample binary label (1=anomalous segment)
+        total_pos, total_neg = 0, 0
+        skipped = 0
 
-        self.ranking_weight = ranking_weight
-        self.dice_weight = dice_weight
-        self.consistency_weight = consistency_weight
-        self.only_ce = only_ce
-    def forward(self, pred: torch.Tensor, binary:torch.Tensor, target: torch.Tensor) -> torch.Tensor:
-        # Focal loss (principale)
-        if self.only_ce and self.ce is not None:
-            total_loss = self.ce(binary, target)
-            if self.consistency is not None:
-                total_loss = total_loss + self.consistency_weight * self.consistency(pred, binary)
-
-        else:
-            total_loss = self.focal(binary, target)
-            
-            # Ranking loss (separazione)
-            if self.ranking is not None:
-                total_loss = total_loss + self.ranking_weight * self.ranking(pred, target)
-            
-            # Dice loss (opzionale, per F1)
-            if self.dice is not None:
-                total_loss = total_loss + self.dice_weight * self.dice(binary, target)
-
-            if self.consistency is not None:
-                total_loss = total_loss + self.consistency_weight * self.consistency(pred, binary)
-                
-        return total_loss
-    
-    def forward_with_components(self, pred: torch.Tensor, binary: torch.Tensor, target: torch.Tensor) -> dict:
-        """Ritorna loss totale + componenti per logging."""
-        if self.only_ce and self.ce is not None:
-            total_loss = self.ce(binary, target)
-        else:
-            total_loss = self.focal(binary, target)
-        components = {'focal': total_loss.item()}
-
-        if self.ranking is not None:
-            loss_ranking = self.ranking(pred, target)
-            total_loss = total_loss + self.ranking_weight * loss_ranking
-            components['ranking'] = loss_ranking.item()
-
-        if self.dice is not None:
-            loss_dice = self.dice(binary, target)
-            components['dice'] = loss_dice.item()
-            total_loss = total_loss + self.dice_weight * loss_dice
-            
-        if self.consistency is not None :
-            loss_consistency = self.consistency(pred, binary)
-            components['consistency'] = loss_consistency.item()
-            total_loss = total_loss + self.consistency_weight * loss_consistency
-
-        components['total'] = total_loss.item()
-        return total_loss, components
-
-
-# ═══════════════════════════════════════════════════════════════
-# TRAIN LOOP
-# ═══════════════════════════════════════════════════════════════
-
-def trainLoop(model: SimpleQuantileAnomalyDetector, train_loader: torch.utils.data.DataLoader,
-              optimizer: torch.optim.Optimizer, criterion: nn.Module, device: torch.device):
-    """Training loop per un singolo DataLoader (un file)."""
-    model.train()
-
-    total_loss = 0.0
-    accuracy, precision, recall, f1 = 0.0, 0.0, 0.0, 0.0
-
-    for quantiles, values, gt in train_loader:
-        quantiles, values, gt = quantiles.to(device), values.to(device), gt.to(device)
-
-        optimizer.zero_grad()
-        cont, binary_logits = model(quantiles, values)
-        loss = criterion(cont, binary_logits, gt)
-        loss.backward()
-        optimizer.step()
-
-        total_loss += loss.item()
-
-        outputs_flat = (torch.sigmoid(binary_logits).detach().cpu().numpy().flatten() >= 0.5).astype(int)
-        gt_flat = gt.detach().cpu().numpy().flatten().astype(int)
-
-        accuracy  += accuracy_score(gt_flat, outputs_flat)
-        precision += precision_score(gt_flat, outputs_flat, zero_division=0)
-        recall    += recall_score(gt_flat, outputs_flat, zero_division=0)
-        f1        += f1_score(gt_flat, outputs_flat, zero_division=0)
-
-
-    n = len(train_loader)
-    return total_loss / n, accuracy / n, precision / n, recall / n, f1 / n
-
-
-# ═══════════════════════════════════════════════════════════════
-# EVAL LOOP
-# ═══════════════════════════════════════════════════════════════
-
-@torch.no_grad()
-def evalLoop(model: SimpleQuantileAnomalyDetector, eval_loader: torch.utils.data.DataLoader,
-             criterion: nn.Module, device: torch.device):
-    """Validation loop per un singolo DataLoader (un file)."""
-    model.eval()
-
-    total_loss = 0.0
-    accuracy, precision, recall, f1 = 0.0, 0.0, 0.0, 0.0
-
-    for quantiles, values, gt in eval_loader:
-        quantiles, values, gt = quantiles.to(device), values.to(device), gt.to(device)
-
-        cont, binary_logits = model(quantiles, values)
-        loss = criterion(cont, binary_logits, gt)
-        total_loss += loss.item()
-
-        outputs_flat = (torch.sigmoid(binary_logits).cpu().numpy().flatten() >= 0.5).astype(int)
-        gt_flat = gt.cpu().numpy().flatten().astype(int)
-
-        accuracy  += accuracy_score(gt_flat, outputs_flat)
-        precision += precision_score(gt_flat, outputs_flat, zero_division=0)
-        recall    += recall_score(gt_flat, outputs_flat, zero_division=0)
-        f1        += f1_score(gt_flat, outputs_flat, zero_division=0)
-
-    n = len(eval_loader)
-    return total_loss / n, accuracy / n, precision / n, recall / n, f1 / n
-
-
-# ═══════════════════════════════════════════════════════════════
-# MAIN LOOP
-# ═══════════════════════════════════════════════════════════════
-
-def mainLoop(cfg: dict, device: torch.device) -> None:
-    """Main training loop – struttura identica a trainGNN.mainLoop."""
-
-    # ── Modello ──
-    model = SimpleQuantileAnomalyDetector(
-        in_features=cfg.get('in_features', 12),
-        hidden_dim=cfg.get('hidden_dim', 32),
-        kernel_size=cfg.get('kernel_size', 7),
-        num_layers=cfg.get('num_layers', 3),
-        num_attention_heads=cfg.get('num_attention_heads', 4),
-        num_attention_layers=cfg.get('num_attention_layers', 2),
-        dropout=cfg.get('dropout', 0.2)
-    ).to(device)
-
-    # ── Resume training ──
-    filteredData = [f for f in os.listdir(cfg['model_save_path'])
-                    if f.startswith("model_epoch_") and f.endswith(".pth")]
-    if cfg.get("RESUME_TRAINING", False) and len(filteredData) > 0:
-        latest_model = max(filteredData, key=lambda x: int(x.split("_")[2].split(".")[0]))
-        model.load_state_dict(
-            torch.load(os.path.join(cfg['model_save_path'], latest_model),
-                        map_location=device)['model_state_dict']
-        )
-        startingEpoch = int(latest_model.split("_")[2].split(".")[0])
-        print(f"Resuming training from epoch {startingEpoch} using {latest_model}.")
-    else:
-        startingEpoch = 0
-
-    total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print(f"Model parameters: {total_params:,}")
-
-    # ── Optimizer ──
-    optimizer = torch.optim.AdamW(
-        model.parameters(),
-        lr=cfg.get('lr', 1e-3),
-        weight_decay=cfg.get('weight_decay', 1e-4)
-    )
-
-    # ── Loss combinata ──
-    criterion = CombinedAnomalyLoss(
-        focal_alpha=cfg.get('focal_alpha', 0.9),
-        focal_gamma=cfg.get('focal_gamma', 2.0),
-        ranking_margin=cfg.get('ranking_margin', 1.0),
-        ranking_weight=cfg.get('ranking_weight', 0.3),
-        dice_weight=cfg.get('dice_weight', 0.2),
-        consistency_weight=cfg.get('consistency_weight', 0.5),
-        only_ce=cfg.get('only_ce', False),
-        ce_weight=cfg.get('ce_weight', [1, 99])
-    )
-
-    # ── Scheduler (Warmup + Cosine) ──
-    scheduler = getScheduler(optimizer, cfg['num_epochs'], cfg.get('warmup_fraction', 0.1))
-
-    # ── File list ──
-    trainFiles, valFiles = os.listdir(cfg['train_data_path']), os.listdir(cfg['val_data_path'])
-    
-    # ── Training loop ──
-    for epoch in range(startingEpoch, cfg['num_epochs']):
-        np.random.shuffle(trainFiles)
-        print(f"\nEpoch {epoch+1}/{cfg['num_epochs']}  (LR: {optimizer.param_groups[0]['lr']:.6f})")
-
-        # ── Train ──
-        tLoss, tAcc, tPrec, tRec, tF1 = 0.0, 0.0, 0.0, 0.0, 0.0; nTrain = 0
-        for file in tqdm(trainFiles, desc="Training Files", leave=False):
-            try:
-                loader = torch.utils.data.DataLoader(
-                    CustomDataset(file, cfg['processed_data_dir'], cfg['train_data_path'], skipNames=cfg.get("exclude_names", {"WADI"})),
-                    batch_size=cfg.get('batch_size', 32) if "WADI" not in file.upper() else 4,
-                    shuffle=True,
-                    num_workers=cfg.get('num_workers', 0),
-                    pin_memory=True
-                )
-            except (ValueError, FileNotFoundError):
+        for src_idx, (processed_dir, original_dir) in enumerate(sources):
+            if not os.path.isdir(original_dir):
+                if verbose:
+                    print(f"  Directory not found: {original_dir}, skipping")
                 continue
 
-            loss, acc, prec, rec, f1 = trainLoop(model, loader, optimizer, criterion, device)
-            tLoss += loss; tAcc += acc; tPrec += prec; tRec += rec; tF1 += f1; nTrain += 1
+            files = sorted([f for f in os.listdir(original_dir) if f.endswith('.csv')])
+            for fname in tqdm(files, desc=f"  Scanning {dataset_label} (source {src_idx})",
+                              disable=not verbose, leave=False):
+                # Skip blacklisted names
+                if any(skip in fname.upper() for skip in self._skip_names):
+                    skipped += 1
+                    continue
 
-        if nTrain > 0:
-            print(f"  Train  | Loss: {tLoss/nTrain:.6f}  Acc: {tAcc/nTrain:.4f}  "
-                f"Prec: {tPrec/nTrain:.4f}  Rec: {tRec/nTrain:.4f}  F1: {tF1/nTrain:.4f}")
+                try:
+                    base = fname.rsplit('.', 1)[0]
+                    pred_path = os.path.join(processed_dir, "predictions",
+                                             base + "_predictions.csv")
+                    gt_path = os.path.join(processed_dir, "ground_truth_labels",
+                                           base + "_ground_truth_labels.csv")
 
-        # ── Validation ──
-        vLoss, vAcc, vPrec, vRec, vF1 = 0.0, 0.0, 0.0, 0.0, 0.0; nVal = 0
-        for file in tqdm(valFiles, desc="Validating Files", leave=False):
-            try:
-                loader = torch.utils.data.DataLoader(
-                    CustomDataset(file, cfg['processed_data_dir'], cfg['val_data_path'], skipNames=cfg.get("exclude_names", {"WADI"}) if cfg.get("restrict_also_validation", True) else set()),
-                    batch_size=cfg.get('batch_size', 32) if "WADI" not in file.upper() else 4,
-                    shuffle=False,
-                    num_workers=cfg.get('num_workers', 0),
-                    pin_memory=True
-                )
-            except (ValueError, FileNotFoundError):
-                continue
+                    if not os.path.exists(pred_path) or not os.path.exists(gt_path):
+                        skipped += 1
+                        continue
 
-            loss, acc, prec, rec, f1 = evalLoop(model, loader, criterion, device)
-            vLoss += loss; vAcc += acc; vPrec += prec; vRec += rec; vF1 += f1; nVal += 1
+                    # Quick scan: read only item_id column + ground truth
+                    preds_first_col = pd.read_csv(pred_path, usecols=[0], header=0)
+                    item_ids_col = preds_first_col.iloc[:, 0].values.astype(int)
+                    gt = pd.read_csv(gt_path, header=None).iloc[:-1, 0].values.astype(int)
 
-        if nVal > 0:
-            print(f"  Valid  | Loss: {vLoss/nVal:.6f}  Acc: {vAcc/nVal:.4f}  "
-                    f"Prec: {vPrec/nVal:.4f}  Rec: {vRec/nVal:.4f}  F1: {vF1/nVal:.4f}")
+                    # Check number of variables (D) and quantile uniformity
+                    # Read header only to count prefixes + quantile cols per var
+                    header = pd.read_csv(pred_path, nrows=0).columns.tolist()
+                    prefix_qcounts = {}  # prefix → number of quantile cols
+                    for c in header:
+                        parts = c.split('-', 1)
+                        if len(parts) == 2:
+                            prefix, suffix = parts
+                            if suffix not in ('item_id', 'timestep'):
+                                try:
+                                    float(suffix)
+                                    prefix_qcounts[prefix] = prefix_qcounts.get(prefix, 0) + 1
+                                except ValueError:
+                                    pass
+                    n_vars = len(prefix_qcounts)
 
-        # ── Scheduler step ──
-        scheduler.step()
+                    if n_vars < min_variables:
+                        skipped += 1
+                        continue
 
-        # ── Save checkpoint ──
-        torch.save(
-            {'model_state_dict': model.state_dict(), 'config': cfg},
-            os.path.join(cfg['model_save_path'], f"model_epoch_{epoch+1}.pth")
+                    # All variables must have the same number of quantile cols
+                    q_counts = list(prefix_qcounts.values())
+                    if len(set(q_counts)) > 1 or min(q_counts) == 0:
+                        skipped += 1
+                        continue
+
+                    # Per-segment labels
+                    unique_ids = sorted(set(item_ids_col.tolist()))
+                    for item_id in unique_ids:
+                        mask = item_ids_col == item_id
+                        label = int(gt[mask].sum() >= 1)
+                        self.samples.append((src_idx, fname, item_id))
+                        self.labels.append(label)
+                        if label:
+                            total_pos += 1
+                        else:
+                            total_neg += 1
+
+                except Exception as e:
+                    if verbose:
+                        tqdm.write(f"    Error scanning {fname}: {e}")
+                    skipped += 1
+                    continue
+
+        self.labels = np.array(self.labels, dtype=np.int64)
+
+        if verbose:
+            total = len(self.samples)
+            print(f"  {dataset_label}: {total:,} samples | "
+                  f"Normal: {total_neg:,} | Anomaly: {total_pos:,} "
+                  f"({100 * total_pos / max(total, 1):.1f}%) | Skipped: {skipped}")
+
+        # LRU cache for CustomDataset instances (bounded)
+        self._cache = OrderedDict()
+        self._cache_max = 64
+
+    def _load_dataset(self, src_idx: int, fname: str) -> CustomDataset:
+        """Lazily load and cache a CustomDataset for a file."""
+        key = (src_idx, fname)
+        if key in self._cache:
+            # Move to end (most recently used)
+            self._cache.move_to_end(key)
+            return self._cache[key]
+
+        processed_dir, original_dir = self._sources[src_idx]
+        ds = CustomDataset(fname, processed_dir, original_dir,
+                           skipNames=set(), context_length=100)
+        self._cache[key] = ds
+
+        # Evict oldest if over limit
+        while len(self._cache) > self._cache_max:
+            self._cache.popitem(last=False)
+
+        return ds
+
+    def __len__(self):
+        return len(self.samples)
+
+    def __getitem__(self, idx):
+        """
+        Returns:
+            quantiles: [D, T, Q]
+            values:    [D, T]
+            labels:    [T, 1]
+        """
+        src_idx, fname, item_id = self.samples[idx]
+        ds = self._load_dataset(src_idx, fname)
+
+        # Bypass CustomDataset's randomMapping — access by item_id directly
+        row_indices = ds.indexes[item_id]
+        raw = ds._data_values[row_indices]
+
+        if ds.timestep_col_indices:
+            timesteps = raw[:, ds.timestep_col_indices[0]].astype(int)
+        else:
+            timesteps = np.arange(len(row_indices))
+
+        # Build quantiles [D, T, Q] – trim to min Q across variables
+        per_var = [raw[:, qi] for qi in ds.quantile_col_indices]
+        min_q = min(arr.shape[-1] for arr in per_var) if per_var else 0
+        quantiles = torch.tensor(
+            np.stack([arr[:, :min_q] for arr in per_var], axis=0),
+            dtype=torch.float32
+        )  # [D, T, Q]
+
+        values = torch.tensor(
+            ds._original_values[
+                np.clip(timesteps, 0, len(ds._original_values) - 1)
+            ].T,
+            dtype=torch.float32
+        )  # [D, T]
+
+        labels = torch.tensor(
+            ds.gt[row_indices], dtype=torch.float32
+        ).unsqueeze(-1)  # [T, 1]
+
+        return quantiles, values, labels
+
+    def get_sampler_weights(self):
+        """Per-sample weights for WeightedRandomSampler (inverse frequency)."""
+        n_pos = self.labels.sum()
+        n = len(self.labels)
+        return torch.from_numpy(
+            np.where(
+                self.labels == 1,
+                n / (2.0 * max(n_pos, 1)),
+                n / (2.0 * max(n - n_pos, 1)),
+            )
+        ).double()
+
+
+# ═══════════════════════════════════════════════════════════════
+# TRAINER — Clean training loop (KIMI_RAIKKONEN-style)
+# ═══════════════════════════════════════════════════════════════
+
+class Trainer:
+    """
+    Trainer for SimpleQuantileAnomalyDetector.
+
+    Inspired by KIMI_RAIKKONEN.Trainer:
+      - SigmoidFocalLoss (single clean loss)
+      - AdamW optimizer
+      - OneCycleLR scheduler (warmup → peak → cosine decay)
+      - EMA model for smoother evaluation
+      - Mixed precision (AMP)
+      - Gradient clipping + accumulation
+    """
+
+    def __init__(self, model: SimpleQuantileAnomalyDetector, device: torch.device, cfg: dict):
+        self.model = model.to(device)
+        self.device = device
+        self.cfg = cfg
+
+        # Optimizer
+        self.optimizer = torch.optim.AdamW(
+            model.parameters(),
+            lr=cfg.get('lr', 5e-4),
+            weight_decay=cfg.get('weight_decay', 0.01),
+            betas=(0.9, 0.999),
         )
 
-        # ── Training log ──
-        log_path = os.path.join(cfg['model_save_path'], "training_log.json")
-        if os.path.exists(log_path):
-            with open(log_path, 'r') as f:
-                training_log = jsonLoad(f)
-        else:
-            training_log = []
+        # Loss: single clean SigmoidFocalLoss
+        self.criterion = SigmoidFocalLoss(
+            alpha=cfg.get('focal_alpha', 0.6),
+            gamma=cfg.get('focal_gamma', 2.0),
+        )
 
-        training_log.append({
-            'epoch': epoch + 1,
-            'lr': optimizer.param_groups[0]['lr'],
-            'train_loss': tLoss / max(nTrain, 1),
-            'train_accuracy': tAcc / max(nTrain, 1),
-            'train_precision': tPrec / max(nTrain, 1),
-            'train_recall': tRec / max(nTrain, 1),
-            'train_f1': tF1 / max(nTrain, 1),
-            'val_loss': vLoss / max(nVal, 1),
-            'val_accuracy': vAcc / max(nVal, 1),
-            'val_precision': vPrec / max(nVal, 1),
-            'val_recall': vRec / max(nVal, 1),
-            'val_f1': vF1 / max(nVal, 1),
-        })
-        with open(log_path, 'w') as f:
-            jsonDump(training_log, f, indent=4)
+        # OneCycleLR: warmup → peak → cosine decay
+        self.scheduler = torch.optim.lr_scheduler.OneCycleLR(
+            self.optimizer,
+            max_lr=cfg.get('lr', 5e-4),
+            total_steps=cfg['steps_per_epoch'] * cfg['num_epochs'],
+            pct_start=cfg.get('warmup_fraction', 0.05),
+            anneal_strategy='cos',
+            div_factor=10,
+            final_div_factor=100,
+        )
 
-        print(f"  Epoch {epoch+1} completata. Modello salvato.")
-        print("-" * 60)
+        # Mixed precision
+        self.use_amp = (device.type == 'cuda')
+        self.scaler = torch.amp.GradScaler('cuda', enabled=self.use_amp)
+
+        # EMA model
+        self.ema_model = None
+        if cfg.get('use_ema', True):
+            self.ema_model = copy.deepcopy(model).to(device)
+            for p in self.ema_model.parameters():
+                p.requires_grad_(False)
+            self.ema_decay = cfg.get('ema_decay', 0.999)
+
+    @torch.no_grad()
+    def _update_ema(self):
+        if self.ema_model is None:
+            return
+        for ema_p, p in zip(self.ema_model.parameters(), self.model.parameters()):
+            ema_p.data.mul_(self.ema_decay).add_(p.data, alpha=1.0 - self.ema_decay)
+
+    def train_epoch(self, train_loader):
+        """Train one epoch. Handles gradient accumulation for batch_size=1."""
+        self.model.train()
+        total_loss = 0.0
+        all_probs, all_labels = [], []
+        n_steps = 0
+
+        accum_steps = self.cfg.get('grad_accumulation', 8)
+        self.optimizer.zero_grad()
+
+        for step, (quantiles, values, gt) in enumerate(
+            tqdm(train_loader, desc="  Train", leave=False)
+        ):
+            quantiles = quantiles.to(self.device)
+            values = values.to(self.device)
+            gt = gt.to(self.device)
+
+            with torch.amp.autocast('cuda', enabled=self.use_amp):
+                _, binary_logits = self.model(quantiles, values)
+                loss = self.criterion(binary_logits, gt) / accum_steps
+
+            self.scaler.scale(loss).backward()
+
+            if (step + 1) % accum_steps == 0:
+                self.scaler.unscale_(self.optimizer)
+                torch.nn.utils.clip_grad_norm_(
+                    self.model.parameters(),
+                    max_norm=self.cfg.get('max_grad_norm', 4.0)
+                )
+                self.scaler.step(self.optimizer)
+                self.scaler.update()
+                self.optimizer.zero_grad()
+                self.scheduler.step()
+                self._update_ema()
+
+            total_loss += loss.item() * accum_steps
+            n_steps += 1
+
+            with torch.no_grad():
+                probs = torch.sigmoid(binary_logits).cpu().numpy().flatten()
+                all_probs.extend(probs)
+                all_labels.extend(gt.cpu().numpy().flatten())
+
+        # Handle leftover gradient accumulation
+        if (step + 1) % accum_steps != 0:
+            self.scaler.unscale_(self.optimizer)
+            torch.nn.utils.clip_grad_norm_(
+                self.model.parameters(),
+                max_norm=self.cfg.get('max_grad_norm', 4.0)
+            )
+            self.scaler.step(self.optimizer)
+            self.scaler.update()
+            self.optimizer.zero_grad()
+            self.scheduler.step()
+            self._update_ema()
+
+        # Global metrics
+        all_probs = np.array(all_probs)
+        all_labels = np.array(all_labels).astype(int)
+        preds_05 = (all_probs > 0.5).astype(int)
+
+        return {
+            'loss': float(total_loss) / max(n_steps, 1),
+            'f1': float(f1_score(all_labels, preds_05, zero_division=0)),
+            'precision': float(precision_score(all_labels, preds_05, zero_division=0)),
+            'recall': float(recall_score(all_labels, preds_05, zero_division=0)),
+            'lr': float(self.optimizer.param_groups[0]['lr']),
+        }
+
+    @torch.no_grad()
+    def evaluate(self, val_loader, use_ema: bool = True):
+        """Evaluate model. Returns metrics + optimal threshold via PR curve."""
+        model = self.ema_model if (use_ema and self.ema_model is not None) else self.model
+        model.eval()
+
+        all_probs, all_labels = [], []
+        total_loss = 0.0
+        n_batches = 0
+
+        for quantiles, values, gt in tqdm(val_loader, desc="  Valid", leave=False):
+            quantiles = quantiles.to(self.device)
+            values = values.to(self.device)
+            gt = gt.to(self.device)
+
+            with torch.amp.autocast('cuda', enabled=self.use_amp):
+                _, binary_logits = model(quantiles, values)
+                loss = self.criterion(binary_logits, gt)
+
+            total_loss += loss.item()
+            n_batches += 1
+
+            probs = torch.sigmoid(binary_logits).cpu().numpy().flatten()
+            all_probs.extend(probs)
+            all_labels.extend(gt.cpu().numpy().flatten())
+
+        all_probs = np.array(all_probs)
+        all_labels = np.array(all_labels).astype(int)
+
+        # AUC-PR
+        auc_pr = 0.0
+        if all_labels.sum() > 0:
+            auc_pr = float(average_precision_score(all_labels, all_probs))
+
+        # Optimal threshold via PR curve
+        best_threshold, best_f1 = 0.5, 0.0
+        best_precision, best_recall = 0.0, 0.0
+        if all_labels.sum() > 0:
+            precisions, recalls, thresholds = precision_recall_curve(
+                all_labels, all_probs
+            )
+            f1s = 2 * precisions * recalls / (precisions + recalls + 1e-8)
+            best_idx = f1s.argmax()
+            best_f1 = f1s[best_idx]
+            best_threshold = thresholds[best_idx] if best_idx < len(thresholds) else 0.5
+            best_precision = precisions[best_idx]
+            best_recall = recalls[best_idx]
+
+        return {
+            'loss': float(total_loss) / max(n_batches, 1),
+            'auc_pr': float(auc_pr),
+            'best_f1': float(best_f1),
+            'best_threshold': float(best_threshold),
+            'best_precision': float(best_precision),
+            'best_recall': float(best_recall),
+            'f1_at_05': float(f1_score(all_labels, (all_probs > 0.5).astype(int), zero_division=0)),
+        }
 
 
 # ═══════════════════════════════════════════════════════════════
-# CONFIG & MAIN
+# MAIN
 # ═══════════════════════════════════════════════════════════════
 
-if __name__ == "__main__":
-    ENABLE_TRAINING = True
-    if ENABLE_TRAINING:
+def main():
+    try:
         cfg = {
-            # ── Data ──
-            'train_data_path': './TRAIN_SPLIT/',
-            'val_data_path': './TEST_SPLIT/',
-            'processed_data_dir': './PROCESSED_TRAIN_DATAV2/',
-            'model_save_path': './SAVED_MODELS_SIMPLE_CONS/',
+            # ── Data sources (V2 + V5 merged) ──
+            'train_sources': [
+                ('./PROCESSED_TRAIN_DATAV2/', './TRAIN_SPLIT/'),
+                ('./PROCESSED_TRAIN_DATAV5/', './TRAIN_MULTI_CLEAN/'),
+            ],
+            'val_sources': [
+                ('./PROCESSED_TRAIN_DATAV2/', './TEST_SPLIT/'),
+                ('./PROCESSED_TRAIN_DATAV5/', './TEST_MULTI_CLEAN/'),
+            ],
+            'model_save_path': './SAVED_MODELS_SIMPLE_Final/',
 
             # ── Model ──
-            'in_features': 12,              # 12 feature dal QuantileFeatureExtractor
-            'hidden_dim': 64,               # dimensione hidden Conv1D + Attention
-            'kernel_size': 7,               # kernel Conv1D
-            'num_layers': 3,                # strati Conv1D
-            'num_attention_heads': 4,       # teste attention cross-variabile
-            'num_attention_layers': 4,      # strati self-attention
-            'dropout': 0.25,
+            'in_features': 12,
+            'hidden_dim': 32,
+            'kernel_size': 7,
+            'num_layers': 3,
+            'num_attention_heads': 4,
+            'num_attention_layers': 4,
+            'dropout': 0.35,
 
             # ── Training ──
             'num_epochs': 40,
-            'batch_size': 64,
             'lr': 5e-4,
-            'weight_decay': 1e-4,
-            'warmup_fraction': 0.25,
-            'num_workers': 0,
+            'weight_decay': 0.05,
+            'warmup_fraction': 0.1,
+            'grad_accumulation': 8,
+            'max_grad_norm': 4.0,
 
-            # ── Loss (CombinedAnomalyLoss) ──
-            'focal_alpha': 0.999999,
-            'focal_gamma': 2.5,
-            'ranking_margin': 0.3,
-            'ranking_weight': 1.5,
-            'dice_weight': 1.5,
-            'consistency_weight': 1.8,
-            'only_ce': False,
-            "only_ce+consistency":True,
-            'ce_weight': [1, 1],
+            # ── Loss ──
+            'focal_alpha': 0.6,
+            'focal_gamma': 2.0,
+
+            # ── EMA ──
+            'use_ema': True,
+            'ema_decay': 0.999,
 
             # ── Misc ──
-            'RESUME_TRAINING': False,
-            "exclude_names": [], 
-            "restrict_also_validation": True
+            'num_workers': 0,
+            'patience': 5,
+            'skip_names': [],
+            'min_variables': 2,
+            'seed': 42,
         }
 
-        os.makedirs(cfg['model_save_path'], exist_ok=True)
-        with open(os.path.join(cfg['model_save_path'], "final_config.json"), 'w') as f:
-            jsonDump(cfg, f, indent=4)
+        # Seed
+        torch.manual_seed(cfg['seed'])
+        np.random.seed(cfg['seed'])
 
+        os.makedirs(cfg['model_save_path'], exist_ok=True)
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         print(f"Device: {device}")
-        mainLoop(cfg, device)
-    else:
-        print("Testing mode: loading model and evaluating on validation set.")
-        TESTING_MODEL_PATH = "./SAVED_MODELS_SIMPLE_CONS/model_epoch_35.pth"
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        cfg = torch.load(TESTING_MODEL_PATH, map_location=device)
-
-        model = SimpleQuantileAnomalyDetector(cfg['config']['in_features'], cfg['config']['hidden_dim'], cfg['config']['kernel_size'],
-                                            cfg['config']['num_layers'], cfg['config']['num_attention_heads'], cfg['config']['num_attention_layers'], cfg['config']['dropout']).to(device)
-        model.load_state_dict(cfg['model_state_dict'])
-        model.eval()
-        cfg = cfg['config']
-        criterion = CombinedAnomalyLoss(focal_alpha=cfg.get('focal_alpha', 0.9), focal_gamma=cfg.get('focal_gamma', 2.0),
-            ranking_margin=cfg.get('ranking_margin', 1.0), ranking_weight=-1,
-            dice_weight=-1, consistency_weight=-1,
-            only_ce=cfg.get('only_ce', True), ce_weight=cfg.get('ce_weight', [1, 1])
+        # ── Load datasets (merged V2 + V5) ──
+        print("\n═══ Loading training data ═══")
+        train_dataset = MergedQuantileDataset(
+            sources=cfg['train_sources'],
+            skip_names=set(cfg['skip_names']),
+            min_variables=cfg['min_variables'],
+            verbose=True,
+            dataset_label="Train",
         )
 
-        vLoss, vAcc, vPrec, vRec, vF1, nVal = 0.0, 0.0, 0.0, 0.0, 0.0, 0
-        for file in sorted(os.listdir(cfg['val_data_path'])):
-            try:
-                loader = torch.utils.data.DataLoader(
-                    CustomDataset(file, cfg['processed_data_dir'], cfg['val_data_path'], skipNames=set()),
-                    batch_size=cfg['batch_size'],
-                    shuffle=False,
-                    num_workers=cfg['num_workers'],
-                    pin_memory=True
-                )
-            except (ValueError, FileNotFoundError):
-                continue
+        print("\n═══ Loading validation data ═══")
+        val_dataset = MergedQuantileDataset(
+            sources=cfg['val_sources'],
+            skip_names=set(cfg['skip_names']),
+            min_variables=cfg['min_variables'],
+            verbose=True,
+            dataset_label="Validation",
+        )
 
-            (loss, acc, prec, rec, f1), nVal = evalLoop(model, loader, criterion, device), nVal + 1
-            vLoss += loss; vAcc += acc; vPrec += prec; vRec += rec; vF1 += f1
-            print(f"{file} | Loss: {loss:.6f}  Acc: {acc:.4f}  Prec: {prec:.4f}  Rec: {rec:.4f}  F1: {f1:.4f}")
-        if nVal > 0:
-            print("-" * 40)
-            print(f"\nOverall Validation | Loss: {vLoss/nVal:.6f}  Acc: {vAcc/nVal:.4f}  "
-                    f"Prec: {vPrec/nVal:.4f}  Rec: {vRec/nVal:.4f}  F1: {vF1/nVal:.4f}")
+        print(f"\nTrain: {len(train_dataset):,} samples")
+        print(f"Val:   {len(val_dataset):,} samples")
+
+        # ── DataLoaders ──
+        # batch_size=1 because D varies across files; use grad_accumulation
+        sampler_weights = train_dataset.get_sampler_weights()
+        sampler = torch.utils.data.WeightedRandomSampler(
+            sampler_weights,
+            num_samples=len(train_dataset),
+            replacement=True,
+        )
+
+        train_loader = torch.utils.data.DataLoader(
+            train_dataset,
+            batch_size=1,
+            sampler=sampler,
+            num_workers=cfg['num_workers'],
+            pin_memory=True,
+            drop_last=False,
+        )
+
+        val_loader = torch.utils.data.DataLoader(
+            val_dataset,
+            batch_size=1,
+            shuffle=False,
+            num_workers=cfg['num_workers'],
+            pin_memory=True,
+        )
+
+        cfg['steps_per_epoch'] = len(train_loader) // cfg['grad_accumulation']
+        print(f"Steps per epoch (after grad accum): {cfg['steps_per_epoch']}")
+
+        # ── Model ──
+        model = SimpleQuantileAnomalyDetector(
+            in_features=cfg['in_features'],
+            hidden_dim=cfg['hidden_dim'],
+            kernel_size=cfg['kernel_size'],
+            num_layers=cfg['num_layers'],
+            num_attention_heads=cfg['num_attention_heads'],
+            num_attention_layers=cfg['num_attention_layers'],
+            dropout=cfg['dropout'],
+        )
+
+        n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        print(f"Model parameters: {n_params:,}")
+
+        # ── Sanity check ──
+        print("\nSanity check...")
+        model.to(device)
+        dummy_q = torch.randn(1, 5, 64, 21, device=device).sort(dim=-1)[0]
+        dummy_v = torch.randn(1, 5, 64, device=device)
+        with torch.no_grad():
+            cont, binary = model(dummy_q, dummy_v)
+        print(f"  Input: quantiles {dummy_q.shape}, values {dummy_v.shape}")
+        print(f"  Output: continuous {cont.shape}, binary {binary.shape}")
+        print(f"  Initial probs: {torch.sigmoid(binary).flatten()[:5].cpu().numpy().round(4)}")
+        print(f"  (Should be ~0.5 — model not biased at init)\n")
+
+        # ── Trainer ──
+        trainer = Trainer(model, device, cfg)
+
+        # ── Save config ──
+        serializable_cfg = {
+            k: v for k, v in cfg.items()
+            if isinstance(v, (int, float, str, bool, list))
+        }
+        with open(os.path.join(cfg['model_save_path'], "config.json"), 'w') as f:
+            json.dump(serializable_cfg, f, indent=2)
+
+        # ── Training loop ──
+        best_f1 = 0.0
+        patience_counter = 0
+        history = []
+
+        for epoch in range(cfg['num_epochs']):
+            print(f"\n{'='*60}")
+            print(f"  Epoch {epoch + 1}/{cfg['num_epochs']}")
+            print(f"{'='*60}")
+
+            # Train
+            train_met = trainer.train_epoch(train_loader)
+            print(f"  Train | Loss: {train_met['loss']:.4f}  "
+                  f"F1: {train_met['f1']:.4f}  P: {train_met['precision']:.3f}  "
+                  f"R: {train_met['recall']:.3f}  LR: {train_met['lr']:.2e}")
+
+            # Validate
+            val_met = trainer.evaluate(val_loader)
+            print(f"  Valid | Loss: {val_met['loss']:.4f}  "
+                  f"F1*: {val_met['best_f1']:.4f} (thr={val_met['best_threshold']:.3f})  "
+                  f"P: {val_met['best_precision']:.3f}  R: {val_met['best_recall']:.3f}  "
+                  f"AUC-PR: {val_met['auc_pr']:.4f}  F1@0.5: {val_met['f1_at_05']:.4f}")
+
+            # Save best model
+            if val_met['best_f1'] > best_f1:
+                best_f1, patience_counter = val_met['best_f1'], 0
+
+                save_dict = {
+                    'model_state_dict': model.state_dict(),
+                    'config': serializable_cfg,
+                    'threshold': float(val_met['best_threshold']),
+                    'best_f1': float(best_f1),
+                    'epoch': epoch + 1,
+                }
+                if trainer.ema_model is not None:
+                    save_dict['ema_state_dict'] = trainer.ema_model.state_dict()
+
+                torch.save(
+                    save_dict,
+                    os.path.join(cfg['model_save_path'], "best_model.pth")
+                )
+                print(f"  >>> New best F1: {best_f1:.4f}")
+            else:
+                patience_counter += 1
+                print(f"  No improvement ({patience_counter}/{cfg['patience']}) "
+                      f"-> Best F1: {best_f1:.4f}")
+
+                if patience_counter >= cfg['patience']:
+                    print(f"\n  Early stopping after {cfg['patience']} epochs "
+                          f"without improvement.")
+                    break
+
+            # Save checkpoint every epoch
+            torch.save(
+                {'model_state_dict': model.state_dict(), 'epoch': epoch + 1},
+                os.path.join(cfg['model_save_path'],
+                             f"checkpoint_epoch_{epoch + 1}.pth")
+            )
+
+            # Append to history
+            history.append({
+                'epoch': epoch + 1,
+                **{f'train_{k}': v for k, v in train_met.items()},
+                **{f'val_{k}': v for k, v in val_met.items()},
+            })
+            with open(os.path.join(cfg['model_save_path'], "training_log.json"), 'w') as f:
+                json.dump(history, f, indent=2)
+
+        print(f"\n{'='*60}")
+        print(f"Training complete! Best val F1: {best_f1:.4f}")
+        print(f"{'='*60}")
+
+    except Exception as e:
+        print(f"\nAn error occurred: {e}")
+        import traceback
+        traceback.print_exc()
+
+
+if __name__ == "__main__":
+    main()

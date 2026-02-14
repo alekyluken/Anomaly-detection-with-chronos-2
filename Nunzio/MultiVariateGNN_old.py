@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import argparse
 
+
 from sklearn.linear_model import Ridge
 from chronos import Chronos2Pipeline
 
@@ -12,11 +13,12 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
-
 try:
     from ..metrics.metricsEvaluation import get_metrics
+    from ..Nunzio.customGNN import SpatioTemporalAnomalyGNN
 except (ImportError, ModuleNotFoundError):
     from metrics.metricsEvaluation import get_metrics
+    from Nunzio.customGNN import SpatioTemporalAnomalyGNN
 
 from tqdm import tqdm
 
@@ -43,6 +45,27 @@ def get_pipeline(model_name: str = "amazon/chronos-2", device: str = None) -> Ch
         model (Chronos2Pipeline): Loaded pipeline instance
     """
     return Chronos2Pipeline.from_pretrained(model_name, device_map= device if device else ("cuda" if torch.cuda.is_available() else "cpu"))
+
+
+def getGNN(model_path: str, device: str = 'cpu'):
+    """Load GNN model from path
+    
+    model_path (str): Path to saved model
+    device (str): Device to load the model on
+
+    Returns:
+        model (torch.nn.Module): Loaded GNN model
+    """
+    checkpoint = torch.load(model_path, map_location=device)
+    model_cfg = checkpoint['config']
+    model = SpatioTemporalAnomalyGNN(
+        hidden_dim=model_cfg['gnn_hidden_dim'], 
+        num_gnn_layers=model_cfg['gnn_num_layers'], 
+        num_temporal_layers=model_cfg['gnn_num_temporal_layers']
+    ).to(device)
+
+    model.load_state_dict(checkpoint['model_state_dict'])
+    return model.eval()
 
 
 def prepare_data_for_chronos(dataset_path: str, context_length: int = 100, prediction_length: int = 64):
@@ -78,6 +101,7 @@ def prepare_data_for_chronos(dataset_path: str, context_length: int = 100, predi
     df_chronos[df_clean.columns] = df_clean[df_clean.columns].values
     
     return df_chronos, df[df.columns[-1]].values, df_clean.columns.tolist()
+
 
 
 def make_predictions_multivariate( time_series_df: pd.DataFrame, pipeline: Chronos2Pipeline, target_cols: list[str],
@@ -166,7 +190,6 @@ def make_predictions_multivariate( time_series_df: pd.DataFrame, pipeline: Chron
     return {col:pd.concat(predictions_dict[col], ignore_index=True) for col in target_cols}, np.array(all_indices, dtype=np.int32)
 
 
-
 def computeMultiHorizonAnomalyScore(predictions_df: pd.DataFrame, actual_values: np.ndarray, prediction_indices: np.ndarray,
                                     horizons: list[int] = [1, 8, 32, 64], quantile_col: str = 'predictions'):
     """
@@ -205,49 +228,6 @@ def computeMultiHorizonAnomalyScore(predictions_df: pd.DataFrame, actual_values:
     return np.max(all_horizon_scores, axis=0)  # [cite: 829]
 
 
-def evaluateGrangerCausality(X: np.ndarray, max_lag: int = 3, alpha: float = 1.0):
-    """
-    Evaluate Granger causality using Ridge regression for dense data.
-    
-    Args:
-        X (np.ndarray): Time series data of shape (T, D) where T is time
-        max_lag (int): Maximum lag to consider
-        alpha (float): Regularization strength for Ridge regression
-    
-    Returns:
-            np.ndarray: Granger causality matrix of shape (D, D)
-    """
-    T, D = X.shape
-    n = T - max_lag
-
-    X_lag = np.zeros((n, D * max_lag))
-    for d in range(D):
-        for l in range(max_lag):
-            X_lag[:, d*max_lag + l] = X[max_lag-l-1:T-l-1, d]
-
-    W = np.zeros((D, D))
-
-    for j in range(D):
-        y = X[max_lag:, j]
-        X_j = X_lag[:, j*max_lag:(j+1)*max_lag]
-
-        reg_r = Ridge(alpha=alpha, fit_intercept=False).fit(X_j, y)
-        rss_r = np.sum((y - reg_r.predict(X_j))**2)
-
-        for i in range(D):
-            if i == j:
-                continue
-
-            X_ij = np.hstack([X_j, X_lag[:, i*max_lag:(i+1)*max_lag]])
-            rss_f = np.sum((y - Ridge(alpha=alpha, fit_intercept=False).fit(X_ij, y).predict(X_ij))**2)
-
-            W[i, j] = max(rss_r - rss_f, 0)
-
-    row_sums = W.sum(axis=1, keepdims=True)
-    row_sums[row_sums == 0] = 1
-    return W / row_sums
-
-
 def evaluateMatrixViaChronos2Encodings(df: pd.DataFrame, chronos2: Chronos2Pipeline, aggregation: str = "topk_mean") -> np.ndarray:
     """
     Evaluate pairwise relationships between variables using Chronos-2 encodings.
@@ -264,8 +244,8 @@ def evaluateMatrixViaChronos2Encodings(df: pd.DataFrame, chronos2: Chronos2Pipel
 
     match aggregation:
         case "max": emb_agg = emb[0].max(dim=1).values  # (D, d_model)
-        case "last": emb_agg = emb[0][:, -1, :]  # (D, d_model)
-        case "first": emb_agg = emb[0][:, 0, :]  # (D, d_model)
+        case "last": emb_agg = emb[0][:, -2, :]  # (D, d_model)
+        case "first": emb_agg = emb[0][:, 1, :]  # (D, d_model)
         case "topk_mean": emb_agg = emb[0].topk(k=int(np.log2(emb[0].shape[1])), dim=1).values.mean(dim=1)  # (D, d_model)
         case _ : emb_agg = emb[0].mean(dim=1)  # Default to mean
 
@@ -274,67 +254,48 @@ def evaluateMatrixViaChronos2Encodings(df: pd.DataFrame, chronos2: Chronos2Pipel
     return similarity_matrix.cpu().numpy()
 
 
-def aggregateAnomalyScoresViaPageRank(continuousScores: dict[str, np.ndarray], pastData: pd.DataFrame, howToEvaluate_u: str = 'sum_CRPS', percentile: float = 95.0,
-                                    beta: float = 0.15, chronos2:Chronos2Pipeline=None, aggregation_method: str = "topk_mean")-> tuple[np.ndarray, np.ndarray]:
+def aggregateAnomalyScoresViaGNN(continuousScores: dict[str, np.ndarray], pastData: pd.DataFrame, grouping: pd.Series, chronos2: Chronos2Pipeline, gnn:SpatioTemporalAnomalyGNN,
+                                device:torch.device) -> tuple[np.ndarray, np.ndarray]:
     """
-    Aggregate anomaly scores across multiple horizons and determine thresholds
-    
+    Aggregate anomaly scores across multiple variables using a GNN on Chronos-2 derived transition matrices.
+
     Args:
-        continuousScores(dict[str, np.ndarray]): Dictionary with keys as target columns and values as arrays of anomaly scores for each prediction
-        pastData (pd.DataFrame): DataFrame with historical data (used for Granger causality)
-        grouping (pd.Series): Series indicating group/item for each prediction (e.g., item_id)
-        howToEvaluate_u (str): Method to evaluate utility for PageRank aggregation (e.g., 'sum_CRPS', )
-        percentile (float): Percentile to determine threshold for binary classification
-        beta (float): Damping factor for PageRank algorithm (default 0.15)
-    
+        continuousScores (dict[str, np.ndarray]): Dict mapping variable names to anomaly scores
+        pastData (pd.DataFrame): DataFrame with historical data used for Chronos-2 embeddings
+        grouping (pd.Series): Series indicating group/item IDs for each row in pastData
+        chronos2 (Chronos2Pipeline): Pretrained Chronos-2 pipeline for embeddings
+        gnn (SpatioTemporalAnomalyGNN): Pretrained GNN model for score aggregation
+        device (torch.device): Device to run the computations on
+
     Returns:
-        - continuosAnomalyScores: List of aggregated anomaly scores
-        - discreteAnomalyScores: List of binary anomaly predictions based on thresholds
+        tuple[np.ndarray, np.ndarray]: 
+            - continuousAnomalyScores: Aggregated continuous anomaly scores
+            - discreteAnomalyScores: Binary anomaly predictions (0/1)
     """
-    pastData = pastData.copy().drop(columns=['timestamp'], inplace=False, errors='ignore')
-    colsToKeep = list(continuousScores.keys())
-    enumVal = dict(enumerate(colsToKeep)) 
-    scores = []
+    pastData = pastData.copy().drop(columns=['timestamp', 'item_id'], inplace=False, errors='ignore')
+    groupingExtended = pd.concat([grouping, pd.Series([max(grouping)+2]*(len(pastData) - len(grouping)))], ignore_index=True).astype(int)
+    continuousScores = pd.DataFrame(continuousScores)
 
-    context_length = pastData[pastData['item_id'] == 0].shape[0]
+    contOut, discOut = [], []
+    valGrouping = grouping[grouping >= 0].unique().tolist()
 
-    maxIndex = pastData.index[pastData['item_id'] == 0].max().item() + 1
+    with torch.no_grad():
+        for i in range(0, len(valGrouping), 16):
+            PTs, CTs = [], []
 
-    for item in tqdm(range(1, pastData['item_id'].max()), desc="Aggregating scores with PageRank", leave=False):
-        # PT = evaluateGrangerCausality(pastData.loc[pastData['item_id'] < item, colsToKeep].iloc[-context_length:, :].values, max_lag=3)
-        # PT = np.abs(pastData.loc[pastData['item_id'] < item, colsToKeep].iloc[-context_length:, :].corr('spearman').fillna(0).values)
-        PT = evaluateMatrixViaChronos2Encodings(pastData.loc[pastData['item_id'] < item, colsToKeep].iloc[-context_length:, :], chronos2=chronos2, aggregation=aggregation_method)
-        PT = (PT / (PT.sum(axis=1, keepdims=True)+1e-6)).T
-        z = np.ones(PT.shape[0]) / PT.shape[0]
+            for item in sorted(valGrouping[i:min(i+16, len(valGrouping))]):
+                PTs.append(torch.tensor(evaluateMatrixViaChronos2Encodings(pastData.loc[groupingExtended == item, :], chronos2=chronos2)).unsqueeze(0))  # (1, N_i, N_i)
+                CTs.append(torch.tensor(continuousScores.loc[grouping == item, :].values, requires_grad=False).float().unsqueeze(0))  # (1, N_i, D)
 
-        itemMaskIndex = pastData.index[pastData['item_id'] == item] - maxIndex
+            PTs, CTs = torch.cat(PTs, dim=0), torch.cat(CTs, dim=0)  # (num_items, N_i, N_i), (num_items, N_i, D)
+            cont, disc = gnn(CTs.to(device), PTs.to(device))  # (num_items, N_i, 1), (num_items, N_i, 1)
+            contOut.append(cont.squeeze(-1).cpu().numpy())
+            discOut.append(torch.sigmoid(disc.squeeze(-1)).cpu().numpy())
 
-        if beta > 1e-6:
-            match howToEvaluate_u.lower().strip():
-                case 'sum_crps': u = np.array([np.sum(continuousScores[enumVal[i]][itemMaskIndex]) for i in range(PT.shape[0])])
-                case 'surprise' | 'likelihood': u = np.array([np.max((continuousScores[enumVal[i]][itemMaskIndex] - np.mean(continuousScores[enumVal[i]][pastData.index[pastData['item_id'] <= item] - maxIndex])) / (np.std(continuousScores[enumVal[i]][pastData.index[pastData['item_id'] <= item] - maxIndex]) + 1e-6) ) for i in range(PT.shape[0])])
-                case _ : # energy-based or default
-                    u = np.array([np.sum(continuousScores[enumVal[i]][itemMaskIndex]) for i in range(PT.shape[0])])
-                    u = u + 0.5*PT.T @ u
-            u = np.abs(u)
-            u, PT = beta*(u / np.sum(u) if np.sum(u) > 0 else np.ones_like(u) / len(u)), (1-beta) * PT
-        else:
-            u = np.zeros(PT.shape[0])
+    return np.concatenate(contOut, axis=0).flatten(), (np.concatenate(discOut, axis=0).flatten() >= 0.5).astype(int)
 
-        # PageRank iteration
-        for i in range(1_000):
-            z_new =  PT @ z + u
-            if np.linalg.norm(z_new - z, 1) < 1e-6:
-                break
-            z = z_new
-
-        scores.extend(z @ np.array([continuousScores[enumVal[i]][itemMaskIndex] for i in range(PT.shape[0])]))
-
-    continuosAnomalyScores = np.array(scores)
-    return continuosAnomalyScores, (continuosAnomalyScores >= np.percentile(continuosAnomalyScores, percentile)).astype(int)
-
-
-def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration: dict):
+def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline, gnn:SpatioTemporalAnomalyGNN, configuration: dict,
+                    device: torch.device = torch.device('cpu')) -> dict:
     """
     Complete evaluation pipeline for a single dataset
 
@@ -353,19 +314,26 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
     """
     print(f"Processing: {os.path.basename(dataset_path)}")
     
-    # Prepare data
-    time_series_df, ground_truth_labels, target_cols = prepare_data_for_chronos(dataset_path)
+    # Prepare data with proper item_id segmentation
+    context_length = configuration.get('context_length', 100)
+    horizons = configuration.get('horizons', [32, 64])
+    maxH = max(horizons)
+    
+    time_series_df, ground_truth_labels, target_cols = prepare_data_for_chronos(
+        dataset_path, 
+        context_length=context_length, 
+        prediction_length=maxH
+    )
     
     print(f"Ground truth anomaly rate: {np.mean(ground_truth_labels):.2%}")
-    
-    # Make predictions
-    continuousScores, horizons = {}, configuration.get('horizons', [32, 64])
-    maxH = max(horizons)
+
+    # Make multivariate predictions
+    # All D columns are predicted jointly, but different segments don't influence each other
     predictions_dict, prediction_indices = make_predictions_multivariate(
         time_series_df=time_series_df,
         pipeline=pipeline,
         target_cols=target_cols,
-        context_length=configuration.get('context_length', 100),
+        context_length=context_length,
         prediction_length=maxH,
         quantile_levels=sorted(set([t for v in configuration.get('thresholds_percentile', [[0.05, 0.95]]) for t in v] + [0.5])),
         batch_size=configuration.get('batch_size', 32),
@@ -379,9 +347,13 @@ def evaluate_dataset(dataset_path: str,pipeline: Chronos2Pipeline,configuration:
             horizons=horizons
         ) for col in target_cols}
     
-    continuosAnomalyScores, discreteAnomalyScores = aggregateAnomalyScoresViaPageRank(
-                                    continuousScores=continuousScores, pastData=time_series_df, howToEvaluate_u=configuration.get('howToEvaluate_u', 'sum_CRPS'), 
-                                    percentile=configuration.get('percentile', 95), chronos2=pipeline, beta=configuration.get('beta', 0.15), aggregation_method=configuration.get('aggregation_method', 'topk_mean'))
+    continuosAnomalyScores, discreteAnomalyScores = aggregateAnomalyScoresViaGNN(
+        continuousScores=continuousScores, 
+        pastData=time_series_df, 
+        grouping=time_series_df.loc[prediction_indices, 'item_id'].reset_index(drop=True),
+        chronos2=pipeline,
+        gnn=gnn, device=device
+    )
 
     # Calculate metrics
     return {
@@ -404,13 +376,16 @@ def main(configuration:dict, name:str)->None:
     # Configuration
     data_path = "./TSB-AD-M/" 
     # data_path = './Nunzio/provaData/multivariate/'
-    out_initial_path = f"./results/{name}/MultiVariateNew/"
+    out_initial_path = f"./results/{name}/MultiVariate/"
 
     os.makedirs(out_initial_path, exist_ok=True)
 
     # Parameters
-    pipeline = get_pipeline(device='cuda')
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+    pipeline = get_pipeline(device=device)
     print(f"Using device: {next(pipeline.model.parameters()).device}")
+    gnn = getGNN(model_path=configuration['gnn_model_path'], device=device)
     
     save_path = f"results_{max([int(fname.split('_')[1].split('.')[0]) for fname in os.listdir(out_initial_path) if fname.startswith('results_') and fname.endswith('.json')] + [1])}.json"
     
@@ -441,7 +416,9 @@ def main(configuration:dict, name:str)->None:
             result = evaluate_dataset(
                 os.path.join(data_path, filename),
                 pipeline=pipeline,
+                gnn = gnn,
                 configuration=configuration,
+                device=device
             )
         except Exception as e:
             tqdm.write(f"Error processing file {filename}: {e}")
@@ -470,10 +447,9 @@ if __name__ == "__main__":
     args.add_argument('--use_restricted_dataset', action='store_true', default=False, help='Use restricted dataset from test_files_M.csv')
     args.add_argument('--colab', action='store_true', default=False, help='Flag to indicate running in Google Colab environment')
     args.add_argument('--horizons', type=str, help='Comma-separated list of horizons for multi-horizon scoring')
-    args.add_argument('--aggregation_method', type=str, default='topk_mean', help='Method to aggregate anomaly scores across horizons (mean, max, sum)')
+    args.add_argument('--aggregation_method', type=str, default='max', help='Method to aggregate anomaly scores across horizons (mean, max, sum)')
     args.add_argument('--howToEvaluate_u', type=str, default='sum_CRPS', help='Method to evaluate utility for PageRank aggregation (e.g., sum_CRPS, mean_CRPS)')
-    args.add_argument('--percentile', type=float, default=95.0, help='Percentile for thresholding anomaly scores')
-    args.add_argument('--beta', type=float, default=0.15, help='Damping factor for PageRank algorithm')
+    args.add_argument('--gnn_model_path', type=str, default='./Saved_Models_Simpler', help='Path to the pretrained GNN model')
     parsed_args = args.parse_args()
 
     configuration = {
@@ -489,8 +465,8 @@ if __name__ == "__main__":
         'horizons': list(map(int, parsed_args.horizons.split(','))) if parsed_args.horizons else [1, 8, 32, 64],
         'aggregation_method': parsed_args.aggregation_method,
         'howToEvaluate_u': parsed_args.howToEvaluate_u,
-        'percentile': parsed_args.percentile,
-        'beta': parsed_args.beta,
+        'percentile': 95.0,
+        'gnn_model_path': parsed_args.gnn_model_path,
     }
 
     

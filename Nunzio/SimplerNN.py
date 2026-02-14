@@ -298,46 +298,42 @@ class SimpleQuantileAnomalyDetector(nn.Module):
 
 
 # ═══════════════════════════════════════════════════════════════
-# LOSS SEMPLICE
+# LOSS — Clean Sigmoid Focal Loss (from KIMI_RAIKKONEN pattern)
 # ═══════════════════════════════════════════════════════════════
 
-class SimpleFocalLoss(nn.Module):
+class SigmoidFocalLoss(nn.Module):
     """
-    UNA SOLA LOSS: Focal BCE.
-    
-    Motivazione:
-    - Con 3% anomalie, serve solo pesare la classe positiva
-    - Focal loss fa questo egregiamente
-    - No bisogno di 6 loss diverse che confondono il training
+    Focal Loss for binary classification (sigmoid output).
+    Properly handles class imbalance via alpha and hard examples via gamma.
+
+    Uses .mean() reduction (stable across batch sizes).
+    Per-sample computation (correct gradient flow).
+
+    Args:
+        alpha: weight for POSITIVE class in [0,1].
+               0.5 = balanced. With balanced sampling, 0.5-0.6 is ideal.
+        gamma: focusing parameter. 0 = standard BCE. 2.0 = standard choice.
     """
-    def __init__(self, alpha: float = 0.97, gamma: float = 2.0):
+    def __init__(self, alpha: float = 0.6, gamma: float = 2.0):
         super().__init__()
         self.alpha = alpha
         self.gamma = gamma
-        
-    def forward(self, binary_logits: torch.Tensor, 
-                labels: torch.Tensor) -> torch.Tensor:
+
+    def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         """
-        Args:
-            binary_logits: [B, T, 1]
-            labels: [B, T, 1]
+        logits:  [B, T, 1] or [N] raw scores (pre-sigmoid)
+        targets: [B, T, 1] or [N] binary {0.0, 1.0}
         """
-        # BCE con focal weight
-        bce = F.binary_cross_entropy_with_logits(binary_logits, labels, reduction='none')
-        
-        # Probabilità
-        p = torch.sigmoid(binary_logits)
-        p_t = p * labels + (1 - p) * (1 - labels)
-        
-        # Focal weight
-        focal_weight = (1 - p_t) ** self.gamma
-        
-        # Alpha weight
-        alpha_weight = self.alpha * labels + (1 - self.alpha) * (1 - labels)
-        
-        loss = alpha_weight * focal_weight * bce
-        
-        return loss.mean()
+        # Per-sample BCE (numerically stable)
+        bce = F.binary_cross_entropy_with_logits(logits, targets, reduction='none')
+
+        # p_t = probability assigned to the TRUE class
+        # Focal modulating factor: down-weight easy examples
+        focal_weight = (1.0 - torch.exp(-bce)) ** self.gamma
+
+        # Alpha weighting: favor positive class
+        alpha_t = self.alpha * targets + (1.0 - self.alpha) * (1.0 - targets)
+        return (alpha_t * focal_weight * bce).mean()  # MEAN not SUM
 
 
 # ═══════════════════════════════════════════════════════════════
